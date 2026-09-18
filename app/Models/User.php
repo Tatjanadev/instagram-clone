@@ -2,22 +2,18 @@
 
 namespace App\Models;
 
-use App\Models\Post;
-use App\Models\Comment;
-use App\Models\Like;
-
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -39,15 +35,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Carbon|null $updated_at
  */
 #[Fillable([
-    'first_name', 
-    'last_name', 
-    'username', 
-    'email', 
+    'first_name',
+    'last_name',
+    'username',
+    'email',
     'password',
     'profile_photo_path',
-    'bio', 
-    'gender', 
-    'date_of_birth'
+    'bio',
+    'gender',
+    'date_of_birth',
 ])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements PasskeyUser
@@ -88,5 +84,15 @@ class User extends Authenticatable implements PasskeyUser
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function following(): HasMany
+    {
+        return $this->hasMany(Follow::class, 'follower_id');
+    }
+
+    public function followers(): HasMany
+    {
+        return $this->hasMany(Follow::class, 'following_id');
     }
 }
