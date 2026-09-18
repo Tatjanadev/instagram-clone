@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\PostImage;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Like;
 
 /**
  * @property int $id
@@ -48,5 +49,10 @@ class Post extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class);
     }
 }
