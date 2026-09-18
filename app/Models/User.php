@@ -15,6 +15,11 @@ use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
+use App\Models\Follow;
+use App\Models\Post;
+use App\Models\Comment;
+use App\Models\Like;
+
 /**
  * @property int $id
  * @property string $first_name
