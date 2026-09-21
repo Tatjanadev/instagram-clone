@@ -18,8 +18,11 @@ trait ProfileValidationRules
         return [
             'first_name' => $this->firstNameRules(),
             'last_name' => $this->lastNameRules(),
-            'username' => $this->usernameRules(),
+            'username' => $this->usernameRules($userId),
             'email' => $this->emailRules($userId),
+            'bio' => $this->bioRules(),
+            'gender' => $this->genderRules(),
+            'date_of_birth' => $this->dateOfBirthRules(),
         ];
     }
 
@@ -31,6 +34,36 @@ trait ProfileValidationRules
     protected function firstNameRules(): array
     {
         return ['required', 'string', 'max:255'];
+    }
+
+    /**
+     * Get the validation rules used to validate user bios.
+     *
+     * @return array<int, ValidationRule|array<mixed>|string>
+     */
+    protected function bioRules(): array
+    {
+        return ['nullable', 'string', 'max:1000'];
+    }
+
+    /**
+     * Get the validation rules used to validate user genders.
+     *
+     * @return array<int, ValidationRule|array<mixed>|string>
+     */
+    protected function genderRules(): array
+    {
+        return ['nullable', 'string', 'max:50'];
+    }
+
+    /**
+     * Get the validation rules used to validate user date of birth.
+     *
+     * @return array<int, ValidationRule|array<mixed>|string>
+     */
+    protected function dateOfBirthRules(): array
+    {
+        return ['nullable', 'date', 'before:today'];
     }
 
     /**
