@@ -19,7 +19,12 @@ class PostController extends Controller
     public function index()
     {
         return Inertia::render('posts/Index', [
-            'posts' => auth()->user()->posts()->latest()->get()
+            'posts' => auth()
+            ->user()
+            ->posts()
+            ->with('images')
+            ->latest()
+            ->get(),
         ]);
     }
 
@@ -28,7 +33,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        
+        return Inertia::render('posts/Create');
     }
 
     /**
