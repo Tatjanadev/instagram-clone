@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { edit } from "@/routes/profile";
 import { send } from "@/routes/verification";
 
+
 defineOptions({
     layout: {
         breadcrumbs: [
@@ -107,7 +108,7 @@ const user = computed(() => page.props.auth.user);
                     id="bio"
                     class="mt-1 block w-full"
                     name="bio"
-                    :default-value="user.bio"
+                    :default-value="user.bio ?? ''"
                     placeholder="Tell us something about yourself"
                 />
                 <InputError class="mt-2" :message="errors.bio" />
@@ -119,7 +120,7 @@ const user = computed(() => page.props.auth.user);
                     id="gender"
                     class="mt-1 block w-full"
                     name="gender"
-                    :default-value="user.gender"
+                    :default-value="user.gender ?? ''"
                     placeholder="Gender"
                 />
                 <InputError class="mt-2" :message="errors.gender" />
@@ -132,7 +133,7 @@ const user = computed(() => page.props.auth.user);
                     type="date"
                     class="mt-1 block w-full"
                     name="date_of_birth"
-                    :default-value="user.date_of_birth"
+                    :default-value="user.date_of_birth ?? ''"
                 />
                 <InputError class="mt-2" :message="errors.date_of_birth" />
             </div>
