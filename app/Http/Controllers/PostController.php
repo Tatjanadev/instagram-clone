@@ -64,7 +64,10 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = Post::with('images')->findOrFail($id);
+        return Inertia::render('posts/Show', [
+            'post' => $post,
+        ]);
     }
 
     /**
