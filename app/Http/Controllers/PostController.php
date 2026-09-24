@@ -7,24 +7,26 @@ use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Models\Post;
 use App\Models\PostImage;
 use Illuminate\Http\RedirectResponse;
+use App\Repositories\PostRepository;
 use Inertia\Inertia;
 use Inertia\Response;
 
 
 class PostController extends Controller
 {
+    private PostRepository $postRepository;
+
+    public function __construct(PostRepository $postRepository)
+    {
+        $this->postRepository = $postRepository;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         return Inertia::render('posts/Index', [
-            'posts' => auth()
-            ->user()
-            ->posts()
-            ->with('images')
-            ->latest()
-            ->get(),
+            'posts' => $this->postRepository->getAllPosts(),
         ]);
     }
 
@@ -41,21 +43,13 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request): RedirectResponse
     {
-        $post = Post::create([
-            'user_id' => $request->user()->id,
-            'title' => $request->validated('title'),
-            'description' => $request->validated('description'),
-        ]);
-
-        foreach ($request->file('images') as $image) {
-            $path = $image->store('posts', 'public');
-
-            PostImage::create([
-                'post_id' => $post->id,
-                'image_path' => $path,
-            ]);
-        }
-        return redirect()->route('posts.index')
+        $this->postRepository->createPost(
+            $request->user()->id,
+            $request->validated(),
+            $request->file('images')
+        );
+        return redirect()
+        ->route('posts.index')
         ->with('success', 'Post created successfully.');
     }
 
