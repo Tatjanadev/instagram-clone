@@ -4,6 +4,7 @@ import PostCard from "@/components/posts/PostCard.vue";
 defineProps<{
     posts: Array<{
         id: number;
+        user_id: number;
         title: string;
         description: string | null;
         images: Array<{
@@ -11,11 +12,12 @@ defineProps<{
             image_path: string;
         }>;
     }>;
+     currentUserId: number;
 }>();
 </script>
 
 <template>
-    <div>
+    <div >
         <h1>Posts</h1>
 
         <div v-if="posts.length === 0">No posts yet.</div>
@@ -24,6 +26,7 @@ defineProps<{
             <PostCard
                 v-for="post in posts"
                 :key="post.id"
+                :id="post.id"
                 :title="post.title"
                 :description="post.description"
                 :image-path="
@@ -31,6 +34,8 @@ defineProps<{
                         ? `/storage/${post.images[0].image_path}`
                         : null
                 "
+                :user-id="post.user_id"
+                :current-user-id="currentUserId"
             />
         </div>
     </div>
