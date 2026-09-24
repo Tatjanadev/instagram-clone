@@ -8,12 +8,20 @@ use App\Http\Requests\Settings\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Repositories\ProfileRepository;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class ProfileController extends Controller
 {
+
+private ProfileRepository $profileRepository;
+
+    public function __construct(ProfileRepository $profileRepository)
+    {
+        $this->profileRepository = $profileRepository;
+    }
     /**
      * Show the user's profile settings page.
      */
@@ -30,17 +38,15 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Profile updated.')]);
-
-        return to_route('profile.edit');
+      $this->profileRepository->updateProfile(
+        $request->user(),
+        $request->validated()   
+      );
+      Inertia::flash('toast', [
+        'type' => 'success',
+        'message' => __('Profile updated.')
+      ]);
+      return to_route('profile.edit');
     }
 
     /**
@@ -52,7 +58,7 @@ class ProfileController extends Controller
 
         Auth::logout();
 
-        $user->delete();
+        $this->profileRepository->deleteProfile($user);
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
