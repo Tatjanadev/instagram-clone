@@ -108,10 +108,15 @@ class PostController extends Controller
     {
         $post = $this->postRepository->getPostById((int) $id);
 
+        Gate::authorize('delete', $post);
+
         $this->postRepository->deletePost($post);
 
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => __('Your post has been deleted successfully.'),
+        ]);
         return redirect()
-        ->route('posts.index')
-        ->with('success', 'Post deleted successfully.');
+            ->route('posts.index');
     }
 }
