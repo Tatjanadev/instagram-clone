@@ -37,6 +37,11 @@ const handleImages = (event: Event) => {
 //Decide whether this form is for creating a new post or editing an existing one
 const submit = () => {
     if (isEditing.value && props.post) {
+        // Do not submit if nothing was changed
+        if (!form.isDirty) {
+            return;
+        }
+
         form.patch(`/posts/${props.post.id}`);
     } else {
         form.post("/posts", {
@@ -124,11 +129,14 @@ const submit = () => {
                 {{ form.errors.images }}
             </p>
 
-            <div class="card-actions justify-end">
+            <div class="card-actions flex-col items-end justify-end">
+                <p v-if="isEditing && !form.isDirty" class="text-sm opacity-60">
+                    Make a change before saving.
+                </p>
                 <button
                     type="submit"
                     class="btn btn-primary"
-                    :disabled="form.processing"
+                    :disabled="form.processing || (isEditing && !form.isDirty)"
                 >
                     {{
                         form.processing
