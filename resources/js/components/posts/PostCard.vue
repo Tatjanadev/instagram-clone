@@ -45,7 +45,7 @@ const deletePost = () => {
             <Link
                 v-if="userId === currentUserId"
                 :href="`/posts/${id}/edit`"
-                class="btn btn-sm btn-warning"
+                class="btn btn-sm btn-accent"
             >
                 Edit
             </Link>
