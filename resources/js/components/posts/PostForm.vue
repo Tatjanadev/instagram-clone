@@ -2,9 +2,23 @@
 import { computed } from "vue";
 import { useForm } from "@inertiajs/vue3";
 
+const props = defineProps<{
+    post?: {
+        id: number;
+        title: string;
+        description: string | null;
+        images: Array<{
+            id: number;
+            image_path: string;
+        }>;
+    };
+}>();
+
+const isEditing = computed(() => !!props.post);
+
 const form = useForm({
-    title: "",
-    description: "",
+    title: props.post?.title ?? "",
+    description: props.post?.description ?? "",
     images: [] as File[],
 });
 
@@ -12,17 +26,22 @@ const imagePreviews = computed(() =>
     form.images.map((image) => URL.createObjectURL(image)),
 );
 
-const submit = () => {
-    form.post("/posts", {
-        forceFormData: true,
-    });
-};
-
 const handleImages = (event: Event) => {
     const target = event.target as HTMLInputElement;
 
     if (target.files) {
         form.images = Array.from(target.files);
+    }
+};
+
+//Decide whether this form is for creating a new post or editing an existing one
+const submit = () => {
+    if (isEditing.value && props.post) {
+        form.patch(`/posts/${props.post.id}`);
+    } else {
+        form.post("/posts", {
+            forceFormData: true,
+        });
     }
 };
 </script>
@@ -32,81 +51,78 @@ const handleImages = (event: Event) => {
         class="card bg-base-100 w-full max-w-xl shadow-sm"
         @submit.prevent="submit"
     >
-        <figure class="p-4">
-            <div class="form-control w-full">
-                <label class="label" for="images">
-                    <span class="label-text">Images</span>
-                </label>
+        <!-- Display existing images when editing -->
+        <div v-if="isEditing && post?.images.length" class="space-y-2">
+            <figure v-for="image in post.images" :key="image.id">
+                <img :src="`/storage/${image.image_path}`" :alt="post.title" />
+            </figure>
+        </div>
 
-                <input
-                    id="images"
-                    name="images[]"
-                    type="file"
-                    class="file-input file-input-bordered w-full"
-                    accept="image/jpeg,image/png,image/webp"
-                    multiple
-                    required
-                    @change="handleImages"
-                />
+        <!--
+            CREATE MODE:
+            Let the user choose new images.
+        -->
+        <figure v-if="!isEditing" class="flex flex-col gap-3 p-4">
+            <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                multiple
+                class="file-input file-input-bordered w-full"
+                @change="handleImages"
+            />
 
-                <p v-if="form.errors.images" class="text-error text-sm">
-                    {{ form.errors.images }}
-                </p>
-
-                <div
-                    v-if="imagePreviews.length"
-                    class="mt-4 grid grid-cols-2 gap-3"
-                >
-                    <img
-                        v-for="(preview, index) in imagePreviews"
-                        :key="index"
-                        :src="preview"
-                        alt="Selected post image"
-                        class="h-40 w-full rounded-lg object-cover"
-                    />
-                </div>
-            </div>
+            <!-- Preview newly selected images -->
+            <img
+                v-for="(preview, index) in imagePreviews"
+                :key="index"
+                :src="preview"
+                alt="Selected image preview"
+                class="rounded-lg"
+            />
         </figure>
 
         <div class="card-body">
-            <div class="form-control">
-                <label class="label" for="title">
-                    <span class="label-text">Title</span>
-                </label>
+            <!-- Existing images when editing -->
+            <div v-if="isEditing && post?.images.length" class="mb-4">
+                <p class="mb-2 font-semibold">Current images</p>
 
-                <input
-                    id="title"
-                    name="title"
-                    type="text"
-                    class="input input-bordered w-full"
-                    placeholder="Write a title"
-                    required
-                    v-model="form.title"
-                />
-
-                <p v-if="form.errors.title" class="text-error text-sm">
-                    {{ form.errors.title }}
-                </p>
+                <div class="flex flex-wrap gap-3">
+                    <img
+                        v-for="image in post.images"
+                        :key="image.id"
+                        :src="`/storage/${image.image_path}`"
+                        :alt="post.title"
+                        class="h-32 w-32 rounded-lg object-cover"
+                    />
+                </div>
             </div>
+            <!-- Title -->
+            <input
+                v-model="form.title"
+                type="text"
+                class="input input-bordered w-full"
+                placeholder="Post title"
+            />
 
-            <div class="form-control">
-                <label class="label" for="description">
-                    <span class="label-text">Description</span>
-                </label>
+            <p v-if="form.errors.title" class="text-sm text-error">
+                {{ form.errors.title }}
+            </p>
 
-                <textarea
-                    id="description"
-                    name="description"
-                    class="textarea textarea-bordered w-full"
-                    placeholder="Write a description"
-                    rows="4"
-                    v-model="form.description"
-                ></textarea>
+            <!-- Description -->
+            <textarea
+                v-model="form.description"
+                class="textarea textarea-bordered w-full"
+                placeholder="Description"
+            ></textarea>
 
-                <p v-if="form.errors.description" class="text-error text-sm">
-                    {{ form.errors.description }}
-                </p>
-            </div>
+            <p v-if="form.errors.description" class="text-sm text-error">
+                {{ form.errors.description }}
+            </p>
+
+            <!-- Image validation error -->
+            <p v-if="form.errors.images" class="text-sm text-error">
+                {{ form.errors.images }}
+            </p>
 
             <div class="card-actions justify-end">
                 <button
@@ -114,7 +130,13 @@ const handleImages = (event: Event) => {
                     class="btn btn-primary"
                     :disabled="form.processing"
                 >
-                    {{ form.processing ? "Creating..." : "Create Post" }}
+                    {{
+                        form.processing
+                            ? "Saving..."
+                            : isEditing
+                              ? "Save changes"
+                              : "Create post"
+                    }}
                 </button>
             </div>
         </div>

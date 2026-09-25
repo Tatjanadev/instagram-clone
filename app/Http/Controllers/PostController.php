@@ -85,10 +85,12 @@ class PostController extends Controller
             $post,
             $request->validated()
         );
-
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => __('Your post has been edited successfully.'),
+        ]);
         return redirect()
-            ->route('posts.show', $post->id)
-            ->with('success', 'Post updated successfully.');
+            ->route('posts.show', $post->id);
     }
 
     /**
