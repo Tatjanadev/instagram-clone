@@ -7,6 +7,7 @@ use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Repositories\PostRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -57,10 +58,11 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
+    public function show(Request $request, string $id): Response
     {
         return Inertia::render('posts/Show', [
             'post' => $this->postRepository->getPostById((int) $id),
+            'currentUserId' => $request->user()->id,
         ]);
     }
 
@@ -69,8 +71,12 @@ class PostController extends Controller
      */
     public function edit(string $id): Response
     {
+            $post = $this->postRepository->getPostById((int) $id);
+
+            Gate::authorize('update', $post);
+
         return Inertia::render('posts/Edit', [
-            'post' => $this->postRepository->getPostById((int) $id),
+            'post' => $post,
         ]);
     }
 
@@ -80,6 +86,8 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, string $id): RedirectResponse
     {
         $post = $this->postRepository->getPostById((int) $id);
+
+        Gate::authorize('update', $post);
 
         $this->postRepository->updatePost(
             $post,
