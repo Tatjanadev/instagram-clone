@@ -7,6 +7,9 @@ use App\Models\Post;
 
 class ProfileRepository
 {
+    /**
+     * Update the user's profile.
+     */
     public function updateProfile(User $user, array $data): User
     {
         $user->fill($data);
@@ -20,6 +23,9 @@ class ProfileRepository
         return $user;
     }
 
+    /**
+     * Delete the user's profile.
+     */
     public function deleteProfile(User $user): void
     {
         $user->delete();
