@@ -11,6 +11,12 @@ const props = defineProps<{
     imagePath: string | null;
 }>();
 const deletePost = () => {
+    const confirmed = window.confirm(
+        "Are you sure you want to delete this post?"
+    );
+    if (!confirmed) {
+        return;
+    }
     router.delete(`/posts/${props.id}`);
 };
 </script>
