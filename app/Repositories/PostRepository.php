@@ -47,7 +47,27 @@ class PostRepository
             'description' => $data['description'],
         ]);
 
-        return $post;
+        // Only replace images if the user selected new ones
+        if (!empty($data['images'])) {
+            foreach ($post->images as $image) {
+                // Delete the physical file only if it is a real user upload.
+                if (str_starts_with($image->image_path, 'posts/')) {
+                    Storage::disk('public')->delete($image->image_path);
+                }
+                $image->delete();
+            }
+
+            foreach ($data['images'] as $image) {
+                $path = $image->store('posts', 'public');
+
+                PostImage::create([
+                    'post_id' => $post->id,
+                    'image_path' => $path,
+                ]);
+            }
+        }
+
+        return $post->load('images');
     }
 
     public function deletePost(Post $post): void
