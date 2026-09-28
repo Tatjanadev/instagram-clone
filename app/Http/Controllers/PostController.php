@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -36,6 +37,7 @@ class PostController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Post::class);
         return Inertia::render('posts/Create');
     }
 
@@ -44,6 +46,8 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request): RedirectResponse
     {
+        Gate::authorize('create', Post::class);
+        
         $this->postRepository->createPost(
             $request->user()->id,
             $request->validated(),
@@ -60,8 +64,12 @@ class PostController extends Controller
      */
     public function show(Request $request, string $id): Response
     {
+        $post = $this->postRepository->getPostById((int) $id);
+
+        Gate::authorize('view', $post);
+
         return Inertia::render('posts/Show', [
-            'post' => $this->postRepository->getPostById((int) $id),
+            'post' => $post,
             'currentUserId' => $request->user()->id,
         ]);
     }
