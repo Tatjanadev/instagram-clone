@@ -3,14 +3,13 @@
 namespace App\Repositories;
 
 use App\Models\User;
-use App\Models\Post;
 
-class ProfileRepository
+class UserRepository
 {
     /**
      * Update the user's profile.
      */
-    public function updateProfile(User $user, array $data): User
+    public function updateUserProfile(User $user, array $data): User
     {
         $user->fill($data);
 
@@ -24,9 +23,9 @@ class ProfileRepository
     }
 
     /**
-     * Delete the user's profile.
+     * Delete the user's account.
      */
-    public function deleteProfile(User $user): void
+    public function deleteUserAccount(User $user): void
     {
         $user->delete();
     }
