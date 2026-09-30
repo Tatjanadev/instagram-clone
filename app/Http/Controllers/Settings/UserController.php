@@ -8,7 +8,7 @@ use App\Http\Requests\Settings\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Repositories\UserRepository;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -16,11 +16,11 @@ use Inertia\Response;
 class UserController extends Controller
 {
 
-private UserRepository $userRepository;
+private UserService $userService;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserService $userService)
     {
-        $this->userRepository = $userRepository;
+        $this->userService = $userService;
     }
     /**
      * Show the user's profile settings page.
@@ -38,7 +38,7 @@ private UserRepository $userRepository;
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-      $this->userRepository->update(
+      $this->userService->update(
         $request->user(),
         $request->validated()   
       );
@@ -58,7 +58,7 @@ private UserRepository $userRepository;
 
         Auth::logout();
 
-        $this->userRepository->delete($user);
+        $this->userService->delete($user);
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
