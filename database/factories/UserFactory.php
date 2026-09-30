@@ -31,11 +31,7 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
-            'profile_photo_path' => fake()->optional(0.7)->randomElement([
-                'profile-images/user-1.jpg',
-                'profile-images/user-2.jpg',
-                'profile-images/user-3.jpg',
-            ]),
+            'profile_photo_path' => null,
             'bio' => fake()->optional(0.7)->sentence(),
             'gender' => fake()->randomElement(['male', 'female']),
             'date_of_birth' => fake()->optional(0.7)->dateTimeBetween('-50 years', '-18 years'),
