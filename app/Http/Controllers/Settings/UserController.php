@@ -38,7 +38,7 @@ private UserRepository $userRepository;
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-      $this->userRepository->updateUserProfile(
+      $this->userRepository->update(
         $request->user(),
         $request->validated()   
       );
@@ -58,7 +58,7 @@ private UserRepository $userRepository;
 
         Auth::logout();
 
-        $this->userRepository->deleteUserAccount($user);
+        $this->userRepository->delete($user);
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
