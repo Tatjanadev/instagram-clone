@@ -20,6 +20,19 @@ class PostRepository
         return Post::with('images')->findOrFail($id);
     }
 
+    public function create(
+        int $authorId,
+        string $title,
+        string $content
+    ): Post
+    {
+        return Post::create([
+            'user_id' => $authorId,
+            'title' => $title,
+            'description' => $content,
+        ]);
+    }
+
     public function createPost(int $userId, array $data, array $images): Post
     {
         $post = Post::create([

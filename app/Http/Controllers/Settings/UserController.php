@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
+use App\DTOs\Users\UpdateUserDTO;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -38,9 +39,13 @@ private UserService $userService;
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        $updateUserDTO = UpdateUserDTO::fromArray(
+            $request->validated()
+            );
+
       $this->userService->update(
         $request->user(),
-        $request->validated()   
+        $updateUserDTO
       );
       Inertia::flash('toast', [
         'type' => 'success',
