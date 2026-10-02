@@ -67,7 +67,7 @@ class UserController extends Controller
             'message' => __('Profile updated.'),
         ]);
 
-        return to_route('profile.edit');
+        return to_route('user.edit');
     }
 
     /**

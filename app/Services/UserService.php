@@ -33,7 +33,7 @@ class UserService
     $userEmailIsUpdated = $user->email !== $updateUserDTO->email;
 
     if ($userEmailIsUpdated) {
-        $data['email_verified_at'] = null;
+        $user->email_verified_at = null;
     }
 
     $oldProfilePhotoPath = null;
