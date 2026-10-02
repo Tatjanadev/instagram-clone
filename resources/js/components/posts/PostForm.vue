@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { useForm } from "@inertiajs/vue3";
+import { computed } from 'vue';
+import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps<{
     post?: {
@@ -21,8 +21,8 @@ const isEditing = computed(() => !!props.post);
 // When editing, use the existing post data to populate the form fields.
 // Otherwise, use empty values for a new post.
 const form = useForm({
-    title: props.post?.title ?? "",
-    description: props.post?.description ?? "",
+    title: props.post?.title ?? '',
+    description: props.post?.description ?? '',
     images: [] as File[],
 });
 
@@ -50,18 +50,16 @@ const submit = () => {
         }
 
         // Send as POST FormData, but tell Laravel to treat it as PATCH.
-        form
-            .transform((data) => {
-                return {
-                    ...data,
-                    _method: "PATCH",
-                };
-            })
-            .post(`/posts/${props.post.id}`, {
-                forceFormData: true,
-            });
+        form.transform((data) => {
+            return {
+                ...data,
+                _method: 'PATCH',
+            };
+        }).post(`/posts/${props.post.id}`, {
+            forceFormData: true,
+        });
     } else {
-        form.post("/posts", {
+        form.post('/posts', {
             forceFormData: true,
         });
     }
@@ -74,15 +72,9 @@ const submit = () => {
         @submit.prevent="submit"
     >
         <div class="card-body">
-
             <!-- Display existing images when editing -->
-            <div
-                v-if="isEditing && post?.images.length"
-                class="mb-4"
-            >
-                <p class="mb-2 font-semibold">
-                    Current images
-                </p>
+            <div v-if="isEditing && post?.images.length" class="mb-4">
+                <p class="mb-2 font-semibold">Current images</p>
 
                 <div class="flex flex-wrap gap-3">
                     <img
@@ -98,7 +90,7 @@ const submit = () => {
             <!-- Image picker works for both Create and Edit -->
             <div class="mb-4">
                 <p class="mb-2 font-semibold">
-                    {{ isEditing ? "Replace images" : "Choose images" }}
+                    {{ isEditing ? 'Replace images' : 'Choose images' }}
                 </p>
 
                 <input
@@ -109,21 +101,15 @@ const submit = () => {
                     @change="handleImages"
                 />
 
-                <p
-                    v-if="isEditing"
-                    class="mt-2 text-sm opacity-60"
-                >
+                <p v-if="isEditing" class="mt-2 text-sm opacity-60">
                     Leave this empty to keep the current images.
                 </p>
             </div>
 
             <!-- Preview newly selected images -->
-            <div
-                v-if="imagePreviews.length"
-                class="mb-4"
-            >
+            <div v-if="imagePreviews.length" class="mb-4">
                 <p class="mb-2 font-semibold">
-                    {{ isEditing ? "New images" : "Preview" }}
+                    {{ isEditing ? 'New images' : 'Preview' }}
                 </p>
 
                 <div class="flex flex-wrap gap-3">
@@ -145,10 +131,7 @@ const submit = () => {
                 placeholder="Post title"
             />
 
-            <p
-                v-if="form.errors.title"
-                class="text-sm text-error"
-            >
+            <p v-if="form.errors.title" class="text-error text-sm">
                 {{ form.errors.title }}
             </p>
 
@@ -159,26 +142,17 @@ const submit = () => {
                 placeholder="Description"
             ></textarea>
 
-            <p
-                v-if="form.errors.description"
-                class="text-sm text-error"
-            >
+            <p v-if="form.errors.description" class="text-error text-sm">
                 {{ form.errors.description }}
             </p>
 
             <!-- Image validation error -->
-            <p
-                v-if="form.errors.images"
-                class="text-sm text-error"
-            >
+            <p v-if="form.errors.images" class="text-error text-sm">
                 {{ form.errors.images }}
             </p>
 
             <div class="card-actions flex-col items-end justify-end">
-                <p
-                    v-if="isEditing && !form.isDirty"
-                    class="text-sm opacity-60"
-                >
+                <p v-if="isEditing && !form.isDirty" class="text-sm opacity-60">
                     Make a change before saving.
                 </p>
 
@@ -189,14 +163,13 @@ const submit = () => {
                 >
                     {{
                         form.processing
-                            ? "Saving..."
+                            ? 'Saving...'
                             : isEditing
-                              ? "Save changes"
-                              : "Create post"
+                              ? 'Save changes'
+                              : 'Create post'
                     }}
                 </button>
             </div>
-
         </div>
     </form>
 </template>
