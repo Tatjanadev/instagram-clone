@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
-import { dashboard, login } from '@/routes';
+import { login } from '@/routes';
 import { register } from '@/routes';
+import { show as profileShow } from '@/routes/profile';
 </script>
 
 <template>
@@ -18,10 +19,10 @@ import { register } from '@/routes';
             <nav class="flex items-center justify-end gap-4">
                 <Link
                     v-if="$page.props.auth.user"
-                    :href="dashboard()"
+                    :href="profileShow()"
                     class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                 >
-                    Dashboard
+                    Profile
                 </Link>
                 <template v-else>
                     <Link

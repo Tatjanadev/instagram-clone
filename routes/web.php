@@ -6,7 +6,7 @@ use App\Http\Controllers\PostController;
 Route::inertia('/', 'Welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'Dashboard')->name('dashboard');
+    Route::inertia('profile', 'Profile')->name('profile.show');
     
     Route::resource('posts', PostController::class);
 });
