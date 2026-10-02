@@ -46,11 +46,8 @@ class UserService
 
     $updatedUser = $this->userRepository->update($user, $data);
 
-    if (
-        $oldProfilePhotoPath &&
-        !str_starts_with($oldProfilePhotoPath, 'demo/avatars/')
-    ) {
-        Storage::disk('public')->delete($oldProfilePhotoPath);
+    if ($oldProfilePhotoPath) {
+        $this->deleteImage($oldProfilePhotoPath);
     }
 
     return $updatedUser;
@@ -62,9 +59,15 @@ class UserService
 
         $this->userRepository->delete($user);
 
-        if ($profilePhotoPath && ! str_starts_with($profilePhotoPath, 'demo/avatars/')
-        ) {
-            Storage::disk('public')->delete($profilePhotoPath);
+        if ($profilePhotoPath) {
+            $this->deleteImage($profilePhotoPath);
+        }
+    }
+
+    private function deleteImage(string $imagePath): void
+    {
+        if ($imagePath && !str_starts_with($imagePath, 'demo/avatars/')) {
+            Storage::disk('public')->delete($imagePath);
         }
     }
 }
