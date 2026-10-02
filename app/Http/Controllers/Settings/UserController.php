@@ -2,26 +2,38 @@
 
 namespace App\Http\Controllers\Settings;
 
+use App\DTOs\Users\UpdateUserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileDeleteRequest;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
+use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Repositories\ProfileRepository;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class ProfileController extends Controller
+class UserController extends Controller
 {
+    private UserService $userService;
 
-private ProfileRepository $profileRepository;
-
-    public function __construct(ProfileRepository $profileRepository)
+    public function __construct(UserService $userService)
     {
-        $this->profileRepository = $profileRepository;
+        $this->userService = $userService;
     }
+
+    public function show(Request $request): Response
+    {
+        $user = $this->userService->getUser($request->user()->id);
+
+        return Inertia::render('Profile', [
+            'user' => $user,
+        ]);
+    }
+
+
     /**
      * Show the user's profile settings page.
      */
@@ -38,15 +50,24 @@ private ProfileRepository $profileRepository;
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-      $this->profileRepository->updateProfile(
-        $request->user(),
-        $request->validated()   
-      );
-      Inertia::flash('toast', [
-        'type' => 'success',
-        'message' => __('Profile updated.')
-      ]);
-      return to_route('profile.edit');
+        $user = $request->user();
+
+        Gate::authorize('update', $user);
+
+        $updateUserDTO = UpdateUserDTO::fromArray(
+            $request->validated()
+        );
+
+        $this->userService->update(
+            $user,
+            $updateUserDTO
+        );
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => __('Profile updated.'),
+        ]);
+
+        return to_route('user.edit');
     }
 
     /**
@@ -56,9 +77,11 @@ private ProfileRepository $profileRepository;
     {
         $user = $request->user();
 
+        Gate::authorize('delete', $user);
+
         Auth::logout();
 
-        $this->profileRepository->deleteProfile($user);
+        $this->userService->delete($user);
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

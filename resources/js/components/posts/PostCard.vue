@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Link, router } from "@inertiajs/vue3";
-import { Heart } from "lucide-vue-next";
+import { Link, router } from '@inertiajs/vue3';
+import { Heart } from 'lucide-vue-next';
 
 const props = defineProps<{
     id: number;
@@ -12,7 +12,7 @@ const props = defineProps<{
 }>();
 const deletePost = () => {
     const confirmed = window.confirm(
-        "Are you sure you want to delete this post?"
+        'Are you sure you want to delete this post?',
     );
     if (!confirmed) {
         return;

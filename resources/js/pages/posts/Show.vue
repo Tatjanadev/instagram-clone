@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import { ArrowLeft } from 'lucide-vue-next';
-import PostCard from "@/components/posts/PostCard.vue";
+import PostCard from '@/components/posts/PostCard.vue';
 
 defineProps<{
     post: {
@@ -20,7 +20,6 @@ defineProps<{
 
 <template>
     <div class="flex flex-col items-center p-6">
-
         <div class="mb-3 flex w-96 items-center gap-3">
             <Link
                 href="/posts"
@@ -29,9 +28,7 @@ defineProps<{
             >
                 <ArrowLeft :size="22" />
             </Link>
-             <h1 class="text-lg font-semibold">
-                Post
-            </h1>
+            <h1 class="text-lg font-semibold">Post</h1>
         </div>
         <PostCard
             :id="post.id"
