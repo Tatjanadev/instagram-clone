@@ -6,7 +6,22 @@ use App\Models\User;
 
 class UserRepository
 {
-      /**
+    /**
+     * Get the user with their posts, images, and counts.
+     */
+public function getUser(int $userId): User
+{
+    return User::where('id', $userId)
+        ->with([
+            'posts' => function ($query) {
+                $query->latest()->with('images');
+            },
+            ])
+        ->withCount(['posts','followers', 'following'])
+        ->firstOrFail();
+}
+
+   /**
      * Update the user's profile.
      */
   

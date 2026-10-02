@@ -13,6 +13,11 @@ class UserService
         private UserRepository $userRepository
     ) {}
 
+    public function getUser(int $userId): User
+    {
+        return $this->userRepository->getUser($userId);
+    }
+
   public function update(User $user, UpdateUserDTO $updateUserDTO): User
 {
     $data = [

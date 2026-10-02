@@ -24,6 +24,16 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
+    public function show(Request $request): Response
+    {
+        $user = $this->userService->getUser($request->user()->id);
+
+        return Inertia::render('Profile', [
+            'user' => $user,
+        ]);
+    }
+
+
     /**
      * Show the user's profile settings page.
      */
@@ -57,7 +67,7 @@ class UserController extends Controller
             'message' => __('Profile updated.'),
         ]);
 
-        return to_route('user.edit');
+        return to_route('profile.edit');
     }
 
     /**
