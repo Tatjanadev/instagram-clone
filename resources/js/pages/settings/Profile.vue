@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import { Form, Head, usePage } from '@inertiajs/vue3';
-import { Link } from '@inertiajs/vue3';
-import { computed } from 'vue';
-import UserController from '@/actions/App/Http/Controllers/Settings/UserController';
-import DeleteUser from '@/components/DeleteUser.vue';
-import Heading from '@/components/Heading.vue';
-import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { edit } from '@/routes/user';
-import { send } from '@/routes/verification';
+import { Form, Head, usePage } from "@inertiajs/vue3";
+import { Link } from "@inertiajs/vue3";
+import { computed } from "vue";
+import UserController from "@/actions/App/Http/Controllers/Settings/UserController";
+import DeleteUser from "@/components/DeleteUser.vue";
+import Heading from "@/components/Heading.vue";
+import InputError from "@/components/InputError.vue";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { edit } from "@/routes/user";
+import { send } from "@/routes/verification";
+import { show as profileShow } from "@/routes/profile";
 
 defineOptions({
     layout: {
         breadcrumbs: [
             {
-                title: 'Profile settings',
+                title: "Profile settings",
                 href: edit(),
             },
         ],
@@ -33,6 +34,9 @@ const user = computed(() => page.props.auth.user);
     <h1 class="sr-only">Profile settings</h1>
 
     <div class="flex flex-col space-y-6">
+        <Link :href="profileShow()" class="btn btn-ghost w-fit">
+            Back to profile
+        </Link>
         <Heading
             variant="small"
             title="Profile"
@@ -41,9 +45,31 @@ const user = computed(() => page.props.auth.user);
 
         <Form
             v-bind="UserController.update.form()"
+            method="post"
             class="space-y-6"
             v-slot="{ errors, processing }"
         >
+            <div class="grid gap-2">
+                <Label for="profile_photo">Profile photo</Label>
+
+                <div v-if="user.profile_photo_path" class="avatar mb-2">
+                    <div class="w-20 rounded-full">
+                        <img
+                            :src="`/storage/${user.profile_photo_path}`"
+                            alt="Current profile photo"
+                        />
+                    </div>
+                </div>
+
+                <Input
+                    id="profile_photo"
+                    type="file"
+                    name="profile_photo"
+                    accept="image/*"
+                />
+
+                <InputError class="mt-2" :message="errors.profile_photo" />
+            </div>
             <div class="grid gap-2">
                 <Label for="first_name">First name</Label>
                 <Input
