@@ -3,7 +3,7 @@ import { Head } from "@inertiajs/vue3";
 import { show as profileShow } from "@/routes/profile";
 import { Link } from "@inertiajs/vue3";
 import { edit as userEdit } from "@/routes/user";
-import { show as postShow } from '@/routes/posts';
+import { show as postShow } from "@/routes/posts";
 
 type User = {
     first_name: string;
@@ -104,7 +104,7 @@ defineOptions({
             <Link
                 v-for="post in user.posts"
                 :key="post.id"
-                 :href="postShow(post.id)"
+                :href="postShow(post.id)"
                 class="group aspect-square overflow-hidden transition-transform duration-200 hover:scale-[1.02]"
             >
                 <img
@@ -113,7 +113,7 @@ defineOptions({
                     alt="Post image"
                     class="h-full w-full object-cover transition-opacity duration-200 group-hover:opacity-90"
                 />
-        </Link>
+            </Link>
         </div>
     </div>
 </template>
