@@ -112,6 +112,9 @@ trait ProfileValidationRules
         ];
     }
 
+    /**
+     * @return array<int, string>
+     */
     protected function profilePhotoRules(): array
     {
         return [
