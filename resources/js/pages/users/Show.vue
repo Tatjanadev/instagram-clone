@@ -4,19 +4,7 @@ import { show as profileShow } from "@/routes/profile";
 import { Link } from "@inertiajs/vue3";
 import { edit as userEdit } from "@/routes/user";
 import { show as postShow } from "@/routes/posts";
-
-type User = {
-    first_name: string;
-    last_name: string;
-    username: string;
-    profile_photo_path: string | null;
-    bio: string | null;
-    date_of_birth: string | null;
-    posts_count: number;
-    followers_count: number;
-    following_count: number;
-    posts: Post[];
-};
+import type { ProfileUser } from "@/types/user";
 
 type PostImage = {
     id: number;
@@ -29,7 +17,8 @@ type Post = {
 };
 
 defineProps<{
-    user: User;
+    user: ProfileUser;
+    isOwnProfile: boolean;
 }>();
 
 defineOptions({
@@ -95,7 +84,11 @@ defineOptions({
                 {{ user.bio }}
             </p>
         </div>
-        <Link :href="userEdit()" class="btn btn-outline mt-3">
+        <Link
+            v-if="isOwnProfile"
+            :href="userEdit()"
+            class="btn btn-outline mt-3"
+        >
             Edit Profile
         </Link>
     </div>
