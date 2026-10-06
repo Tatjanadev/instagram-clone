@@ -8,10 +8,10 @@ use App\Http\Requests\Settings\ProfileDeleteRequest;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
 use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -24,22 +24,50 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
+    /**
+     * Show all user profiles
+     */
+    public function index(): Response
+    {
+        $users = $this->userService->getUsers();
+
+        return Inertia::render('users/Index', [
+            'users' => $users,
+        ]);
+    }
+
+    /**
+     * Show user profile page
+     */
     public function show(Request $request): Response
     {
         $user = $this->userService->getUser($request->user()->id);
 
-        return Inertia::render('Profile', [
+        return Inertia::render('users/Show', [
             'user' => $user,
+            'isOwnProfile' => true,
         ]);
     }
 
+    /**
+     * Show other user Profile
+     */
+    public function showPublic(string $username): Response
+    {
+        $user = $this->userService->getUserByUsername($username);
+
+        return Inertia::render('users/Show', [
+            'user' => $user,
+            'isOwnProfile' => false,
+        ]);
+    }
 
     /**
      * Show the user's profile settings page.
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('settings/Profile', [
+        return Inertia::render('users/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => $request->session()->get('status'),
         ]);
