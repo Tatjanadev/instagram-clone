@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Posts\StorePostRequest;
 use App\Http\Requests\Posts\UpdatePostRequest;
+use App\Models\Post;
 use App\Repositories\PostRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -35,9 +35,10 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
         Gate::authorize('create', Post::class);
+
         return Inertia::render('posts/Create');
     }
 
@@ -47,7 +48,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request): RedirectResponse
     {
         Gate::authorize('create', Post::class);
-        
+
         $this->postRepository->createPost(
             $request->user()->id,
             $request->validated(),
@@ -79,9 +80,9 @@ class PostController extends Controller
      */
     public function edit(string $id): Response
     {
-            $post = $this->postRepository->getPostById((int) $id);
+        $post = $this->postRepository->getPostById((int) $id);
 
-            Gate::authorize('update', $post);
+        Gate::authorize('update', $post);
 
         return Inertia::render('posts/Edit', [
             'post' => $post,
@@ -105,6 +106,7 @@ class PostController extends Controller
             'type' => 'success',
             'message' => __('Your post has been edited successfully.'),
         ]);
+
         return redirect()
             ->route('posts.show', $post->id);
     }
@@ -124,6 +126,7 @@ class PostController extends Controller
             'type' => 'success',
             'message' => __('Your post has been deleted successfully.'),
         ]);
+
         return redirect()
             ->route('posts.index');
     }

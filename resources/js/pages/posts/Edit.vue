@@ -18,11 +18,9 @@ defineProps<{
 <template>
     <Head title="Edit Post" />
 
-      <div class="flex flex-col items-center p-6">
-         <h1 class="mb-6 text-2xl font-bold">
-            Edit a post
-        </h1>
+    <div class="flex flex-col items-center p-6">
+        <h1 class="mb-6 text-2xl font-bold">Edit a post</h1>
 
         <PostForm :post="post" />
-      </div>
+    </div>
 </template>

@@ -22,6 +22,20 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $users = User::factory(10)->create();
+        $demoAvatars = collect(Storage::disk('public')->files('demo/avatars'))
+            ->filter(fn ($path) => in_array(
+                strtolower(pathinfo($path, PATHINFO_EXTENSION)),
+                ['jpg', 'jpeg', 'png', 'webp']
+            ))
+            ->values();
+        $users->each(function (User $user, int $index) use ($demoAvatars) {
+            if ($demoAvatars->isEmpty()) {
+                return;
+            }
+            $user->update([
+                'profile_photo_path' => $demoAvatars[$index % $demoAvatars->count()],
+            ]);
+        });
 
         $posts = Post::factory(30)
             ->state(function () use ($users) {

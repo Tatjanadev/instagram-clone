@@ -1,36 +1,38 @@
 <?php
 
 namespace App\Models;
+
+use Database\Factories\PostFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
-use App\Models\PostImage;
-use App\Models\User;
-use App\Models\Comment;
-use App\Models\Like;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property int $user_id
  * @property string $title
  * @property string|null $description
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  */
-
 #[Fillable([
     'user_id',
-    'title', 
-    'description'
-    ])]
+    'title',
+    'description',
+])]
 class Post extends Model
 {
+    /** @use HasFactory<PostFactory> */
     use HasFactory;
+
     /**
      * Get the user that owns the post.
+     */
+    /**
+     * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
     {
@@ -40,6 +42,9 @@ class Post extends Model
     /**
      * Get the images for the post.
      */
+    /**
+     * @return HasMany<PostImage, $this>
+     */
     public function images(): HasMany
     {
         return $this->hasMany(PostImage::class);
@@ -48,11 +53,17 @@ class Post extends Model
     /**
      * Get the comments for the post.
      */
+    /**
+     * @return HasMany<Comment, $this>
+     */
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
 
+    /**
+     * @return HasMany<Like, $this>
+     */
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);

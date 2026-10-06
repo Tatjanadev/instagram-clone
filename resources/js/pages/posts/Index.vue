@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PostCard from "@/components/posts/PostCard.vue";
+import PostCard from '@/components/posts/PostCard.vue';
 
 defineProps<{
     posts: Array<{
@@ -12,12 +12,12 @@ defineProps<{
             image_path: string;
         }>;
     }>;
-     currentUserId: number;
+    currentUserId: number;
 }>();
 </script>
 
 <template>
-    <div >
+    <div>
         <h1>Posts</h1>
 
         <div v-if="posts.length === 0">No posts yet.</div>

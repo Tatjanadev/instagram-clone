@@ -20,6 +20,7 @@ trait ProfileValidationRules
             'last_name' => $this->lastNameRules(),
             'username' => $this->usernameRules($userId),
             'email' => $this->emailRules($userId),
+            'profile_photo' => $this->profilePhotoRules(),
             'bio' => $this->bioRules(),
             'gender' => $this->genderRules(),
             'date_of_birth' => $this->dateOfBirthRules(),
@@ -108,6 +109,18 @@ trait ProfileValidationRules
             $userId === null
                 ? Rule::unique(User::class)
                 : Rule::unique(User::class)->ignore($userId),
+        ];
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function profilePhotoRules(): array
+    {
+        return [
+            'nullable',
+            'image',
+            'max:10240',
         ];
     }
 }

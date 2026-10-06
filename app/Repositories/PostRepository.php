@@ -4,10 +4,15 @@ namespace App\Repositories;
 
 use App\Models\Post;
 use App\Models\PostImage;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class PostRepository
 {
+    /**
+     * @return Collection<int, Post>
+     */
     public function getAllPosts()
     {
         return Post::with(['images', 'user'])
@@ -20,6 +25,22 @@ class PostRepository
         return Post::with('images')->findOrFail($id);
     }
 
+    public function create(
+        int $authorId,
+        string $title,
+        string $content
+    ): Post {
+        return Post::create([
+            'user_id' => $authorId,
+            'title' => $title,
+            'description' => $content,
+        ]);
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     * @param  array<int, UploadedFile>  $images
+     */
     public function createPost(int $userId, array $data, array $images): Post
     {
         $post = Post::create([
@@ -40,6 +61,9 @@ class PostRepository
         return $post;
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public function updatePost(Post $post, array $data): Post
     {
         $post->update([
@@ -48,7 +72,7 @@ class PostRepository
         ]);
 
         // Only replace images if the user selected new ones
-        if (!empty($data['images'])) {
+        if (! empty($data['images'])) {
             foreach ($post->images as $image) {
                 // Delete the physical file only if it is a real user upload.
                 if (str_starts_with($image->image_path, 'posts/')) {

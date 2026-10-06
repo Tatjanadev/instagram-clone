@@ -30,4 +30,3 @@ class UpdatePostRequest extends FormRequest
         ];
     }
 }
-    
