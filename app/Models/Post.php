@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\PostFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,10 +25,14 @@ use Illuminate\Support\Carbon;
 ])]
 class Post extends Model
 {
+    /** @use HasFactory<PostFactory> */
     use HasFactory;
 
     /**
      * Get the user that owns the post.
+     */
+    /**
+     * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
     {
@@ -37,6 +42,9 @@ class Post extends Model
     /**
      * Get the images for the post.
      */
+    /**
+     * @return HasMany<PostImage, $this>
+     */
     public function images(): HasMany
     {
         return $this->hasMany(PostImage::class);
@@ -45,11 +53,17 @@ class Post extends Model
     /**
      * Get the comments for the post.
      */
+    /**
+     * @return HasMany<Comment, $this>
+     */
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
 
+    /**
+     * @return HasMany<Like, $this>
+     */
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);

@@ -4,10 +4,15 @@ namespace App\Repositories;
 
 use App\Models\Post;
 use App\Models\PostImage;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class PostRepository
 {
+    /**
+     * @return Collection<int, Post>
+     */
     public function getAllPosts()
     {
         return Post::with(['images', 'user'])
@@ -32,6 +37,10 @@ class PostRepository
         ]);
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     * @param  array<int, UploadedFile>  $images
+     */
     public function createPost(int $userId, array $data, array $images): Post
     {
         $post = Post::create([
@@ -52,6 +61,9 @@ class PostRepository
         return $post;
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public function updatePost(Post $post, array $data): Post
     {
         $post->update([

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\PostImageFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,10 +22,14 @@ use Illuminate\Support\Carbon;
 ])]
 class PostImage extends Model
 {
+    /** @use HasFactory<PostImageFactory> */
     use HasFactory;
 
     /**
      * Get the post that owns the image.
+     */
+    /**
+     * @return BelongsTo<Post, $this>
      */
     public function post(): BelongsTo
     {

@@ -69,6 +69,9 @@ class User extends Authenticatable implements PasskeyUser
     /**
      * Get the posts for the user.
      */
+    /**
+     * @return HasMany<Post, $this>
+     */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
@@ -77,21 +80,33 @@ class User extends Authenticatable implements PasskeyUser
     /**
      * Get the comments for the user.
      */
+    /**
+     * @return HasMany<Comment, $this>
+     */
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
 
+    /**
+     * @return HasMany<Like, $this>
+     */
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
     }
 
+    /**
+     * @return HasMany<Follow, $this>
+     */
     public function following(): HasMany
     {
         return $this->hasMany(Follow::class, 'follower_id');
     }
 
+    /**
+     * @return HasMany<Follow, $this>
+     */
     public function followers(): HasMany
     {
         return $this->hasMany(Follow::class, 'following_id');

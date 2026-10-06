@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\CommentFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,10 +24,13 @@ use Illuminate\Support\Carbon;
 ])]
 class Comment extends Model
 {
+    /** @use HasFactory<CommentFactory> */
     use HasFactory;
 
     /**
      * Get the user that owns the comment.
+     *
+     * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
     {
@@ -35,6 +39,8 @@ class Comment extends Model
 
     /**
      * Get the post that owns the comment.
+     *
+     * @return BelongsTo<Post, $this>
      */
     public function post(): BelongsTo
     {
