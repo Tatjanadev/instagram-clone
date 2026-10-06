@@ -29,10 +29,13 @@ class DatabaseSeeder extends Seeder
             ))
             ->values();
         $users->each(function (User $user, int $index) use ($demoAvatars) {
-                $user->update([
-                    'profile_photo_path' => $demoAvatars[$index],
-                ]);
-            });
+            if ($demoAvatars->isEmpty()) {
+                return;
+            }
+            $user->update([
+                'profile_photo_path' => $demoAvatars[$index % $demoAvatars->count()],
+            ]);
+              });
 
         $posts = Post::factory(30)
             ->state(function () use ($users) {
