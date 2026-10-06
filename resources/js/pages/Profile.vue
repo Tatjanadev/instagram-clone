@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Head } from "@inertiajs/vue3";
-import { show as profileShow } from "@/routes/profile";
-import { Link } from "@inertiajs/vue3";
-import { edit as userEdit } from "@/routes/user";
-import { show as postShow } from "@/routes/posts";
+import { Head } from '@inertiajs/vue3';
+import { show as profileShow } from '@/routes/profile';
+import { Link } from '@inertiajs/vue3';
+import { edit as userEdit } from '@/routes/user';
+import { show as postShow } from '@/routes/posts';
 
 type User = {
     first_name: string;
@@ -36,7 +36,7 @@ defineOptions({
     layout: {
         breadcrumbs: [
             {
-                title: "Profile",
+                title: 'Profile',
                 href: profileShow(),
             },
         ],
@@ -61,7 +61,7 @@ defineOptions({
                     />
                     <div
                         v-else
-                        class="flex h-24 w-24 items-center justify-center rounded-full bg-base-300 text-2xl font-semibold"
+                        class="bg-base-300 flex h-24 w-24 items-center justify-center rounded-full text-2xl font-semibold"
                     >
                         {{ user.username.charAt(0).toUpperCase() }}
                     </div>

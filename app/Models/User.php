@@ -67,7 +67,7 @@ class User extends Authenticatable implements PasskeyUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
-            'date_of_birth' => 'date',
+            'date_of_birth' => 'date:Y-m-d',,
         ];
     }
 
