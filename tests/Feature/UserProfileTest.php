@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\User;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 
@@ -30,11 +30,11 @@ test('authenticated user profile page receives the correct profile data', functi
     $this->actingAs($user);
     $response = $this->get(route('profile.show'));
     $response->assertInertia(fn (Assert $page) => $page
-    ->component('Profile')
-    ->where('user.id', $user->id)
-    ->where('user.username', $user->username)
-    ->where('user.posts_count', 1)
-    ->where('user.followers_count', 0)
-    ->where('user.following_count', 0)
-);
+        ->component('Profile')
+        ->where('user.id', $user->id)
+        ->where('user.username', $user->username)
+        ->where('user.posts_count', 1)
+        ->where('user.followers_count', 0)
+        ->where('user.following_count', 0)
+    );
 });

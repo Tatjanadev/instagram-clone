@@ -30,10 +30,10 @@ class SecurityController extends Controller
             'canManageTwoFactor' => Features::canManageTwoFactorAuthentication(),
             'canManagePasskeys' => Features::canManagePasskeys(),
 
-             'passkeys' => Features::canManagePasskeys()
+            'passkeys' => Features::canManagePasskeys()
             ? $this->securityRepository->getPasskeys($request->user())
             : [],
-            
+
             'passwordRules' => Password::defaults()->toPasswordRulesString(),
         ];
 
@@ -56,7 +56,7 @@ class SecurityController extends Controller
             $request->user(),
             $request->password
         );
-        
+
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Password updated.')]);
 
         return back();

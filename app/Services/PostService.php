@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Models\Post;
-use App\Repositories\PostRepository;
 use App\Repositories\PostImageRepository;
+use App\Repositories\PostRepository;
 
 class PostService
 {
@@ -18,8 +18,7 @@ class PostService
         string $title,
         string $content,
         array $images = [],
-    ): Post
-    {
+    ): Post {
         $post = $this->postRepository->create($authorId, $title, $content);
         foreach ($images as $image) {
             $this->postImageRepository->create($post->id, $image);

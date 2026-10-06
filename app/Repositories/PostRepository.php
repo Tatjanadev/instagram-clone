@@ -24,8 +24,7 @@ class PostRepository
         int $authorId,
         string $title,
         string $content
-    ): Post
-    {
+    ): Post {
         return Post::create([
             'user_id' => $authorId,
             'title' => $title,
@@ -61,7 +60,7 @@ class PostRepository
         ]);
 
         // Only replace images if the user selected new ones
-        if (!empty($data['images'])) {
+        if (! empty($data['images'])) {
             foreach ($post->images as $image) {
                 // Delete the physical file only if it is a real user upload.
                 if (str_starts_with($image->image_path, 'posts/')) {

@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             $user->update([
                 'profile_photo_path' => $demoAvatars[$index % $demoAvatars->count()],
             ]);
-              });
+        });
 
         $posts = Post::factory(30)
             ->state(function () use ($users) {

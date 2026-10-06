@@ -15,11 +15,6 @@ use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
-use App\Models\Follow;
-use App\Models\Post;
-use App\Models\Comment;
-use App\Models\Like;
-
 /**
  * @property int $id
  * @property string $first_name
@@ -67,7 +62,7 @@ class User extends Authenticatable implements PasskeyUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
-            'date_of_birth' => 'date:Y-m-d',,
+            'date_of_birth' => 'date:Y-m-d',
         ];
     }
 

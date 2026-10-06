@@ -1,34 +1,31 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
-use App\Models\PostImage;
-use App\Models\User;
-use App\Models\Comment;
-use App\Models\Like;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property int $user_id
  * @property string $title
  * @property string|null $description
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  */
-
 #[Fillable([
     'user_id',
-    'title', 
-    'description'
-    ])]
+    'title',
+    'description',
+])]
 class Post extends Model
 {
     use HasFactory;
+
     /**
      * Get the user that owns the post.
      */
