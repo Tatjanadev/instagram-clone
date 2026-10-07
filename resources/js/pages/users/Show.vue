@@ -25,7 +25,7 @@ defineOptions({
     layout: {
         breadcrumbs: [
             {
-                title: "Profile",
+                title: 'Profile',
                 href: profileShow(),
             },
         ],
@@ -50,7 +50,7 @@ defineOptions({
                     />
                     <div
                         v-else
-                        class="flex h-24 w-24 items-center justify-center rounded-full bg-base-300 text-2xl font-semibold"
+                        class="bg-base-300 flex h-24 w-24 items-center justify-center rounded-full text-2xl font-semibold"
                     >
                         {{ user.username.charAt(0).toUpperCase() }}
                     </div>

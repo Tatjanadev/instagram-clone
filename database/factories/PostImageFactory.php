@@ -20,16 +20,16 @@ class PostImageFactory extends Factory
     public function definition(): array
     {
         $demoImages = collect(Storage::disk('public')->files('demo/posts'))
-        ->filter(fn ($path) => in_array(
-            strtolower(pathinfo($path, PATHINFO_EXTENSION)),
-            ['jpg', 'jpeg', 'png', 'webp']
-        ))
-        ->values()
-        ->all();
+            ->filter(fn ($path) => in_array(
+                strtolower(pathinfo($path, PATHINFO_EXTENSION)),
+                ['jpg', 'jpeg', 'png', 'webp']
+            ))
+            ->values()
+            ->all();
 
-    return [
-        'post_id' => Post::factory(),
-        'image_path' => fake()->randomElement($demoImages),
-    ];
+        return [
+            'post_id' => Post::factory(),
+            'image_path' => fake()->randomElement($demoImages),
+        ];
     }
 }

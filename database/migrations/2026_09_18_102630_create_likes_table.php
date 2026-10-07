@@ -15,16 +15,16 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('user_id')
-            ->constrained()
-            ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
 
             $table->foreignId('post_id')
-            ->constrained()
-            ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
 
             $table->timestamps();
 
-            //it prevents one user from liking the same post multiple times
+            // it prevents one user from liking the same post multiple times
             $table->unique(['user_id', 'post_id']);
         });
     }

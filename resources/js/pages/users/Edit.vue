@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { Form, Head, usePage } from "@inertiajs/vue3";
-import { Link } from "@inertiajs/vue3";
-import { computed } from "vue";
-import UserController from "@/actions/App/Http/Controllers/Settings/UserController";
-import DeleteUser from "@/components/DeleteUser.vue";
-import Heading from "@/components/Heading.vue";
-import InputError from "@/components/InputError.vue";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { edit } from "@/routes/user";
-import { send } from "@/routes/verification";
-import { show as profileShow } from "@/routes/profile";
+import { Form, Head, usePage } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import UserController from '@/actions/App/Http/Controllers/Settings/UserController';
+import DeleteUser from '@/components/DeleteUser.vue';
+import Heading from '@/components/Heading.vue';
+import InputError from '@/components/InputError.vue';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { edit } from '@/routes/user';
+import { send } from '@/routes/verification';
+import { show as profileShow } from '@/routes/profile';
 
 defineOptions({
     layout: {
         breadcrumbs: [
             {
-                title: "Profile settings",
+                title: 'Profile settings',
                 href: edit(),
             },
         ],
