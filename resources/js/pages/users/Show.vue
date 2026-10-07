@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Head } from "@inertiajs/vue3";
-import { show as profileShow } from "@/routes/profile";
-import { Link } from "@inertiajs/vue3";
-import { edit as userEdit } from "@/routes/user";
-import { show as postShow } from "@/routes/posts";
-import type { ProfileUser } from "@/types/user";
+import { Head } from '@inertiajs/vue3';
+import { show as profileShow } from '@/routes/profile';
+import { Link } from '@inertiajs/vue3';
+import { edit as userEdit } from '@/routes/user';
+import { show as postShow } from '@/routes/posts';
+import type { ProfileUser } from '@/types/user';
 
 type PostImage = {
     id: number;
