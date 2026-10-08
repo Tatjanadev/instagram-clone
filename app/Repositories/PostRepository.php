@@ -22,23 +22,21 @@ class PostRepository
 
     /**
      * Summary of getLatestPostPerUser
-     * @param int $currentUserId
+     *
      * @return Collection<int, Post>|\Illuminate\Support\Collection<int, \stdClass>
      */
     public function getLatestPostPerUser(int $currentUserId)
     {
         return Post::with(['images', 'user'])
-        ->where('user_id', '!=', $currentUserId)
-        ->latest()
-        ->get()
-        ->unique('user_id')
-        ->values();
+            ->where('user_id', '!=', $currentUserId)
+            ->latest()
+            ->get()
+            ->unique('user_id')
+            ->values();
     }
 
     /**
      * Summary of getPostById
-     * @param int $id
-     * @return Post
      */
     public function getPostById(int $id): Post
     {
@@ -116,8 +114,6 @@ class PostRepository
 
     /**
      * Summary of deletePost
-     * @param Post $post
-     * @return void
      */
     public function deletePost(Post $post): void
     {

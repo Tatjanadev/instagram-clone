@@ -21,17 +21,16 @@ class UserController extends Controller
     public function __construct(
         private UserService $userService,
         private PostRepository $postRepository
-    ) {
-        
-    }
+    ) {}
 
     /**
      * Show all user profiles
      */
     public function index(): Response
     {
-        $users = $this->userService->getOtherUsers(Auth::id());
-        $posts = $this->postRepository->getLatestPostPerUser(Auth::id());
+        $currentUserId = (int) Auth::id();
+        $users = $this->userService->getOtherUsers($currentUserId);
+        $posts = $this->postRepository->getLatestPostPerUser($currentUserId);
 
         return Inertia::render('users/Index', [
             'users' => $users,

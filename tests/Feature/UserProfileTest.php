@@ -41,16 +41,16 @@ test('authenticated user profile page receives the correct profile data', functi
 
 test('authenticated user can view users list', function () {
     $user = User::factory()->create();
+    $otherUser = User::factory()->create();
 
-    $this->actingAs($user);
-
-    $response = $this->get(route('users.index'));
+    $response = $this->actingAs($user)
+        ->get(route('users.index'));
 
     $response->assertInertia(fn (Assert $page) => $page
         ->component('users/Index')
         ->has('users', 1)
-        ->where('users.0.id', $user->id)
-        ->where('users.0.username', $user->username)
+        ->where('users.0.id', $otherUser->id)
+        ->where('users.0.username', $otherUser->username)
     );
 });
 

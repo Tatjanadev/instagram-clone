@@ -19,15 +19,21 @@ class UserService
         return $this->userRepository->getUser($userId);
     }
 
+    /**
+     * @return Collection<int, User>
+     */
     public function getUsers(): Collection
     {
         return $this->userRepository->getUsers();
     }
 
-    public function getOtherUsers(int $currentUserId)
-{
-    return $this->userRepository->getOtherUsers($currentUserId);
-}
+    /**
+     * @return Collection<int, User>
+     */
+    public function getOtherUsers(int $currentUserId): Collection
+    {
+        return $this->userRepository->getOtherUsers($currentUserId);
+    }
 
     public function getUserByUsername(string $username): User
     {

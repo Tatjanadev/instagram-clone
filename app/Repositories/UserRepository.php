@@ -25,16 +25,22 @@ class UserRepository
     /**
      * Get all users for the user list.
      */
+    /**
+     * @return Collection<int, User>
+     */
     public function getUsers(): Collection
     {
         return User::select(['id', 'first_name', 'last_name', 'username', 'profile_photo_path'])
             ->get();
     }
 
+    /**
+     * @return Collection<int, User>
+     */
     public function getOtherUsers(int $currentUserId)
-{
-    return User::where('id', '!=', $currentUserId)->get();
-}
+    {
+        return User::where('id', '!=', $currentUserId)->get();
+    }
 
     /**
      * Get a user by username with their posts, images, and counts.
