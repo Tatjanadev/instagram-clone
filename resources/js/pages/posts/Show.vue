@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { ArrowLeft } from 'lucide-vue-next';
-import PostCard from '@/components/posts/PostCard.vue';
+import { Link } from "@inertiajs/vue3";
+import { ArrowLeft } from "lucide-vue-next";
+import PostCard from "@/components/posts/PostCard.vue";
 
 defineProps<{
     post: {
@@ -13,6 +13,11 @@ defineProps<{
             id: number;
             image_path: string;
         }>;
+        user: {
+            id: number;
+            username: string;
+            profile_photo_path: string | null;
+        };
     };
     currentUserId: number;
 }>();
@@ -34,6 +39,8 @@ defineProps<{
             :id="post.id"
             :user-id="post.user_id"
             :current-user-id="currentUserId"
+            :username="post.user.username"
+            :profile-photo-path="post.user.profile_photo_path"
             :title="post.title"
             :description="post.description"
             :image-path="
