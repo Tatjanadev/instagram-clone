@@ -12,10 +12,10 @@ defineProps<{
             image_path: string;
         }>;
         user: {
-            id:number;
-            username:string;
+            id: number;
+            username: string;
             profile_photo_path: string | null;
-        }
+        };
     }>;
     currentUserId: number;
 }>();

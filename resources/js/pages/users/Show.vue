@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Head } from "@inertiajs/vue3";
-import { show as profileShow } from "@/routes/profile";
-import { Link } from "@inertiajs/vue3";
-import { edit as userEdit } from "@/routes/user";
-import PostGrid from "@/components/posts/PostGrid.vue";
-import ProfileHeader from "@/components/users/ProfileHeader.vue";
-import type { ProfileUser } from "@/types/user";
+import { Head } from '@inertiajs/vue3';
+import { show as profileShow } from '@/routes/profile';
+import { Link } from '@inertiajs/vue3';
+import { edit as userEdit } from '@/routes/user';
+import PostGrid from '@/components/posts/PostGrid.vue';
+import ProfileHeader from '@/components/users/ProfileHeader.vue';
+import type { ProfileUser } from '@/types/user';
 
 defineProps<{
     user: ProfileUser;
@@ -16,7 +16,7 @@ defineOptions({
     layout: {
         breadcrumbs: [
             {
-                title: "Profile",
+                title: 'Profile',
                 href: profileShow(),
             },
         ],

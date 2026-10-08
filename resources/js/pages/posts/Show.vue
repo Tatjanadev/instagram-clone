@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Link } from "@inertiajs/vue3";
-import { ArrowLeft } from "lucide-vue-next";
-import PostCard from "@/components/posts/PostCard.vue";
+import { Link } from '@inertiajs/vue3';
+import { ArrowLeft } from 'lucide-vue-next';
+import PostCard from '@/components/posts/PostCard.vue';
 
 defineProps<{
     post: {

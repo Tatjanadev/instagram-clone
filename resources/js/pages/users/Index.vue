@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import PostCard from "@/components/posts/PostCard.vue";
+import PostCard from '@/components/posts/PostCard.vue';
 import { Link } from '@inertiajs/vue3';
-import type { Post } from "@/types/post";
-import type { User } from "@/types/user";
+import type { Post } from '@/types/post';
+import type { User } from '@/types/user';
 import { show as userShow } from '@/routes/users';
 
 defineProps<{

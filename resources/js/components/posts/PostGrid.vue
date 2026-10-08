@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Link } from "@inertiajs/vue3";
-import { show as postShow } from "@/routes/posts";
+import { Link } from '@inertiajs/vue3';
+import { show as postShow } from '@/routes/posts';
 
 type PostImage = {
     id: number;

@@ -26,10 +26,8 @@ const deletePost = () => {
 
 <template>
     <div class="card bg-base-100 w-96 shadow-sm">
-            <Link
-        :href="userShow(username)"
-         class="flex items-center gap-3 p-4">
-    >
+        <Link :href="userShow(username)" class="flex items-center gap-3 p-4">
+            >
             <div class="avatar">
                 <div class="h-10 w-10 rounded-full">
                     <img

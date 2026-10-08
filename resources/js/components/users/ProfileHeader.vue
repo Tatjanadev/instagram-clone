@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ProfileUser } from "@/types/user";
+import type { ProfileUser } from '@/types/user';
 
 defineProps<{
     user: ProfileUser;
