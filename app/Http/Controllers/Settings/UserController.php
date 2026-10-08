@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileDeleteRequest;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
 use App\Repositories\PostRepository;
+use App\Services\FollowService;
 use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -20,6 +21,7 @@ class UserController extends Controller
 {
     public function __construct(
         private UserService $userService,
+        private FollowService $followService,
         private PostRepository $postRepository
     ) {}
 
@@ -59,9 +61,17 @@ class UserController extends Controller
     {
         $user = $this->userService->getUserByUsername($username);
 
+        $currentUserId = (int) Auth::id();
+
+        $isFollowing = $this->followService->isFollowing(
+            $currentUserId,
+            $user->id
+        );
+
         return Inertia::render('users/Show', [
             'user' => $user,
             'isOwnProfile' => false,
+            'isFollowing' => $isFollowing,
         ]);
     }
 
