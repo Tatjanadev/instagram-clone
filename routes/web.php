@@ -10,6 +10,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('profile', [UserController::class, 'show'])
         ->name('profile.show');
 
+    Route::get('users', [UserController::class, 'index'])
+        ->name('users.index');
+
+    Route::get('users/{username}', [UserController::class, 'showPublic'])
+        ->name('users.show');
+
     Route::resource('posts', PostController::class);
 });
 
