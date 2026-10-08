@@ -11,6 +11,11 @@ defineProps<{
             id: number;
             image_path: string;
         }>;
+        user: {
+            id: number;
+            username: string;
+            profile_photo_path: string | null;
+        };
     }>;
     currentUserId: number;
 }>();
@@ -36,6 +41,8 @@ defineProps<{
                 "
                 :user-id="post.user_id"
                 :current-user-id="currentUserId"
+                :username="post.user.username"
+                :profile-photo-path="post.user.profile_photo_path"
             />
         </div>
     </div>

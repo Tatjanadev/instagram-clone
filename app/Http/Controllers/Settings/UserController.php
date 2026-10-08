@@ -6,6 +6,7 @@ use App\DTOs\Users\UpdateUserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileDeleteRequest;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
+use App\Repositories\PostRepository;
 use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -17,19 +18,50 @@ use Inertia\Response;
 
 class UserController extends Controller
 {
-    private UserService $userService;
+    public function __construct(
+        private UserService $userService,
+        private PostRepository $postRepository
+    ) {}
 
-    public function __construct(UserService $userService)
+    /**
+     * Show all user profiles
+     */
+    public function index(): Response
     {
-        $this->userService = $userService;
+        $currentUserId = (int) Auth::id();
+        $users = $this->userService->getOtherUsers($currentUserId);
+        $posts = $this->postRepository->getLatestPostPerUser($currentUserId);
+
+        return Inertia::render('users/Index', [
+            'users' => $users,
+            'posts' => $posts,
+            'currentUserId' => Auth::id(),
+        ]);
     }
 
+    /**
+     * Show user profile page
+     */
     public function show(Request $request): Response
     {
         $user = $this->userService->getUser($request->user()->id);
 
-        return Inertia::render('Profile', [
+        return Inertia::render('users/Show', [
             'user' => $user,
+            'isOwnProfile' => true,
+        ]);
+    }
+
+    /**
+     * Show other user Profile
+     */
+    public function showPublic(string $username): Response
+    {
+        $user = $this->userService->getUserByUsername($username);
+
+        return Inertia::render('users/Show', [
+            'user' => $user,
+            'isOwnProfile' => false,
         ]);
     }
 
@@ -38,7 +70,7 @@ class UserController extends Controller
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('settings/Profile', [
+        return Inertia::render('users/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => $request->session()->get('status'),
         ]);
