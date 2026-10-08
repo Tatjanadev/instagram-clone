@@ -6,6 +6,7 @@ use App\DTOs\Users\UpdateUserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileDeleteRequest;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
+use App\Repositories\PostRepository;
 use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -17,11 +18,11 @@ use Inertia\Response;
 
 class UserController extends Controller
 {
-    private UserService $userService;
-
-    public function __construct(UserService $userService)
-    {
-        $this->userService = $userService;
+    public function __construct(
+        private UserService $userService,
+        private PostRepository $postRepository
+    ) {
+        
     }
 
     /**
@@ -29,10 +30,13 @@ class UserController extends Controller
      */
     public function index(): Response
     {
-        $users = $this->userService->getUsers();
+        $users = $this->userService->getOtherUsers(Auth::id());
+        $posts = $this->postRepository->getLatestPostPerUser(Auth::id());
 
         return Inertia::render('users/Index', [
             'users' => $users,
+            'posts' => $posts,
+            'currentUserId' => Auth::id(),
         ]);
     }
 

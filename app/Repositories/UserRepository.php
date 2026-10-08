@@ -31,6 +31,11 @@ class UserRepository
             ->get();
     }
 
+    public function getOtherUsers(int $currentUserId)
+{
+    return User::where('id', '!=', $currentUserId)->get();
+}
+
     /**
      * Get a user by username with their posts, images, and counts.
      */

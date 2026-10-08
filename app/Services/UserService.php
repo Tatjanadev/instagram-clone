@@ -24,6 +24,11 @@ class UserService
         return $this->userRepository->getUsers();
     }
 
+    public function getOtherUsers(int $currentUserId)
+{
+    return $this->userRepository->getOtherUsers($currentUserId);
+}
+
     public function getUserByUsername(string $username): User
     {
         return $this->userRepository->getUserByUsername($username);
