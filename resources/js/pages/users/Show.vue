@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import { show as profileShow } from '@/routes/profile';
-import { Link } from '@inertiajs/vue3';
 import { edit as userEdit } from '@/routes/user';
 import PostGrid from '@/components/posts/PostGrid.vue';
 import ProfileHeader from '@/components/users/ProfileHeader.vue';
 import type { ProfileUser } from '@/types/user';
+import { follow, unfollow } from '@/routes/users';
 
-defineProps<{
+const props = defineProps<{
     user: ProfileUser;
     isOwnProfile: boolean;
+    isFollowing: boolean;
 }>();
 
 defineOptions({
@@ -22,6 +23,14 @@ defineOptions({
         ],
     },
 });
+
+function followUser() {
+    router.post(follow(props.user.id).url);
+}
+
+function unfollowUser() {
+    router.delete(unfollow(props.user.id).url);
+}
 </script>
 
 <template>
@@ -37,7 +46,22 @@ defineOptions({
         >
             Edit Profile
         </Link>
-    </div>
 
+        <button
+            v-if="!isOwnProfile && !isFollowing"
+            class="btn btn-primary mt-3"
+            @click="followUser"
+        >
+            Follow
+        </button>
+
+        <button
+            v-if="!isOwnProfile && isFollowing"
+            class="btn btn-outline mt-3"
+            @click="unfollowUser"
+        >
+            Unfollow
+        </button>
+    </div>
     <PostGrid :posts="user.posts" />
 </template>
