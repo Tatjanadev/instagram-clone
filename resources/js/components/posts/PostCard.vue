@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { Link, router } from '@inertiajs/vue3';
 import { Heart } from 'lucide-vue-next';
+import { show as userShow } from '@/routes/users';
 
 const props = defineProps<{
     id: number;
     userId: number;
     currentUserId: number;
+    username: string;
+    profilePhotoPath: string | null;
     title: string;
     description: string | null;
     imagePath: string | null;
@@ -23,6 +26,28 @@ const deletePost = () => {
 
 <template>
     <div class="card bg-base-100 w-96 shadow-sm">
+        <Link :href="userShow(username)" class="flex items-center gap-3 p-4">
+            <div class="avatar">
+                <div class="h-10 w-10 rounded-full">
+                    <img
+                        v-if="profilePhotoPath"
+                        :src="`/storage/${profilePhotoPath}`"
+                        alt="Profile photo"
+                    />
+
+                    <div
+                        v-else
+                        class="bg-base-300 flex h-10 w-10 items-center justify-center rounded-full font-semibold"
+                    >
+                        {{ username.charAt(0).toUpperCase() }}
+                    </div>
+                </div>
+            </div>
+
+            <span class="font-semibold">
+                {{ username }}
+            </span>
+        </Link>
         <Link :href="`/posts/${id}`">
             <figure v-if="imagePath">
                 <img :src="imagePath" :alt="title" />

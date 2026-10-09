@@ -20,9 +20,27 @@ class PostRepository
             ->get();
     }
 
+    /**
+     * Summary of getLatestPostPerUser
+     *
+     * @return Collection<int, Post>|\Illuminate\Support\Collection<int, \stdClass>
+     */
+    public function getLatestPostPerUser(int $currentUserId)
+    {
+        return Post::with(['images', 'user'])
+            ->where('user_id', '!=', $currentUserId)
+            ->latest()
+            ->get()
+            ->unique('user_id')
+            ->values();
+    }
+
+    /**
+     * Summary of getPostById
+     */
     public function getPostById(int $id): Post
     {
-        return Post::with('images')->findOrFail($id);
+        return Post::with(['images', 'user'])->findOrFail($id);
     }
 
     public function create(
@@ -94,6 +112,9 @@ class PostRepository
         return $post->load('images');
     }
 
+    /**
+     * Summary of deletePost
+     */
     public function deletePost(Post $post): void
     {
         foreach ($post->images as $image) {
