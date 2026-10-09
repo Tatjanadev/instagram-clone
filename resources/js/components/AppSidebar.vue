@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, FolderGit2, LayoutGrid } from '@lucide/vue';
+import { CirclePlus, UserRoundSearch, UserStar } from '@lucide/vue';
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
+import { index as usersIndex } from '@/routes/users';
+import { create as postCreate } from '@/routes/posts';
+import { show as profileShow } from '@/routes/profile';
 import {
     Sidebar,
     SidebarContent,
@@ -14,29 +17,26 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { show as profileShow } from '@/routes/profile';
 import type { NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Profile',
+        title: 'Users',
+        href: usersIndex(),
+        icon: UserRoundSearch,
+    },
+    {
+        title: 'Create Post',
+        href: postCreate(),
+        icon: CirclePlus,
+    },
+    {
+        title: 'My Profile',
         href: profileShow(),
-        icon: LayoutGrid,
+        icon: UserStar,
     },
 ];
-
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: FolderGit2,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
-    },
-];
+const footerNavItems: NavItem[] = [];
 </script>
 
 <template>
