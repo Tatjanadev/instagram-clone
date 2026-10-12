@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\Settings\UserController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::delete('users/{followingId}/follow', [FollowController::class, 'destroy'])
         ->name('users.unfollow');
+
+    Route::get('likes', [LikeController::class, 'index'])
+        ->name('likes.index');
+
+    Route::post('posts/{postId}/like', [LikeController::class, 'store'])
+        ->name('posts.like');
+
+    Route::delete('posts/{postId}/like', [LikeController::class, 'destory'])
+        ->name('posts.unlike');
+
+    Route::get('posts/{postId}/likes', [LikeController::class, 'likedBy'])
+        ->name('posts.liked-by');
 });
 
 require __DIR__.'/settings.php';
