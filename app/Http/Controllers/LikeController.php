@@ -15,7 +15,7 @@ class LikeController extends Controller
         private LikeService $likeService
     ) {}
 
-    public function index():Response
+    public function index(): Response
     {
         $userId = (int) Auth::id();
 
@@ -26,12 +26,16 @@ class LikeController extends Controller
         ]);
     }
 
-    public function store(int $postId): RedirectResponse 
+    public function store(int $postId): JsonResponse
     {
         $userId = (int) Auth::id();
         $this->likeService->like($userId, $postId);
-        return back();
+
+        return response()->json([
+            'message' => 'Post liked successfully.',
+        ]);
     }
+
     public function likedBy(int $postId): JsonResponse
     {
         $likes = $this->likeService->getUsersWhoLikedPost($postId);
@@ -41,10 +45,13 @@ class LikeController extends Controller
         ]);
     }
 
-    public function destroy(int $postId): RedirectResponse
+    public function destroy(int $postId): JsonResponse
     {
         $userId = (int) Auth::id();
         $this->likeService->unlike($userId, $postId);
-        return back();
+
+        return response()->json([
+            'message' => 'Like removed successfully.'
+        ]);
     }
 }
