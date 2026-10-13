@@ -4,9 +4,20 @@ use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\Settings\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Welcome')->name('home');
+
+Route::post('language/{locale}', function (Request $request, string $locale) {
+    if (! in_array($locale, ['en', 'cy', 'nb'], true)) {
+        abort(404);
+    }
+    // Save the selected language in the user's session.
+    $request->session()->put('locale', $locale);
+
+    return back();
+})->name('language.update');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('profile', [UserController::class, 'show'])
