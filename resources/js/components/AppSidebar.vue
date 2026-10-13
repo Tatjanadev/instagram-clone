@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { CirclePlus, UserRoundSearch, UserStar } from '@lucide/vue';
-import AppLogo from '@/components/AppLogo.vue';
-import NavFooter from '@/components/NavFooter.vue';
-import NavMain from '@/components/NavMain.vue';
-import NavUser from '@/components/NavUser.vue';
-import { index as usersIndex } from '@/routes/users';
-import { create as postCreate } from '@/routes/posts';
-import { show as profileShow } from '@/routes/profile';
+import { Link, router } from "@inertiajs/vue3";
+import { useI18n } from "vue-i18n";
+import { computed } from "vue";
+import { CirclePlus, UserRoundSearch, UserStar } from "@lucide/vue";
+import AppLogo from "@/components/AppLogo.vue";
+import NavFooter from "@/components/NavFooter.vue";
+import NavMain from "@/components/NavMain.vue";
+import NavUser from "@/components/NavUser.vue";
+import { index as usersIndex } from "@/routes/users";
+import { create as postCreate } from "@/routes/posts";
+import { show as profileShow } from "@/routes/profile";
 import {
     Sidebar,
     SidebarContent,
@@ -16,26 +18,41 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-} from '@/components/ui/sidebar';
-import type { NavItem } from '@/types';
+} from "@/components/ui/sidebar";
 
-const mainNavItems: NavItem[] = [
+import type { NavItem } from "@/types";
+
+const { t, locale } = useI18n();
+
+function changeLanguage(language: string) {
+    // Change the language immediately in Vue.
+    locale.value = language;
+
+    // Remember the selected language in the browser.
+    localStorage.setItem("locale", language);
+
+    // Also save the language in Laravel's session for backend translations.
+    router.post(`/language/${language}`);
+}
+
+const mainNavItems = computed<NavItem[]>(() => [
     {
-        title: 'Users',
+        title: t("navigation.users"),
         href: usersIndex(),
         icon: UserRoundSearch,
     },
     {
-        title: 'Create Post',
+        title: t("navigation.create_post"),
         href: postCreate(),
         icon: CirclePlus,
     },
     {
-        title: 'My Profile',
+        title: t("navigation.my_profile"),
         href: profileShow(),
         icon: UserStar,
     },
-];
+]);
+
 const footerNavItems: NavItem[] = [];
 </script>
 
@@ -58,6 +75,13 @@ const footerNavItems: NavItem[] = [];
         </SidebarContent>
 
         <SidebarFooter>
+            <div class="flex gap-2 px-2">
+                <button @click="changeLanguage('en')">EN</button>
+
+                <button @click="changeLanguage('nb')">NO</button>
+
+                <button @click="changeLanguage('cy')">CY</button>
+            </div>
             <NavFooter :items="footerNavItems" />
             <NavUser />
         </SidebarFooter>
