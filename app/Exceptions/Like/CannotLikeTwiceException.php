@@ -10,7 +10,7 @@ class CannotLikeTwiceException extends Exception
     public function render(): JsonResponse
     {
         return response()->json([
-            'message' => 'You have already liked this post.',
+            'message' => __('likes.already_liked')
         ], 422);
     }
 }

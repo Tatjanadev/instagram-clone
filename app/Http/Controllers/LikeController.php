@@ -32,7 +32,7 @@ class LikeController extends Controller
         $this->likeService->like($userId, $postId);
 
         return response()->json([
-            'message' => 'Post liked successfully.',
+            'message' => __('likes.post_liked'),
         ]);
     }
 
@@ -51,7 +51,7 @@ class LikeController extends Controller
         $this->likeService->unlike($userId, $postId);
 
         return response()->json([
-            'message' => 'Like removed successfully.'
+            'message' => __('likes.post_unliked'),
         ]);
     }
 }
