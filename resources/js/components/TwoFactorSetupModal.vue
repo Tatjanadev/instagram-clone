@@ -1,71 +1,72 @@
 <script setup lang="ts">
-import { Form } from '@inertiajs/vue3';
-import { useClipboard } from '@vueuse/core';
-import { Check, Copy, ScanLine } from '@lucide/vue';
-import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
-import AlertError from '@/components/AlertError.vue';
-import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui/button';
+import { Form } from "@inertiajs/vue3";
+import { useClipboard } from "@vueuse/core";
+import { Check, Copy, ScanLine } from "@lucide/vue";
+import { computed, nextTick, ref, useTemplateRef, watch } from "vue";
+import AlertError from "@/components/AlertError.vue";
+import InputError from "@/components/InputError.vue";
+import { Button } from "@/components/ui/button";
+import { useI18n } from "vue-i18n";
 import {
     Dialog,
     DialogContent,
     DialogDescription,
     DialogHeader,
     DialogTitle,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import {
     InputOTP,
     InputOTPGroup,
     InputOTPSlot,
-} from '@/components/ui/input-otp';
-import { Spinner } from '@/components/ui/spinner';
-import { useAppearance } from '@/composables/useAppearance';
-import { useTwoFactorAuth } from '@/composables/useTwoFactorAuth';
-import { confirm } from '@/routes/two-factor';
-import type { TwoFactorConfigContent } from '@/types';
+} from "@/components/ui/input-otp";
+import { Spinner } from "@/components/ui/spinner";
+import { useAppearance } from "@/composables/useAppearance";
+import { useTwoFactorAuth } from "@/composables/useTwoFactorAuth";
+import { confirm } from "@/routes/two-factor";
+import type { TwoFactorConfigContent } from "@/types";
 
 type Props = {
     requiresConfirmation: boolean;
     twoFactorEnabled: boolean;
 };
 
+const { t } = useI18n();
+
 const { resolvedAppearance } = useAppearance();
 
 const props = defineProps<Props>();
-const isOpen = defineModel<boolean>('isOpen');
+const isOpen = defineModel<boolean>("isOpen");
 
 const { copy, copied } = useClipboard();
 const { qrCodeSvg, manualSetupKey, clearSetupData, fetchSetupData, errors } =
     useTwoFactorAuth();
 
 const showVerificationStep = ref(false);
-const code = ref<string>('');
+const code = ref<string>("");
 
-const pinInputContainerRef = useTemplateRef('pinInputContainerRef');
+const pinInputContainerRef = useTemplateRef("pinInputContainerRef");
 
 const modalConfig = computed<TwoFactorConfigContent>(() => {
     if (props.twoFactorEnabled) {
         return {
-            title: 'Two-factor authentication enabled',
-            description:
-                'Two-factor authentication is now enabled. Scan the QR code or enter the setup key in your authenticator app.',
-            buttonText: 'Close',
+            title: t("twoFactor.authentication_enabled_title"),
+            description: t("twoFactor.authentication_enabled_description"),
+            buttonText: t("twoFactor.close"),
         };
     }
 
     if (showVerificationStep.value) {
         return {
-            title: 'Verify authentication code',
-            description: 'Enter the 6-digit code from your authenticator app',
-            buttonText: 'Continue',
+            title: t("twoFactor.verify_code_title"),
+            description: t("twoFactor.verify_code_description"),
+            buttonText: t("twoFactor.continue"),
         };
     }
 
     return {
-        title: 'Enable two-factor authentication',
-        description:
-            'To finish enabling two-factor authentication, scan the QR code or enter the setup key in your authenticator app',
-        buttonText: 'Continue',
+        title: t("twoFactor.enable_authentication_title"),
+        description: t("twoFactor.enable_authentication_description"),
+        buttonText: t("twoFactor.continue"),
     };
 });
 
@@ -74,7 +75,7 @@ const handleModalNextStep = () => {
         showVerificationStep.value = true;
 
         nextTick(() => {
-            pinInputContainerRef.value?.querySelector('input')?.focus();
+            pinInputContainerRef.value?.querySelector("input")?.focus();
         });
 
         return;
@@ -90,7 +91,7 @@ const resetModalState = () => {
     }
 
     showVerificationStep.value = false;
-    code.value = '';
+    code.value = "";
 };
 
 watch(
@@ -196,9 +197,9 @@ watch(
                             <div
                                 class="bg-border absolute inset-0 top-1/2 h-px w-full"
                             />
-                            <span class="bg-card relative px-2 py-1"
-                                >or, enter the code manually</span
-                            >
+                            <span class="bg-card relative px-2 py-1">{{
+                                t("twoFactor.manual_code")
+                            }}</span>
                         </div>
 
                         <div
@@ -279,14 +280,14 @@ watch(
                                     @click="showVerificationStep = false"
                                     :disabled="processing"
                                 >
-                                    Back
+                                    {{ t("twoFactor.back") }}
                                 </Button>
                                 <Button
                                     type="submit"
                                     class="w-auto flex-1"
                                     :disabled="processing || code.length < 6"
                                 >
-                                    Confirm
+                                    {{ t("twoFactor.confirm") }}
                                 </Button>
                             </div>
                         </div>
