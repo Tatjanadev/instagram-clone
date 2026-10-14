@@ -30,6 +30,9 @@ import { useCurrentUrl } from '@/composables/useCurrentUrl';
 import { getInitials } from '@/composables/useInitials';
 import { show as profileShow } from '@/routes/profile';
 import type { BreadcrumbItem, NavItem } from '@/types';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 type Props = {
     breadcrumbs?: BreadcrumbItem[];
@@ -46,13 +49,13 @@ const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
 const activeItemStyles =
     'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
 
-const mainNavItems: NavItem[] = [
+const mainNavItems = computed<NavItem[]>(() => [
     {
-        title: 'Profile',
+        title: t('navigation.profile'),
         href: profileShow(),
         icon: LayoutGrid,
     },
-];
+]);
 </script>
 
 <template>
@@ -73,7 +76,7 @@ const mainNavItems: NavItem[] = [
                         </SheetTrigger>
                         <SheetContent side="left" class="w-75 p-6">
                             <SheetTitle class="sr-only"
-                                >Navigation menu</SheetTitle
+                                >{{ t('navigation.navigation_menu') }}</SheetTitle
                             >
                             <SheetHeader class="flex justify-start text-left">
                                 <AppLogoIcon
