@@ -24,7 +24,9 @@ import type { NavItem } from "@/types";
 
 const { t, locale } = useI18n();
 
-function changeLanguage(language: string) {
+type Language = "en" | "nb" | "cy";
+
+function changeLanguage(language: Language) {
     // Change the language immediately in Vue.
     locale.value = language;
 
@@ -76,11 +78,26 @@ const footerNavItems: NavItem[] = [];
 
         <SidebarFooter>
             <div class="flex gap-2 px-2">
-                <button @click="changeLanguage('en')">EN</button>
+                <button
+                    :class="{ 'font-bold underline': locale === 'en' }"
+                    @click="changeLanguage('en')"
+                >
+                    EN
+                </button>
 
-                <button @click="changeLanguage('nb')">NO</button>
+                <button
+                    :class="{ 'font-bold underline': locale === 'nb' }"
+                    @click="changeLanguage('nb')"
+                >
+                    NO
+                </button>
 
-                <button @click="changeLanguage('cy')">CY</button>
+                <button
+                    :class="{ 'font-bold underline': locale === 'cy' }"
+                    @click="changeLanguage('cy')"
+                >
+                    CY
+                </button>
             </div>
             <NavFooter :items="footerNavItems" />
             <NavUser />
