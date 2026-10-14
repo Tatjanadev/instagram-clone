@@ -1,0 +1,23 @@
+{
+    "title": "Allweddi mynediad",
+    "description": "Rheoli eich allweddi mynediad ar gyfer mewngofnodi heb gyfrinair",
+    "empty_title": "Dim allweddi mynediad eto",
+    "empty_description": "Ychwanegwch allwedd mynediad i fewngofnodi heb gyfrinair",
+    "added": "Ychwanegwyd",
+    "last_used": "Defnyddiwyd ddiwethaf",
+    "remove": "Tynnu",
+    "remove_passkey": "Tynnu allwedd mynediad",
+    "remove_confirmation": "Ydych chi'n siŵr eich bod am dynnu'r allwedd mynediad \"{name}\"? Ni fyddwch yn gallu ei defnyddio i fewngofnodi mwyach.",
+    "cancel": "Canslo",
+    "removing": "Yn tynnu...",
+    "unsupported": "Nid yw allweddi mynediad yn cael eu cefnogi yn y porwr hwn.",
+    "add_passkey": "Ychwanegu allwedd mynediad",
+    "passkey_name": "Enw'r allwedd mynediad",
+    "passkey_placeholder": "e.e. MacBook Pro, iPhone",
+    "passkey_name_help": "Mae enw yn eich helpu i adnabod yr allwedd mynediad hon yn nes ymlaen.",
+    "registering": "Wrthi'n cofrestru...",
+    "register_passkey": "Cofrestru allwedd mynediad",
+    "authenticating": "Wrthi'n dilysu...",
+    "sign_in_with_passkey": "Mewngofnodi gydag allwedd mynediad",
+    "continue_with_email": "Neu parhewch gydag e-bost"
+}

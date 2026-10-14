@@ -1,0 +1,23 @@
+{
+    "title": "Passnøkler",
+    "description": "Administrer passnøklene dine for innlogging uten passord",
+    "empty_title": "Ingen passnøkler ennå",
+    "empty_description": "Legg til en passnøkkel for å logge inn uten passord",
+    "added": "Lagt til",
+    "last_used": "Sist brukt",
+    "remove": "Fjern",
+    "remove_passkey": "Fjern passnøkkel",
+    "remove_confirmation": "Er du sikker på at du vil fjerne passnøkkelen \"{name}\"? Du vil ikke lenger kunne bruke den til å logge inn.",
+    "cancel": "Avbryt",
+    "removing": "Fjerner...",
+    "unsupported": "Passnøkler støttes ikke i denne nettleseren.",
+    "add_passkey": "Legg til passnøkkel",
+    "passkey_name": "Navn på passnøkkel",
+    "passkey_placeholder": "f.eks. MacBook Pro, iPhone",
+    "passkey_name_help": "Et navn gjør det enklere å kjenne igjen denne passnøkkelen senere.",
+    "registering": "Registrerer...",
+    "register_passkey": "Registrer passnøkkel",
+    "authenticating": "Autentiserer...",
+    "sign_in_with_passkey": "Logg inn med passnøkkel",
+    "continue_with_email": "Eller fortsett med e-post"
+}

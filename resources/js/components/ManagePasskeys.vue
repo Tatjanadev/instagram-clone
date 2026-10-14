@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { router } from '@inertiajs/vue3';
-import { KeyRound } from '@lucide/vue';
-import type { Passkey } from '@/types/auth';
-import Heading from '@/components/Heading.vue';
-import PasskeyItem from '@/components/PasskeyItem.vue';
-import PasskeyRegister from '@/components/PasskeyRegister.vue';
-import { destroy } from '@/actions/Laravel/Passkeys/Http/Controllers/PasskeyRegistrationController';
+import { router } from "@inertiajs/vue3";
+import { KeyRound } from "@lucide/vue";
+import type { Passkey } from "@/types/auth";
+import Heading from "@/components/Heading.vue";
+import PasskeyItem from "@/components/PasskeyItem.vue";
+import PasskeyRegister from "@/components/PasskeyRegister.vue";
+import { destroy } from "@/actions/Laravel/Passkeys/Http/Controllers/PasskeyRegistrationController";
+import { useI18n } from "vue-i18n";
 
 export type Props = {
     canManagePasskeys?: boolean;
@@ -24,6 +25,8 @@ const handleDelete = (id: number, onError: () => void) => {
     });
 };
 
+const { t } = useI18n();
+
 const handleRegisterSuccess = () => {
     router.reload();
 };
@@ -33,8 +36,8 @@ const handleRegisterSuccess = () => {
     <div v-if="canManagePasskeys" class="space-y-6">
         <Heading
             variant="small"
-            title="Passkeys"
-            description="Manage your passkeys for passwordless sign-in"
+            :title="t('managePasskeys.title')"
+            description="t('managePaskkeys.description')"
         />
 
         <div class="border-border overflow-hidden rounded-lg border">
@@ -53,9 +56,9 @@ const handleRegisterSuccess = () => {
                 >
                     <KeyRound class="text-muted-foreground h-7 w-7" />
                 </div>
-                <p class="font-medium">No passkeys yet</p>
+                <p class="font-medium">{{ t("managePasskeys.empty_title") }}</p>
                 <p class="text-muted-foreground mt-1 text-sm">
-                    Add a passkey to sign in without a password
+                    {{ t("managePasskeys.empty_description") }}
                 </p>
             </div>
         </div>
