@@ -50,6 +50,8 @@ class LikeRepository
     }
 
     /**
+     * Summary of getUsersWhoLikedPost
+     *
      * @return Collection<int, Like>
      */
     public function getUsersWhoLikedPost(int $postId): Collection
