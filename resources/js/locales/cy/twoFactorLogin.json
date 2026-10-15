@@ -1,0 +1,11 @@
+{
+    "recovery_code": "Cod adfer",
+    "recovery_code_description": "Cadarnhewch fynediad i'ch cyfrif drwy nodi un o'ch codau adfer brys.",
+    "login_using_authentication_code": "mewngofnodi gan ddefnyddio cod dilysu",
+    "authentication_code": "Cod dilysu",
+    "authentication_code_description": "Rhowch y cod dilysu a ddarperir gan eich ap dilysu.",
+    "login_using_recovery_code": "mewngofnodi gan ddefnyddio cod adfer",
+    "continue": "Parhau",
+    "or_you_can": "neu gallwch",
+    "enter_recovery_code": "Rhowch god adfer"
+}

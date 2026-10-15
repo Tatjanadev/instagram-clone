@@ -1,0 +1,10 @@
+{
+    "title": "Gosodiadau diogelwch",
+    "update_password": {
+        "title": "Diweddaru cyfrinair",
+        "description": "Sicrhewch fod eich cyfrif yn defnyddio cyfrinair hir, ar hap i aros yn ddiogel"
+    },
+    "current_password": "Cyfrinair presennol",
+    "confirm_password": "Cadarnhau cyfrinair",
+    "save": "Cadw"
+}

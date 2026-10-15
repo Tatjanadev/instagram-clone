@@ -30,6 +30,27 @@ import cyPassword from '@/locales/cy/password.json';
 import enUserMenu from '@/locales/en/userMenu.json';
 import cyUserMenu from '@/locales/cy/userMenu.json';
 import nbUserMenu from '@/locales/nb/userMenu.json';
+import enPosts from '@/locales/en/posts.json';
+import cyPosts from '@/locales/cy/posts.json';
+import nbPosts from '@/locales/nb/posts.json';
+import enLogin from '@/locales/en/login.json';
+import cyLogin from '@/locales/cy/login.json';
+import nbLogin from '@/locales/nb/login.json';
+import enRegister from '@/locales/en/register.json';
+import cyRegister from '@/locales/cy/register.json';
+import nbRegister from '@/locales/nb/register.json';
+import enTwoFactorLogin from '@/locales/en/twoFactorLogin.json';
+import cyTwoFactorLogin from '@/locales/cy/twoFactorLogin.json';
+import nbTwoFactorLogin from '@/locales/nb/twoFactorLogin.json';
+import enEmailVerification from '@/locales/en/emailVerification.json';
+import cyEmailVerification from '@/locales/cy/emailVerification.json';
+import nbEmailVerification from '@/locales/nb/emailVerification.json';
+import enSecurity from '@/locales/en/security.json';
+import nbSecurity from '@/locales/nb/security.json';
+import cySecurity from '@/locales/cy/security.json';
+import enProfile from '@/locales/en/profile.json';
+import cyProfile from '@/locales/cy/profile.json';
+import nbProfile from '@/locales/nb/profile.json';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -47,6 +68,13 @@ const i18n = createI18n({
             twoFactor: enTwoFactor,
             password: enPassword,
             userMenu: enUserMenu,
+            posts: enPosts,
+            login: enLogin,
+            register: enRegister,
+            twoFactorLogin: enTwoFactorLogin,
+            emailVerification: enEmailVerification,
+            security: enSecurity,
+            profile: enProfile,
         },
         nb: {
             navigation: nbNavigation,
@@ -56,7 +84,14 @@ const i18n = createI18n({
             managePasskeys: nbManagePasskeys,
             twoFactor: nbTwoFactor,
             password: nbPassword,
-            userMenu: cyUserMenu,
+            userMenu: nbUserMenu,
+            posts: nbPosts,
+            login: nbLogin,
+            register: nbRegister,
+            twoFactorLogin: nbTwoFactorLogin,
+            emailVerification: nbEmailVerification,
+            security: nbSecurity,
+            profile: nbProfile,
         },
         cy: {
             navigation: cyNavigation,
@@ -66,7 +101,14 @@ const i18n = createI18n({
             managePasskeys: cyManagePasskeys,
             twoFactor: cyTwoFactor,
             password: cyPassword,
-            userMenu: nbUserMenu,
+            userMenu: cyUserMenu,
+            posts: cyPosts,
+            login: cyLogin,
+            register: cyRegister,
+            twoFactorLogin: cyTwoFactorLogin,
+            emailVerification: cyEmailVerification,
+            security: cySecurity,
+            profile: cyProfile,
         },
     },
 });

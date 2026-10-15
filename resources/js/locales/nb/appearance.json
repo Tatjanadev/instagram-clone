@@ -1,5 +1,7 @@
 {
     "light": "Lys",
     "dark": "Mørk",
-    "system": "System"
+    "system": "System",
+    "title": "Utseendeinnstillinger",
+    "description": "Oppdater utseendeinnstillingene for kontoen din"
 }

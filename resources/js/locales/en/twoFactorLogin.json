@@ -1,0 +1,11 @@
+{
+    "recovery_code": "Recovery code",
+    "recovery_code_description": "Please confirm access to your account by entering one of your emergency recovery codes.",
+    "login_using_authentication_code": "login using an authentication code",
+    "authentication_code": "Authentication code",
+    "authentication_code_description": "Enter the authentication code provided by your authenticator application.",
+    "login_using_recovery_code": "login using a recovery code",
+    "continue": "Continue",
+    "or_you_can": "or you can",
+    "enter_recovery_code": "Enter recovery code"
+}

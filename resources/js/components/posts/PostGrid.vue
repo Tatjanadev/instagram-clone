@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import { show as postShow } from '@/routes/posts';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 type PostImage = {
     id: number;
@@ -29,7 +32,7 @@ defineProps<{
                 <img
                     v-if="post.images.length > 0"
                     :src="`/storage/${post.images[0].image_path}`"
-                    alt="Post image"
+                    :alt="t('posts.post_image')"
                     class="h-full w-full object-cover transition-opacity duration-200 group-hover:opacity-90"
                 />
             </Link>

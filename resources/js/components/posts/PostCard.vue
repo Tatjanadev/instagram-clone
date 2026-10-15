@@ -2,6 +2,9 @@
 import { Link, router } from '@inertiajs/vue3';
 import { Heart } from 'lucide-vue-next';
 import { show as userShow } from '@/routes/users';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps<{
     id: number;
@@ -14,12 +17,11 @@ const props = defineProps<{
     imagePath: string | null;
 }>();
 const deletePost = () => {
-    const confirmed = window.confirm(
-        'Are you sure you want to delete this post?',
-    );
+    const confirmed = window.confirm(t('posts.delete_confirmation'));
     if (!confirmed) {
         return;
     }
+
     router.delete(`/posts/${props.id}`);
 };
 </script>
@@ -32,7 +34,7 @@ const deletePost = () => {
                     <img
                         v-if="profilePhotoPath"
                         :src="`/storage/${profilePhotoPath}`"
-                        alt="Profile photo"
+                        :alt="t('posts.profile_photo')"
                     />
 
                     <div
@@ -68,7 +70,7 @@ const deletePost = () => {
             <button
                 type="button"
                 class="btn btn-ghost btn-circle tooltip"
-                data-tip="Like"
+                :data-tip="t('posts.like')"
             >
                 <Heart :size="22" />
             </button>
@@ -78,7 +80,7 @@ const deletePost = () => {
                 :href="`/posts/${id}/edit`"
                 class="btn btn-sm btn-accent"
             >
-                Edit
+                {{ t('posts.edit') }}
             </Link>
 
             <button
@@ -87,7 +89,7 @@ const deletePost = () => {
                 class="btn btn-sm btn-error"
                 @click="deletePost"
             >
-                Delete
+                {{ t('posts.delete') }}
             </button>
         </div>
     </div>

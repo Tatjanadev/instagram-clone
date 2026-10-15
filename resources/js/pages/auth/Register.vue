@@ -9,6 +9,9 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { login } from '@/routes';
 import { store } from '@/routes/register';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 defineProps<{
     passwordRules: string;
@@ -23,7 +26,7 @@ defineOptions({
 </script>
 
 <template>
-    <Head title="Register" />
+    <Head :title="t('register.title')" />
 
     <Form
         v-bind="store.form()"
@@ -33,7 +36,9 @@ defineOptions({
     >
         <div class="grid gap-6">
             <div class="grid gap-2">
-                <Label for="name">First Name</Label>
+                <Label for="first_name">
+                    {{ t('register.first_name') }}
+                </Label>
                 <Input
                     id="first_name"
                     type="text"
@@ -42,12 +47,14 @@ defineOptions({
                     :tabindex="1"
                     autocomplete="name"
                     name="first_name"
-                    placeholder="First name"
+                    :placeholder="t('register.first_name')"
                 />
                 <InputError :message="errors.first_name" />
             </div>
             <div class="grid gap-2">
-                <Label for="last_name">Last name</Label>
+                <Label for="last_name">
+                    {{ t('register.last_name') }}
+                </Label>
                 <Input
                     id="last_name"
                     type="text"
@@ -55,13 +62,15 @@ defineOptions({
                     :tabindex="2"
                     autocomplete="family-name"
                     name="last_name"
-                    placeholder="Last name"
+                    :placeholder="t('register.last_name')"
                 />
                 <InputError :message="errors.last_name" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="username">Username</Label>
+                <Label for="username">
+                    {{ t('register.username') }}
+                </Label>
                 <Input
                     id="username"
                     type="text"
@@ -69,12 +78,14 @@ defineOptions({
                     :tabindex="3"
                     autocomplete="username"
                     name="username"
-                    placeholder="Username"
+                    :placeholder="t('register.username')"
                 />
                 <InputError :message="errors.username" />
             </div>
             <div class="grid gap-2">
-                <Label for="email">Email address</Label>
+                <Label for="email">
+                    {{ t('password.email_address') }}
+                </Label>
                 <Input
                     id="email"
                     type="email"
@@ -88,28 +99,32 @@ defineOptions({
             </div>
 
             <div class="grid gap-2">
-                <Label for="password">Password</Label>
+                <Label for="password">
+                    {{ t('password.password') }}
+                </Label>
                 <PasswordInput
                     id="password"
                     required
                     :tabindex="5"
                     autocomplete="new-password"
                     name="password"
-                    placeholder="Password"
+                    :placeholder="t('password.password')"
                     :passwordrules="passwordRules"
                 />
                 <InputError :message="errors.password" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="password_confirmation">Confirm password</Label>
+                <Label for="password_confirmation">
+                    {{ t('password.confirm_password') }}
+                </Label>
                 <PasswordInput
                     id="password_confirmation"
                     required
                     :tabindex="6"
                     autocomplete="new-password"
                     name="password_confirmation"
-                    placeholder="Confirm password"
+                    :placeholder="t('password.confirm_password')"
                     :passwordrules="passwordRules"
                 />
                 <InputError :message="errors.password_confirmation" />
@@ -123,18 +138,20 @@ defineOptions({
                 data-test="register-user-button"
             >
                 <Spinner v-if="processing" />
-                Create account
+                {{ t('register.create_account') }}
             </Button>
         </div>
 
+        <
         <div class="text-muted-foreground text-center text-sm">
-            Already have an account?
+            {{ t('register.already_have_account') }}
             <TextLink
                 :href="login()"
                 class="underline underline-offset-4"
                 :tabindex="8"
-                >Log in</TextLink
             >
+                {{ t('login.login') }}
+            </TextLink>
         </div>
     </Form>
 </template>
