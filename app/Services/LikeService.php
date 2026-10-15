@@ -36,6 +36,9 @@ class LikeService
         return $this->likeRepository->isLikedByUser($userId, $postId);
     }
 
+    /**
+     * @return Collection<int, Like>
+     */
     public function getLikedPostsByUser(int $userId): Collection
     {
         return $this->likeRepository->getLikedPostsByUser($userId);
@@ -46,6 +49,9 @@ class LikeService
         return $this->likeRepository->getLikesCountForPost($postId);
     }
 
+    /**
+     * @return Collection<int, Like>
+     */
     public function getUsersWhoLikedPost(int $postId): Collection
     {
         return $this->likeRepository->getUsersWhoLikedPost($postId);

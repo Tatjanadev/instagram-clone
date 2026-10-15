@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\LikeService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -51,7 +50,7 @@ class LikeController extends Controller
         $this->likeService->unlike($userId, $postId);
 
         return response()->json([
-            'message' => 'Like removed successfully.'
+            'message' => 'Like removed successfully.',
         ]);
     }
 }

@@ -49,6 +49,11 @@ class LikeRepository
         return Like::where('post_id', $postId)->count();
     }
 
+    /**
+     * Summary of getUsersWhoLikedPost
+     *
+     * @return Collection<int, Like>
+     */
     public function getUsersWhoLikedPost(int $postId): Collection
     {
         return Like::where('post_id', $postId)
