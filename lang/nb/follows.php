@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     'already_following' => 'Du følger allerede denne brukeren.',

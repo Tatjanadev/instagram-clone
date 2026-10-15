@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { UrlMethodPair } from "@inertiajs/core";
-import { router } from "@inertiajs/vue3";
-import { usePasskeyVerify } from "@laravel/passkeys/vue";
-import { KeyRound } from "@lucide/vue";
-import InputError from "@/components/InputError.vue";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Spinner } from "@/components/ui/spinner";
-import { useI18n } from "vue-i18n";
+import type { UrlMethodPair } from '@inertiajs/core';
+import { router } from '@inertiajs/vue3';
+import { usePasskeyVerify } from '@laravel/passkeys/vue';
+import { KeyRound } from '@lucide/vue';
+import InputError from '@/components/InputError.vue';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Spinner } from '@/components/ui/spinner';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
@@ -33,7 +33,7 @@ const { verify, isLoading, error, isSupported } = usePasskeyVerify({
           }
         : {}),
     onSuccess: (response) => {
-        router.visit(response.redirect ?? "/profile");
+        router.visit(response.redirect ?? '/profile');
     },
 });
 </script>
@@ -53,9 +53,9 @@ const { verify, isLoading, error, isSupported } = usePasskeyVerify({
                 {{
                     isLoading
                         ? (props.loadingLabel ??
-                          t("managePasskeys.authenticating"))
+                          t('managePasskeys.authenticating'))
                         : (props.label ??
-                          t("managePasskeys.sign_in_with_passkey"))
+                          t('managePasskeys.sign_in_with_passkey'))
                 }}
             </Button>
 
@@ -70,7 +70,10 @@ const { verify, isLoading, error, isSupported } = usePasskeyVerify({
             </div>
             <div class="relative flex justify-center text-xs uppercase">
                 <span class="bg-background text-muted-foreground px-2">
-                    {{ props.separator ?? t('managePasskeys.continue_with_email') }}
+                    {{
+                        props.separator ??
+                        t('managePasskeys.continue_with_email')
+                    }}
                 </span>
             </div>
         </div>

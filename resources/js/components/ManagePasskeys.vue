@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { router } from "@inertiajs/vue3";
-import { KeyRound } from "@lucide/vue";
-import type { Passkey } from "@/types/auth";
-import Heading from "@/components/Heading.vue";
-import PasskeyItem from "@/components/PasskeyItem.vue";
-import PasskeyRegister from "@/components/PasskeyRegister.vue";
-import { destroy } from "@/actions/Laravel/Passkeys/Http/Controllers/PasskeyRegistrationController";
-import { useI18n } from "vue-i18n";
+import { router } from '@inertiajs/vue3';
+import { KeyRound } from '@lucide/vue';
+import type { Passkey } from '@/types/auth';
+import Heading from '@/components/Heading.vue';
+import PasskeyItem from '@/components/PasskeyItem.vue';
+import PasskeyRegister from '@/components/PasskeyRegister.vue';
+import { destroy } from '@/actions/Laravel/Passkeys/Http/Controllers/PasskeyRegistrationController';
+import { useI18n } from 'vue-i18n';
 
 export type Props = {
     canManagePasskeys?: boolean;
@@ -56,9 +56,9 @@ const handleRegisterSuccess = () => {
                 >
                     <KeyRound class="text-muted-foreground h-7 w-7" />
                 </div>
-                <p class="font-medium">{{ t("managePasskeys.empty_title") }}</p>
+                <p class="font-medium">{{ t('managePasskeys.empty_title') }}</p>
                 <p class="text-muted-foreground mt-1 text-sm">
-                    {{ t("managePasskeys.empty_description") }}
+                    {{ t('managePasskeys.empty_description') }}
                 </p>
             </div>
         </div>

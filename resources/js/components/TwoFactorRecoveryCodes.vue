@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { Form } from "@inertiajs/vue3";
-import { Eye, EyeOff, LockKeyhole, RefreshCw } from "@lucide/vue";
-import { nextTick, onMounted, ref, useTemplateRef } from "vue";
-import AlertError from "@/components/AlertError.vue";
-import { Button } from "@/components/ui/button";
-import { useI18n } from "vue-i18n";
+import { Form } from '@inertiajs/vue3';
+import { Eye, EyeOff, LockKeyhole, RefreshCw } from '@lucide/vue';
+import { nextTick, onMounted, ref, useTemplateRef } from 'vue';
+import AlertError from '@/components/AlertError.vue';
+import { Button } from '@/components/ui/button';
+import { useI18n } from 'vue-i18n';
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
-import { useTwoFactorAuth } from "@/composables/useTwoFactorAuth";
-import { regenerateRecoveryCodes } from "@/routes/two-factor";
+} from '@/components/ui/card';
+import { useTwoFactorAuth } from '@/composables/useTwoFactorAuth';
+import { regenerateRecoveryCodes } from '@/routes/two-factor';
 
 const { recoveryCodesList, fetchRecoveryCodes, errors } = useTwoFactorAuth();
 const isRecoveryCodesVisible = ref<boolean>(false);
-const recoveryCodeSectionRef = useTemplateRef("recoveryCodeSectionRef");
+const recoveryCodeSectionRef = useTemplateRef('recoveryCodeSectionRef');
 
 const { t } = useI18n();
 
@@ -30,7 +30,7 @@ const toggleRecoveryCodesVisibility = async () => {
 
     if (isRecoveryCodesVisible.value) {
         await nextTick();
-        recoveryCodeSectionRef.value?.scrollIntoView({ behavior: "smooth" });
+        recoveryCodeSectionRef.value?.scrollIntoView({ behavior: 'smooth' });
     }
 };
 
@@ -46,11 +46,11 @@ onMounted(async () => {
         <CardHeader>
             <CardTitle class="flex gap-3">
                 <LockKeyhole class="size-4" />{{
-                    t("twoFactor.recovery_codes_title")
+                    t('twoFactor.recovery_codes_title')
                 }}
             </CardTitle>
             <CardDescription>
-                {{ t("twoFactor.recovery_codes_description") }}
+                {{ t('twoFactor.recovery_codes_description') }}
             </CardDescription>
         </CardHeader>
         <CardContent>
@@ -64,8 +64,8 @@ onMounted(async () => {
                     />
                     {{
                         isRecoveryCodesVisible
-                            ? t("twoFactor.hide_recovery_codes")
-                            : t("twoFactor.view_recovery_codes")
+                            ? t('twoFactor.hide_recovery_codes')
+                            : t('twoFactor.view_recovery_codes')
                     }}
                 </Button>
 
@@ -82,7 +82,7 @@ onMounted(async () => {
                         type="submit"
                         :disabled="processing"
                     >
-                        <RefreshCw /> {{ t("twoFactor.regenerate_codes") }}
+                        <RefreshCw /> {{ t('twoFactor.regenerate_codes') }}
                     </Button>
                 </Form>
             </div>
@@ -118,11 +118,11 @@ onMounted(async () => {
                         </div>
                     </div>
                     <p class="text-muted-foreground text-xs select-none">
-                        {{ t("twoFactor.recovery_codes_info") }}
+                        {{ t('twoFactor.recovery_codes_info') }}
                         <span class="font-bold">
-                            {{ t("twoFactor.regenerate_codes") }}
+                            {{ t('twoFactor.regenerate_codes') }}
                         </span>
-                        {{ t("twoFactor.above") }}
+                        {{ t('twoFactor.above') }}
                     </p>
                 </div>
             </div>

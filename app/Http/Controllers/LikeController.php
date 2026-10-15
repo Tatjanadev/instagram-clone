@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\LikeService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;

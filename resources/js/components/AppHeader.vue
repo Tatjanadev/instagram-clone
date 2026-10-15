@@ -75,9 +75,9 @@ const mainNavItems = computed<NavItem[]>(() => [
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="left" class="w-75 p-6">
-                            <SheetTitle class="sr-only"
-                                >{{ t('navigation.navigation_menu') }}</SheetTitle
-                            >
+                            <SheetTitle class="sr-only">{{
+                                t('navigation.navigation_menu')
+                            }}</SheetTitle>
                             <SheetHeader class="flex justify-start text-left">
                                 <AppLogoIcon
                                     class="size-6 fill-current text-black dark:text-white"

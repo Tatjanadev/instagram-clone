@@ -10,7 +10,7 @@ class NotLikedException extends Exception
     public function render(): JsonResponse
     {
         return response()->json([
-            'message' => __('likes.no_like')
-        ],422);
+            'message' => __('likes.no_like'),
+        ], 422);
     }
 }

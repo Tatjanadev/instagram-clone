@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Form } from "@inertiajs/vue3";
-import { useTemplateRef } from "vue";
-import UserController from "@/actions/App/Http/Controllers/Settings/UserController";
-import Heading from "@/components/Heading.vue";
-import InputError from "@/components/InputError.vue";
-import PasswordInput from "@/components/PasswordInput.vue";
-import { Button } from "@/components/ui/button";
-import { useI18n } from "vue-i18n";
+import { Form } from '@inertiajs/vue3';
+import { useTemplateRef } from 'vue';
+import UserController from '@/actions/App/Http/Controllers/Settings/UserController';
+import Heading from '@/components/Heading.vue';
+import InputError from '@/components/InputError.vue';
+import PasswordInput from '@/components/PasswordInput.vue';
+import { Button } from '@/components/ui/button';
+import { useI18n } from 'vue-i18n';
 import {
     Dialog,
     DialogClose,
@@ -16,10 +16,10 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
 
-const passwordInput = useTemplateRef("passwordInput");
+const passwordInput = useTemplateRef('passwordInput');
 const { t } = useI18n();
 </script>
 
@@ -34,9 +34,9 @@ const { t } = useI18n();
             class="space-y-4 rounded-lg border border-red-100 bg-red-50 p-4 dark:border-red-200/10 dark:bg-red-700/10"
         >
             <div class="relative space-y-0.5 text-red-600 dark:text-red-100">
-                <p class="font-medium">{{ t("deleteUser.warning") }}</p>
+                <p class="font-medium">{{ t('deleteUser.warning') }}</p>
                 <p class="text-sm">
-                    {{ t("deleteUser.warning_message") }}
+                    {{ t('deleteUser.warning_message') }}
                 </p>
             </div>
             <Dialog>
@@ -45,7 +45,7 @@ const { t } = useI18n();
                         variant="destructive"
                         data-test="delete-user-button"
                     >
-                        {{ t("deleteUser.delete_account") }}
+                        {{ t('deleteUser.delete_account') }}
                     </Button>
                 </DialogTrigger>
                 <DialogContent>
@@ -60,17 +60,19 @@ const { t } = useI18n();
                         v-slot="{ errors, processing, reset, clearErrors }"
                     >
                         <DialogHeader class="space-y-3">
-                            <DialogTitle>{{ t('deleteUser.confirm_title') }}</DialogTitle>
+                            <DialogTitle>{{
+                                t('deleteUser.confirm_title')
+                            }}</DialogTitle>
                             <DialogDescription>
-                              {{ t('deleteUser.confirm_description') }}
+                                {{ t('deleteUser.confirm_description') }}
                             </DialogDescription>
                         </DialogHeader>
 
                         <div class="grid gap-2">
                             <Label for="password" class="sr-only">
-                                  {{ t('deleteUser.password') }}
+                                {{ t('deleteUser.password') }}
                             </Label>
-                             
+
                             <PasswordInput
                                 id="password"
                                 name="password"
@@ -91,7 +93,7 @@ const { t } = useI18n();
                                         }
                                     "
                                 >
-                                   {{ t('deleteUser.cancel') }}
+                                    {{ t('deleteUser.cancel') }}
                                 </Button>
                             </DialogClose>
 

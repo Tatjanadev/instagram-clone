@@ -1,38 +1,38 @@
 <script setup lang="ts">
-import { usePasskeyRegister } from "@laravel/passkeys/vue";
-import { ref } from "vue";
-import InputError from "@/components/InputError.vue";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useI18n } from "vue-i18n";
+import { usePasskeyRegister } from '@laravel/passkeys/vue';
+import { ref } from 'vue';
+import InputError from '@/components/InputError.vue';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useI18n } from 'vue-i18n';
 
 const emit = defineEmits<{
     success: [];
 }>();
 
-  const { t } = useI18n();
+const { t } = useI18n();
 
 const getDefaultPasskeyName = () => {
     const ua = navigator.userAgent;
 
     const browser = [
-        { pattern: /Edg|Edge/, name: "Edge" },
-        { pattern: /OPR|Opera|OPiOS/, name: "Opera" },
-        { pattern: /Firefox|FxiOS/, name: "Firefox" },
-        { pattern: /Chrome|CriOS/, name: "Chrome" },
-        { pattern: /Safari/, name: "Safari" },
+        { pattern: /Edg|Edge/, name: 'Edge' },
+        { pattern: /OPR|Opera|OPiOS/, name: 'Opera' },
+        { pattern: /Firefox|FxiOS/, name: 'Firefox' },
+        { pattern: /Chrome|CriOS/, name: 'Chrome' },
+        { pattern: /Safari/, name: 'Safari' },
     ].find(({ pattern }) => pattern.test(ua))?.name;
 
     const os = [
-        { pattern: /iPhone/, name: "iPhone" },
-        { pattern: /iPad|Macintosh(?=.*Mobile)/, name: "iPad" },
-        { pattern: /Android/, name: "Android" },
-        { pattern: /Mac/, name: "Mac" },
-        { pattern: /Windows/, name: "Windows" },
+        { pattern: /iPhone/, name: 'iPhone' },
+        { pattern: /iPad|Macintosh(?=.*Mobile)/, name: 'iPad' },
+        { pattern: /Android/, name: 'Android' },
+        { pattern: /Mac/, name: 'Mac' },
+        { pattern: /Windows/, name: 'Windows' },
     ].find(({ pattern }) => pattern.test(ua))?.name;
 
-    return [browser, os].filter(Boolean).join(" on ") || "";
+    return [browser, os].filter(Boolean).join(' on ') || '';
 };
 
 const name = ref(getDefaultPasskeyName());
@@ -40,9 +40,9 @@ const showForm = ref(false);
 
 const { register, isLoading, error, isSupported } = usePasskeyRegister({
     onSuccess: () => {
-        name.value = "";
+        name.value = '';
         showForm.value = false;
-        emit("success");
+        emit('success');
     },
 });
 
@@ -58,17 +58,17 @@ const handleSubmit = async (event: Event) => {
 
 const handleCancel = () => {
     showForm.value = false;
-    name.value = "";
+    name.value = '';
 };
 </script>
 
 <template>
     <div v-if="!isSupported" class="text-muted-foreground text-sm">
-        {{ t("managePasskeys.unsupported") }}
+        {{ t('managePasskeys.unsupported') }}
     </div>
 
     <Button v-else-if="!showForm" variant="outline" @click="showForm = true">
-        {{ t("managePasskeys.add_passkey") }}
+        {{ t('managePasskeys.add_passkey') }}
     </Button>
 
     <form
@@ -78,7 +78,7 @@ const handleCancel = () => {
     >
         <div class="grid gap-2">
             <Label for="passkey-name">
-                {{ t("managePasskeys.passkey_name") }}</Label
+                {{ t('managePasskeys.passkey_name') }}</Label
             >
             <Input
                 id="passkey-name"
@@ -89,7 +89,7 @@ const handleCancel = () => {
                 autofocus
             />
             <p class="text-muted-foreground text-xs">
-                {{ t("managePasskeys.passkey_name_help") }}
+                {{ t('managePasskeys.passkey_name_help') }}
             </p>
         </div>
 
@@ -99,12 +99,12 @@ const handleCancel = () => {
             <Button type="submit" :disabled="isLoading || !name.trim()">
                 {{
                     isLoading
-                        ? t("managePasskeys.registering")
-                        : t("managePasskeys.register_passkey")
+                        ? t('managePasskeys.registering')
+                        : t('managePasskeys.register_passkey')
                 }}
             </Button>
             <Button type="button" variant="ghost" @click="handleCancel">
-                 {{ t('managePasskeys.cancel') }}
+                {{ t('managePasskeys.cancel') }}
             </Button>
         </div>
     </form>

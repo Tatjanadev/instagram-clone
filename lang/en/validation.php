@@ -198,14 +198,14 @@ return [
     */
 
     'attributes' => [
-    'first_name' => 'first name',
-    'last_name' => 'last name',
-    'username' => 'username',
-    'email' => 'email',
-    'profile_photo' => 'profile photo',
-    'bio' => 'bio',
-    'gender' => 'gender',
-    'date_of_birth' => 'date of birth',
-],
+        'first_name' => 'first name',
+        'last_name' => 'last name',
+        'username' => 'username',
+        'email' => 'email',
+        'profile_photo' => 'profile photo',
+        'bio' => 'bio',
+        'gender' => 'gender',
+        'date_of_birth' => 'date of birth',
+    ],
 
 ];

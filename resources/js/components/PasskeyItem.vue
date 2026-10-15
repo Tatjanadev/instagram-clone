@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { KeyRound, Trash2 } from "@lucide/vue";
-import { ref } from "vue";
-import { Button } from "@/components/ui/button";
-import { useI18n } from "vue-i18n";
+import { KeyRound, Trash2 } from '@lucide/vue';
+import { ref } from 'vue';
+import { Button } from '@/components/ui/button';
+import { useI18n } from 'vue-i18n';
 import {
     Dialog,
     DialogClose,
@@ -11,8 +11,8 @@ import {
     DialogFooter,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog";
-import type { Passkey } from "@/types/auth";
+} from '@/components/ui/dialog';
+import type { Passkey } from '@/types/auth';
 
 const props = defineProps<{
     passkey: Passkey;
@@ -28,7 +28,7 @@ const isDeleting = ref(false);
 
 const handleDelete = () => {
     isDeleting.value = true;
-    emit("remove", props.passkey.id, () => {
+    emit('remove', props.passkey.id, () => {
         isDeleting.value = false;
     });
 };
@@ -53,11 +53,11 @@ const handleDelete = () => {
                     </span>
                 </div>
                 <p class="text-muted-foreground text-sm">
-                    {{ t("managePasskeys.added") }}
+                    {{ t('managePasskeys.added') }}
                     {{ passkey.created_at_diff }}
                     <template v-if="passkey.last_used_at_diff">
                         <span class="text-muted-foreground/50 mx-1">/</span>
-                        {{ t("managePasskeys.last_used") }}
+                        {{ t('managePasskeys.last_used') }}
                         {{ passkey.last_used_at_diff }}
                     </template>
                 </p>
@@ -73,18 +73,18 @@ const handleDelete = () => {
                 >
                     <Trash2 class="h-4 w-4" />
                     <span class="sr-only">{{
-                        t("managePasskeys.remove")
+                        t('managePasskeys.remove')
                     }}</span>
                 </Button>
             </DialogTrigger>
 
             <DialogContent>
                 <DialogTitle>{{
-                    t("managePasskeys.remove_passkey")
+                    t('managePasskeys.remove_passkey')
                 }}</DialogTitle>
                 <DialogDescription>
                     {{
-                        t("managePasskeys.remove_confirmation", {
+                        t('managePasskeys.remove_confirmation', {
                             name: passkey.name,
                         })
                     }}
@@ -92,7 +92,7 @@ const handleDelete = () => {
                 <DialogFooter class="gap-2">
                     <DialogClose as-child>
                         <Button variant="secondary">{{
-                            t("managePasskeys.cancel")
+                            t('managePasskeys.cancel')
                         }}</Button>
                     </DialogClose>
                     <Button
@@ -102,8 +102,8 @@ const handleDelete = () => {
                     >
                         {{
                             isDeleting
-                                ? t("managePasskeys.removing")
-                                : t("managePasskeys.remove_passkey")
+                                ? t('managePasskeys.removing')
+                                : t('managePasskeys.remove_passkey')
                         }}
                     </Button>
                 </DialogFooter>

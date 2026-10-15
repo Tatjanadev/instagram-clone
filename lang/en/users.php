@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'profile_updated' => 'Profile updated.'
+    'profile_updated' => 'Profile updated.',
 ];
