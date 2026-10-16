@@ -1,0 +1,10 @@
+{
+    "title": "Registrer deg",
+    "create_account_title": "Opprett en konto",
+    "create_account_description": "Fyll inn opplysningene dine nedenfor for å opprette en konto",
+    "first_name": "Fornavn",
+    "last_name": "Etternavn",
+    "username": "Brukernavn",
+    "create_account": "Opprett konto",
+    "already_have_account": "Har du allerede en konto?"
+}

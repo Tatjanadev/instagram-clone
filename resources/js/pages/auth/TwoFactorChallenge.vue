@@ -11,6 +11,9 @@ import {
 } from '@/components/ui/input-otp';
 import { store } from '@/routes/two-factor/login';
 import type { TwoFactorConfigContent } from '@/types';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const showRecoveryInput = ref<boolean>(false);
 const code = ref<string>('');
@@ -18,18 +21,16 @@ const code = ref<string>('');
 const authConfigContent = computed<TwoFactorConfigContent>(() => {
     if (showRecoveryInput.value) {
         return {
-            title: 'Recovery code',
-            description:
-                'Please confirm access to your account by entering one of your emergency recovery codes.',
-            buttonText: 'login using an authentication code',
+            title: t('twoFactorLogin.recovery_code'),
+            description: t('twoFactorLogin.recovery_code_description'),
+            buttonText: t('twoFactorLogin.login_using_authentication_code'),
         };
     }
 
     return {
-        title: 'Authentication code',
-        description:
-            'Enter the authentication code provided by your authenticator application.',
-        buttonText: 'login using a recovery code',
+        title: t('twoFactorLogin.authentication_code'),
+        description: t('twoFactorLogin.authentication_code_description'),
+        buttonText: t('twoFactorLogin.login_using_recovery_code'),
     };
 });
 
@@ -48,7 +49,7 @@ const toggleRecoveryMode = (clearErrors: () => void): void => {
 </script>
 
 <template>
-    <Head title="Two-factor authentication" />
+    <Head :title="t('twoFactor.title')" />
 
     <div class="space-y-6">
         <template v-if="!showRecoveryInput">
@@ -83,10 +84,10 @@ const toggleRecoveryMode = (clearErrors: () => void): void => {
                     <InputError :message="errors.code" />
                 </div>
                 <Button type="submit" class="w-full" :disabled="processing"
-                    >Continue</Button
+                    >>{{ t('twoFactorLogin.continue') }}</Button
                 >
                 <div class="text-muted-foreground text-center text-sm">
-                    <span>or you can </span>
+                    <span>{{ t('twoFactorLogin.or_you_can') }} </span>
                     <button
                         type="button"
                         class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
@@ -108,17 +109,17 @@ const toggleRecoveryMode = (clearErrors: () => void): void => {
                 <Input
                     name="recovery_code"
                     type="text"
-                    placeholder="Enter recovery code"
+                    :placeholder="t('twoFactorLogin.enter_recovery_code')"
                     :autofocus="showRecoveryInput"
                     required
                 />
                 <InputError :message="errors.recovery_code" />
                 <Button type="submit" class="w-full" :disabled="processing"
-                    >Continue</Button
+                    >>{{ t('twoFactorLogin.continue') }}</Button
                 >
 
                 <div class="text-muted-foreground text-center text-sm">
-                    <span>or you can </span>
+                    <span>{{ t('twoFactorLogin.or_you_can') }} </span>
                     <button
                         type="button"
                         class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"

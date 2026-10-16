@@ -1,0 +1,23 @@
+{
+    "settings_title": "Gosodiadau proffil",
+    "back_to_profile": "Yn ôl i'r proffil",
+    "profile": "Proffil",
+    "update_description": "Diweddarwch wybodaeth eich proffil",
+    "profile_photo": "Llun proffil",
+    "current_profile_photo": "Llun proffil cyfredol",
+    "first_name": "Enw cyntaf",
+    "last_name": "Cyfenw",
+    "username": "Enw defnyddiwr",
+    "email_address": "Cyfeiriad e-bost",
+    "bio": "Bywgraffiad",
+    "bio_placeholder": "Dywedwch rywbeth wrthym amdanoch chi eich hun",
+    "gender": "Rhywedd",
+    "date_of_birth": "Dyddiad geni",
+    "email_unverified": "Nid yw eich cyfeiriad e-bost wedi'i ddilysu.",
+    "resend_verification": "Cliciwch yma i ail-anfon yr e-bost dilysu.",
+    "verification_sent": "Mae dolen ddilysu newydd wedi'i hanfon i'ch cyfeiriad e-bost.",
+    "save": "Cadw",
+    "edit_profile": "Golygu proffil",
+    "follow": "Dilyn",
+    "unfollow": "Peidio â dilyn"
+}

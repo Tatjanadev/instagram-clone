@@ -1,0 +1,10 @@
+{
+    "title": "Sikkerhetsinnstillinger",
+    "update_password": {
+        "title": "Oppdater passord",
+        "description": "Sørg for at kontoen din bruker et langt, tilfeldig passord for å holde den sikker"
+    },
+    "current_password": "Nåværende passord",
+    "confirm_password": "Bekreft passord",
+    "save": "Lagre"
+}
