@@ -1,0 +1,11 @@
+{
+    "recovery_code": "Gjenopprettingskode",
+    "recovery_code_description": "Bekreft tilgangen til kontoen din ved å skrive inn en av de reserverte gjenopprettingskodene dine.",
+    "login_using_authentication_code": "logge inn med en autentiseringskode",
+    "authentication_code": "Autentiseringskode",
+    "authentication_code_description": "Skriv inn autentiseringskoden fra autentiseringsappen din.",
+    "login_using_recovery_code": "logge inn med en gjenopprettingskode",
+    "continue": "Fortsett",
+    "or_you_can": "eller du kan",
+    "enter_recovery_code": "Skriv inn gjenopprettingskode"
+}

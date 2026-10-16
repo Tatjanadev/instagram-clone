@@ -1,0 +1,10 @@
+{
+    "title": "Register",
+    "create_account_title": "Create an account",
+    "create_account_description": "Enter your details below to create your account",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "username": "Username",
+    "create_account": "Create account",
+    "already_have_account": "Already have an account?"
+}

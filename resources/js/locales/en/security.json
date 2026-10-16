@@ -1,0 +1,10 @@
+{
+    "title": "Security settings",
+    "update_password": {
+        "title": "Update password",
+        "description": "Ensure your account is using a long, random password to stay secure"
+    },
+    "current_password": "Current password",
+    "confirm_password": "Confirm password",
+    "save": "Save"
+}

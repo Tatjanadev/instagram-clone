@@ -10,7 +10,7 @@ class FollowSelfException extends Exception
     public function render(): JsonResponse
     {
         return response()->json([
-            'message' => 'You cannot follow yourself.',
+            'message' => __('follows.follow_self'),
         ], 422);
     }
 }

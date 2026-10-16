@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router, setLayoutProps } from '@inertiajs/vue3';
+import { watchEffect } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { show as profileShow } from '@/routes/profile';
 import { edit as userEdit } from '@/routes/user';
 import PostGrid from '@/components/posts/PostGrid.vue';
@@ -7,21 +9,23 @@ import ProfileHeader from '@/components/users/ProfileHeader.vue';
 import type { ProfileUser } from '@/types/user';
 import { follow, unfollow } from '@/routes/users';
 
+const { t } = useI18n();
+
 const props = defineProps<{
     user: ProfileUser;
     isOwnProfile: boolean;
     isFollowing: boolean;
 }>();
 
-defineOptions({
-    layout: {
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
             {
-                title: 'Profile',
+                title: t('profile.profile'),
                 href: profileShow(),
             },
         ],
-    },
+    });
 });
 
 function followUser() {
@@ -44,7 +48,7 @@ function unfollowUser() {
             :href="userEdit()"
             class="btn btn-outline mt-3"
         >
-            Edit Profile
+            {{ t('profile.edit_profile') }}
         </Link>
 
         <button
@@ -52,7 +56,7 @@ function unfollowUser() {
             class="btn btn-primary mt-3"
             @click="followUser"
         >
-            Follow
+            {{ t('profile.follow') }}
         </button>
 
         <button
@@ -60,7 +64,7 @@ function unfollowUser() {
             class="btn btn-outline mt-3"
             @click="unfollowUser"
         >
-            Unfollow
+            {{ t('profile.unfollow') }}
         </button>
     </div>
     <PostGrid :posts="user.posts" />

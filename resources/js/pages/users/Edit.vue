@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { Form, Head, usePage } from '@inertiajs/vue3';
+import { Form, Head, usePage, setLayoutProps } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, watchEffect } from 'vue';
+import { useI18n } from 'vue-i18n';
 import UserController from '@/actions/App/Http/Controllers/Settings/UserController';
 import DeleteUser from '@/components/DeleteUser.vue';
 import Heading from '@/components/Heading.vue';
@@ -12,6 +13,8 @@ import { Label } from '@/components/ui/label';
 import { edit } from '@/routes/user';
 import { send } from '@/routes/verification';
 import { show as profileShow } from '@/routes/profile';
+
+const { t } = useI18n();
 
 defineOptions({
     layout: {
@@ -26,21 +29,32 @@ defineOptions({
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
+
+watchEffect(() => {
+    setLayoutProps({
+        breadcrumbs: [
+            {
+                title: t('profile.settings_title'),
+                href: edit(),
+            },
+        ],
+    });
+});
 </script>
 
 <template>
-    <Head title="Profile settings" />
+    <Head :title="t('profile.settings_title')" />
 
-    <h1 class="sr-only">Profile settings</h1>
+    <h1 class="sr-only">{{ t('profile.settings_title') }}</h1>
 
     <div class="flex flex-col space-y-6">
         <Link :href="profileShow()" class="btn btn-ghost w-fit">
-            Back to profile
+            {{ t('profile.back_to_profile') }}
         </Link>
         <Heading
             variant="small"
-            title="Profile"
-            description="Update your profile information"
+            :title="t('profile.profile')"
+            :description="t('profile.update_description')"
         />
 
         <Form
@@ -50,13 +64,15 @@ const user = computed(() => page.props.auth.user);
             v-slot="{ errors, processing }"
         >
             <div class="grid gap-2">
-                <Label for="profile_photo">Profile photo</Label>
+                <Label for="profile_photo">
+                    {{ t('profile.profile_photo') }}</Label
+                >
 
                 <div v-if="user.profile_photo_path" class="avatar mb-2">
                     <div class="w-20 rounded-full">
                         <img
                             :src="`/storage/${user.profile_photo_path}`"
-                            alt="Current profile photo"
+                            :alt="t('profile.current_profile_photo')"
                         />
                     </div>
                 </div>
@@ -71,7 +87,7 @@ const user = computed(() => page.props.auth.user);
                 <InputError class="mt-2" :message="errors.profile_photo" />
             </div>
             <div class="grid gap-2">
-                <Label for="first_name">First name</Label>
+                <Label for="first_name">{{ t('profile.first_name') }}</Label>
                 <Input
                     id="first_name"
                     class="mt-1 block w-full"
@@ -79,13 +95,13 @@ const user = computed(() => page.props.auth.user);
                     :default-value="user.first_name"
                     required
                     autocomplete="name"
-                    placeholder="First name"
+                    :placeholder="t('profile.first_name')"
                 />
                 <InputError class="mt-2" :message="errors.first_name" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="last_name">Last name</Label>
+                <Label for="last_name">{{ t('profile.last_name') }}</Label>
                 <Input
                     id="last_name"
                     class="mt-1 block w-full"
@@ -93,13 +109,13 @@ const user = computed(() => page.props.auth.user);
                     :default-value="user.last_name"
                     required
                     autocomplete="family-name"
-                    placeholder="Last name"
+                    :placeholder="t('profile.last_name')"
                 />
                 <InputError class="mt-2" :message="errors.last_name" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="username">Username</Label>
+                <Label for="username"> {{ t('profile.username') }}</Label>
                 <Input
                     id="username"
                     class="mt-1 block w-full"
@@ -107,13 +123,13 @@ const user = computed(() => page.props.auth.user);
                     :default-value="user.username"
                     required
                     autocomplete="username"
-                    placeholder="Username"
+                    :placeholder="t('profile.username')"
                 />
                 <InputError class="mt-2" :message="errors.username" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="email">Email address</Label>
+                <Label for="email"> {{ t('profile.email_address') }}</Label>
                 <Input
                     id="email"
                     type="email"
@@ -122,37 +138,39 @@ const user = computed(() => page.props.auth.user);
                     :default-value="user.email"
                     required
                     autocomplete="username"
-                    placeholder="Email address"
+                    :placeholder="t('profile.email_address')"
                 />
                 <InputError class="mt-2" :message="errors.email" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="bio">Bio</Label>
+                <Label for="bio">{{ t('profile.bio') }}</Label>
                 <Input
                     id="bio"
                     class="mt-1 block w-full"
                     name="bio"
                     :default-value="user.bio ?? ''"
-                    placeholder="Tell us something about yourself"
+                    :placeholder="t('profile.bio_placeholder')"
                 />
                 <InputError class="mt-2" :message="errors.bio" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="gender">Gender</Label>
+                <Label for="gender">{{ t('profile.gender') }}</Label>
                 <Input
                     id="gender"
                     class="mt-1 block w-full"
                     name="gender"
                     :default-value="user.gender ?? ''"
-                    placeholder="Gender"
+                    :placeholder="t('profile.gender')"
                 />
                 <InputError class="mt-2" :message="errors.gender" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="date_of_birth">Date of birth</Label>
+                <Label for="date_of_birth">{{
+                    t('profile.date_of_birth')
+                }}</Label>
                 <Input
                     id="date_of_birth"
                     type="date"
@@ -165,13 +183,13 @@ const user = computed(() => page.props.auth.user);
 
             <div v-if="page.props.mustVerifyEmail && !user.email_verified_at">
                 <p class="text-muted-foreground -mt-4 text-sm">
-                    Your email address is unverified.
+                    {{ t('profile.email_unverified') }}
                     <Link
                         :href="send()"
                         as="button"
                         class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                     >
-                        Click here to re-send the verification email.
+                        {{ t('profile.resend_verification') }}
                     </Link>
                 </p>
 
@@ -179,13 +197,16 @@ const user = computed(() => page.props.auth.user);
                     v-if="page.props.status === 'verification-link-sent'"
                     class="mt-2 text-sm font-medium text-green-600"
                 >
-                    A new verification link has been sent to your email address.
+                    {{ t('profile.verification_sent') }}
                 </div>
             </div>
 
             <div class="flex items-center gap-4">
-                <Button :disabled="processing" data-test="update-profile-button"
-                    >Save</Button
+                <Button
+                    :disabled="processing"
+                    data-test="update-profile-button"
+                >
+                    {{ t('profile.save') }}</Button
                 >
             </div>
         </Form>

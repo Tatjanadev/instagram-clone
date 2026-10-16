@@ -105,7 +105,7 @@ class UserController extends Controller
         );
         Inertia::flash('toast', [
             'type' => 'success',
-            'message' => __('Profile updated.'),
+            'message' => __('users.profile_updated'),
         ]);
 
         return to_route('user.edit');

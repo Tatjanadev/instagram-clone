@@ -1,0 +1,23 @@
+{
+    "settings_title": "Profilinnstillinger",
+    "back_to_profile": "Tilbake til profilen",
+    "profile": "Profil",
+    "update_description": "Oppdater profilinformasjonen din",
+    "profile_photo": "Profilbilde",
+    "current_profile_photo": "Nåværende profilbilde",
+    "first_name": "Fornavn",
+    "last_name": "Etternavn",
+    "username": "Brukernavn",
+    "email_address": "E-postadresse",
+    "bio": "Biografi",
+    "bio_placeholder": "Fortell oss litt om deg selv",
+    "gender": "Kjønn",
+    "date_of_birth": "Fødselsdato",
+    "email_unverified": "E-postadressen din er ikke bekreftet.",
+    "resend_verification": "Klikk her for å sende bekreftelses-e-posten på nytt.",
+    "verification_sent": "En ny bekreftelseslenke er sendt til e-postadressen din.",
+    "save": "Lagre",
+    "edit_profile": "Rediger profil",
+    "follow": "Følg",
+    "unfollow": "Slutt å følge"
+}

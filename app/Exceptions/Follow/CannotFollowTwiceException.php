@@ -10,7 +10,7 @@ class CannotFollowTwiceException extends Exception
     public function render(): JsonResponse
     {
         return response()->json([
-            'message' => 'You are already following this user.',
+            'message' => __('follows.already_following'),
         ], 422);
     }
 }

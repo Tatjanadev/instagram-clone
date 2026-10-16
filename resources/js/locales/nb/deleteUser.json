@@ -1,0 +1,10 @@
+{
+    "delete_account": "Slett konto",
+    "delete_account_description": "Slett kontoen din og alle tilhørende ressurser",
+    "warning": "Advarsel",
+    "warning_message": "Vær forsiktig. Denne handlingen kan ikke angres.",
+    "confirm_title": "Er du sikker på at du vil slette kontoen din?",
+    "confirm_description": "Når kontoen din slettes, vil alle tilhørende ressurser og data også bli slettet permanent. Skriv inn passordet ditt for å bekrefte at du vil slette kontoen permanent.",
+    "password": "Passord",
+    "cancel": "Avbryt"
+}
