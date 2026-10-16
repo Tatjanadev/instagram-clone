@@ -54,10 +54,13 @@ class PostController extends Controller
             $request->validated(),
             $request->file('images')
         );
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => __('posts.post_created'),
+        ]);
 
         return redirect()
-            ->route('posts.index')
-            ->with('success', 'Post created successfully.');
+            ->route('posts.index');
     }
 
     /**
@@ -104,7 +107,7 @@ class PostController extends Controller
         );
         Inertia::flash('toast', [
             'type' => 'success',
-            'message' => __('Your post has been edited successfully.'),
+            'message' => __('posts.post_updated'),
         ]);
 
         return redirect()
@@ -124,7 +127,7 @@ class PostController extends Controller
 
         Inertia::flash('toast', [
             'type' => 'success',
-            'message' => __('Your post has been deleted successfully.'),
+            'message' => __('posts.post_deleted'),
         ]);
 
         return redirect()

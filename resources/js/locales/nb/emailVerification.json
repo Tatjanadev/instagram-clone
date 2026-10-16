@@ -1,0 +1,7 @@
+{
+    "title": "E-postbekreftelse",
+    "description": "Bekreft e-postadressen din ved å klikke på lenken vi nettopp sendte deg på e-post.",
+    "verification_link_sent": "En ny bekreftelseslenke er sendt til e-postadressen du oppga under registreringen.",
+    "resend_verification_email": "Send bekreftelses-e-post på nytt",
+    "log_out": "Logg ut"
+}

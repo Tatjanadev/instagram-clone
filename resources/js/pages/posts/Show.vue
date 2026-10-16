@@ -2,6 +2,9 @@
 import { Link } from '@inertiajs/vue3';
 import { ArrowLeft } from 'lucide-vue-next';
 import PostCard from '@/components/posts/PostCard.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 defineProps<{
     post: {
@@ -13,6 +16,11 @@ defineProps<{
             id: number;
             image_path: string;
         }>;
+        user: {
+            id: number;
+            username: string;
+            profile_photo_path: string | null;
+        };
     };
     currentUserId: number;
 }>();
@@ -24,16 +32,18 @@ defineProps<{
             <Link
                 href="/posts"
                 class="btn btn-circle btn-sm tooltip"
-                data-tip="Back to posts"
+                :data-tip="t('posts.back_to_posts')"
             >
                 <ArrowLeft :size="22" />
             </Link>
-            <h1 class="text-lg font-semibold">Post</h1>
+            <h1 class="text-lg font-semibold">{{ t('posts.post') }}</h1>
         </div>
         <PostCard
             :id="post.id"
             :user-id="post.user_id"
             :current-user-id="currentUserId"
+            :username="post.user.username"
+            :profile-photo-path="post.user.profile_photo_path"
             :title="post.title"
             :description="post.description"
             :image-path="

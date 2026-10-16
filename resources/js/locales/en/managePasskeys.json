@@ -1,0 +1,23 @@
+{
+    "title": "Passkeys",
+    "description": "Manage your passkeys for passwordless sign-in",
+    "empty_title": "No passkeys yet",
+    "empty_description": "Add a passkey to sign in without a password",
+    "added": "Added",
+    "last_used": "Last used",
+    "remove": "Remove",
+    "remove_passkey": "Remove passkey",
+    "remove_confirmation": "Are you sure you want to remove the \"{name}\" passkey? You will no longer be able to use it to sign in.",
+    "removing": "Removing...",
+    "unsupported": "Passkeys are not supported in this browser.",
+    "add_passkey": "Add passkey",
+    "passkey_name": "Passkey name",
+    "passkey_placeholder": "e.g., MacBook Pro, iPhone",
+    "passkey_name_help": "A name helps you identify this passkey later.",
+    "registering": "Registering...",
+    "register_passkey": "Register passkey",
+    "cancel": "Cancel",
+    "authenticating": "Authenticating...",
+    "sign_in_with_passkey": "Sign in with a passkey",
+    "continue_with_email": "Or continue with email"
+}

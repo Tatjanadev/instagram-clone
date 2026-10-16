@@ -1,0 +1,10 @@
+{
+    "delete_account": "Dileu cyfrif",
+    "delete_account_description": "Dileu eich cyfrif a'r holl adnoddau sy'n perthyn iddo",
+    "warning": "Rhybudd",
+    "warning_message": "Ewch ymlaen yn ofalus. Ni ellir dadwneud hyn.",
+    "confirm_title": "Ydych chi'n siŵr eich bod am ddileu eich cyfrif?",
+    "confirm_description": "Unwaith y bydd eich cyfrif wedi'i ddileu, bydd yr holl adnoddau a data sy'n perthyn iddo hefyd yn cael eu dileu'n barhaol. Rhowch eich cyfrinair i gadarnhau eich bod am ddileu eich cyfrif yn barhaol.",
+    "password": "Cyfrinair",
+    "cancel": "Canslo"
+}

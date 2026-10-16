@@ -5,6 +5,7 @@ namespace App\Services;
 use App\DTOs\Users\UpdateUserDTO;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 
 class UserService
@@ -16,6 +17,27 @@ class UserService
     public function getUser(int $userId): User
     {
         return $this->userRepository->getUser($userId);
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->userRepository->getUsers();
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getOtherUsers(int $currentUserId): Collection
+    {
+        return $this->userRepository->getOtherUsers($currentUserId);
+    }
+
+    public function getUserByUsername(string $username): User
+    {
+        return $this->userRepository->getUserByUsername($username);
     }
 
     public function update(User $user, UpdateUserDTO $updateUserDTO): User
