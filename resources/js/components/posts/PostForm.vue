@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useForm } from '@inertiajs/vue3';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps<{
     post?: {
@@ -74,7 +77,9 @@ const submit = () => {
         <div class="card-body">
             <!-- Display existing images when editing -->
             <div v-if="isEditing && post?.images.length" class="mb-4">
-                <p class="mb-2 font-semibold">Current images</p>
+                <p class="mb-2 font-semibold">
+                    {{ t('posts.current_images') }}
+                </p>
 
                 <div class="flex flex-wrap gap-3">
                     <img
@@ -90,7 +95,11 @@ const submit = () => {
             <!-- Image picker works for both Create and Edit -->
             <div class="mb-4">
                 <p class="mb-2 font-semibold">
-                    {{ isEditing ? 'Replace images' : 'Choose images' }}
+                    {{
+                        isEditing
+                            ? t('posts.replace_images')
+                            : t('posts.choose_images')
+                    }}
                 </p>
 
                 <input
@@ -102,14 +111,14 @@ const submit = () => {
                 />
 
                 <p v-if="isEditing" class="mt-2 text-sm opacity-60">
-                    Leave this empty to keep the current images.
+                    {{ t('posts.keep_current_images') }}
                 </p>
             </div>
 
             <!-- Preview newly selected images -->
             <div v-if="imagePreviews.length" class="mb-4">
                 <p class="mb-2 font-semibold">
-                    {{ isEditing ? 'New images' : 'Preview' }}
+                    {{ isEditing ? t('posts.new_images') : t('posts.preview') }}
                 </p>
 
                 <div class="flex flex-wrap gap-3">
@@ -117,7 +126,7 @@ const submit = () => {
                         v-for="(preview, index) in imagePreviews"
                         :key="index"
                         :src="preview"
-                        alt="Selected image preview"
+                        :alt="t('posts.selected_image_preview')"
                         class="h-32 w-32 rounded-lg object-cover"
                     />
                 </div>
@@ -128,7 +137,7 @@ const submit = () => {
                 v-model="form.title"
                 type="text"
                 class="input input-bordered w-full"
-                placeholder="Post title"
+                :placeholder="t('posts.post_title')"
             />
 
             <p v-if="form.errors.title" class="text-error text-sm">
@@ -139,7 +148,7 @@ const submit = () => {
             <textarea
                 v-model="form.description"
                 class="textarea textarea-bordered w-full"
-                placeholder="Description"
+                :placeholder="t('posts.description')"
             ></textarea>
 
             <p v-if="form.errors.description" class="text-error text-sm">
@@ -153,7 +162,7 @@ const submit = () => {
 
             <div class="card-actions flex-col items-end justify-end">
                 <p v-if="isEditing && !form.isDirty" class="text-sm opacity-60">
-                    Make a change before saving.
+                    {{ t('posts.make_change') }}
                 </p>
 
                 <button
@@ -163,10 +172,10 @@ const submit = () => {
                 >
                     {{
                         form.processing
-                            ? 'Saving...'
+                            ? t('posts.saving')
                             : isEditing
-                              ? 'Save changes'
-                              : 'Create post'
+                              ? t('posts.save_changes')
+                              : t('posts.create_post')
                     }}
                 </button>
             </div>
