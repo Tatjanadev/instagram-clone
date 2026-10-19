@@ -13,9 +13,10 @@ class PostRepository
     /**
      * @return Collection<int, Post>
      */
-    public function getAllPosts()
+    public function getAllPosts(): Collection
     {
         return Post::with(['images', 'user'])
+            ->withCount('comments')
             ->latest()
             ->get();
     }
