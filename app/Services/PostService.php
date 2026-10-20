@@ -5,8 +5,8 @@ namespace App\Services;
 use App\Models\Post;
 use App\Repositories\PostImageRepository;
 use App\Repositories\PostRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
-use Ramsey\Collection\Collection;
 
 class PostService
 {
@@ -15,6 +15,9 @@ class PostService
         private PostImageRepository $postImageRepository
     ) {}
 
+    /**
+     * @return Collection<int, Post>
+     */
     public function getAllPosts(): Collection
     {
         return $this->postRepository->getAllPosts();
@@ -22,7 +25,7 @@ class PostService
 
     public function getPostById(int $id): Post
     {
-        return $this->postRepository->getPostById( $id);
+        return $this->postRepository->getPostById($id);
     }
 
     /**
