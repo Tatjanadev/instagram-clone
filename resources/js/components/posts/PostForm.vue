@@ -27,6 +27,7 @@ const form = useForm({
     title: props.post?.title ?? '',
     description: props.post?.description ?? '',
     images: [] as File[],
+    deleted_image_ids: [] as number[],
 });
 
 // Create temporary URLs so selected images can be previewed.
@@ -39,8 +40,14 @@ const handleImages = (event: Event) => {
     const target = event.target as HTMLInputElement;
 
     if (target.files) {
-        form.images = Array.from(target.files);
+        form.images.push(...Array.from(target.files));
+        target.value = '';
     }
+};
+
+// Mark an existing image for deletion.
+const removeImage = (imageId: number) => {
+    form.deleted_image_ids.push(imageId);
 };
 
 // Decide whether this form is creating a new post
@@ -82,13 +89,31 @@ const submit = () => {
                 </p>
 
                 <div class="flex flex-wrap gap-3">
-                    <img
+                    <div
                         v-for="image in post.images"
                         :key="image.id"
-                        :src="`/storage/${image.image_path}`"
-                        :alt="post.title"
-                        class="h-32 w-32 rounded-lg object-cover"
-                    />
+                        class="relative"
+                    >
+                        <!-- Show this image only if its ID is NOT in the list of images selected for deletion. -->
+                        <template
+                            v-if="!form.deleted_image_ids.includes(image.id)"
+                        >
+                            <img
+                                :src="`/storage/${image.image_path}`"
+                                :alt="post.title"
+                                class="h-32 w-32 rounded-lg object-cover"
+                            />
+
+                            <button
+                                type="button"
+                                class="btn btn-error btn-circle btn-xs absolute top-1 right-1"
+                                :aria-label="t('posts.remove_image')"
+                                @click="removeImage(image.id)"
+                            >
+                                ×
+                            </button>
+                        </template>
+                    </div>
                 </div>
             </div>
 
@@ -97,7 +122,7 @@ const submit = () => {
                 <p class="mb-2 font-semibold">
                     {{
                         isEditing
-                            ? t('posts.replace_images')
+                            ? t('posts.add_images')
                             : t('posts.choose_images')
                     }}
                 </p>
