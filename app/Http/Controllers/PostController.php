@@ -50,9 +50,10 @@ class PostController extends Controller
     {
         Gate::authorize('create', Post::class);
 
-        $this->postRepository->createPost(
+        $this->postService->createPost(
             $request->user()->id,
-            $request->validated(),
+            $request->validated('title'),
+            $request->validated('description') ?? null,
             $request->file('images')
         );
         Inertia::flash('toast', [
@@ -107,7 +108,7 @@ class PostController extends Controller
 
         Gate::authorize('update', $post);
 
-        $this->postRepository->updatePost(
+        $this->postService->updatePost(
             $post,
             $request->validated()
         );
@@ -125,11 +126,11 @@ class PostController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        $post = $this->postRepository->getPostById((int) $id);
+        $post = $this->postService->getPostById((int) $id);
 
         Gate::authorize('delete', $post);
 
-        $this->postRepository->deletePost($post);
+        $this->postService->deletePost($post);
 
         Inertia::flash('toast', [
             'type' => 'success',
