@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
+use App\Exceptions\Comment\CommentDeletionFailedException;
 use App\Models\Comment;
 use App\Repositories\CommentRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
-use App\Exceptions\Comment\CommentDeletionFailedException;
+
 class CommentService
 {
     public function __construct(
@@ -44,8 +45,8 @@ class CommentService
 
     public function delete(Comment $comment): void
     {
-         if (! $this->commentRepository->delete($comment)) {
-        throw new CommentDeletionFailedException;
-    }
+        if (! $this->commentRepository->delete($comment)) {
+            throw new CommentDeletionFailedException;
+        }
     }
 }

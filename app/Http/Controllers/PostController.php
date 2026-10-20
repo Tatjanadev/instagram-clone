@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Posts\StorePostRequest;
 use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Models\Post;
-use App\Repositories\PostRepository;
 use App\Services\CommentService;
 use App\Services\PostService;
 use Illuminate\Http\RedirectResponse;
@@ -17,7 +16,6 @@ use Inertia\Response;
 class PostController extends Controller
 {
     public function __construct(
-        private PostRepository $postRepository,
         private PostService $postService,
         private CommentService $commentService
     ) {}
