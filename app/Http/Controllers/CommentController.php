@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Comments\StoreCommentRequest;
-use App\Http\Requests\Comments\UpdateCommentrequest;
+use App\Http\Requests\Comments\UpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Services\CommentService;
@@ -34,7 +34,7 @@ class CommentController extends Controller
         return back();
     }
 
-    public function update(UpdateCommentrequest $request, Comment $comment): RedirectResponse
+    public function update(UpdateCommentRequest $request, Comment $comment): RedirectResponse
     {
         Gate::authorize('update', $comment);
 
