@@ -5,9 +5,9 @@
     "edit": "Golygu",
     "delete": "Dileu",
     "current_images": "Delweddau presennol",
-    "replace_images": "Disodli delweddau",
+    "add_images": "Ychwanegu delweddau",
     "choose_images": "Dewis delweddau",
-    "keep_current_images": "Gadewch hwn yn wag i gadw'r delweddau presennol.",
+    "keep_current_images": "Bydd y delweddau presennol yn cael eu cadw oni bai eich bod yn eu tynnu drwy ddefnyddio'r botwm X.",
     "new_images": "Delweddau newydd",
     "preview": "Rhagolwg",
     "selected_image_preview": "Rhagolwg o'r ddelwedd a ddewiswyd",
@@ -22,5 +22,6 @@
     "posts": "Postiadau",
     "no_posts_yet": "Dim postiadau eto.",
     "post": "Post",
-    "back_to_posts": "Yn ôl i'r postiadau"
+    "back_to_posts": "Yn ôl i'r postiadau",
+    "remove_image": "Dileu delwedd"
 }
