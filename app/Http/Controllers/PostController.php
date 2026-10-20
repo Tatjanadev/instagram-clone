@@ -88,7 +88,7 @@ class PostController extends Controller
      */
     public function edit(string $id): Response
     {
-        $post = $this->postRepository->getPostById((int) $id);
+        $post = $this->postService->getPostById((int) $id);
 
         Gate::authorize('update', $post);
 
@@ -102,7 +102,7 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, string $id): RedirectResponse
     {
-        $post = $this->postRepository->getPostById((int) $id);
+        $post = $this->postService->getPostById((int) $id);
 
         Gate::authorize('update', $post);
 
