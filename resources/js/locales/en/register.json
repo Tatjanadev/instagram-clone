@@ -6,5 +6,6 @@
     "last_name": "Last name",
     "username": "Username",
     "create_account": "Create account",
-    "already_have_account": "Already have an account?"
+    "already_have_account": "Already have an account?",
+    "register": "Sign up"
 }
