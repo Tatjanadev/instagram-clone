@@ -25,8 +25,11 @@ class UpdatePostRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string', 'max:5000'],
-            'images' => ['nullable', 'array', 'max:10'],
-            'images.*' => ['file', 'mimes:jpeg,png,webp', 'max:10240'], // 10MB max per image
+            'images' => ['nullable', 'array', 'max:20'],
+            'images.*' => ['image', 'mimes:jpeg,png,webp', 'max:10240'], // 10MB max per image
+            // IDs of existing images the user wants to remove.
+            'deleted_image_ids' => ['sometimes', 'array'],
+            'deleted_image_ids.*' => ['integer', 'distinct'],
         ];
     }
 }

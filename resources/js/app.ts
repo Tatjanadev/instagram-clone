@@ -51,12 +51,19 @@ import cySecurity from '@/locales/cy/security.json';
 import enProfile from '@/locales/en/profile.json';
 import cyProfile from '@/locales/cy/profile.json';
 import nbProfile from '@/locales/nb/profile.json';
+import enWelcome from '@/locales/en/welcome.json';
+import cyWelcome from '@/locales/cy/welcome.json';
+import nbWelcome from '@/locales/nb/welcome.json';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 const i18n = createI18n({
     legacy: false,
-    locale: localStorage.getItem('locale') || 'en',
+    //If we're running in the browser, use the user's saved language. Otherwise, use English.
+    locale:
+        typeof window !== 'undefined'
+            ? localStorage.getItem('locale') || 'en'
+            : 'en',
     fallbackLocale: 'en',
     messages: {
         en: {
@@ -75,6 +82,7 @@ const i18n = createI18n({
             emailVerification: enEmailVerification,
             security: enSecurity,
             profile: enProfile,
+            welcome: enWelcome,
         },
         nb: {
             navigation: nbNavigation,
@@ -92,6 +100,7 @@ const i18n = createI18n({
             emailVerification: nbEmailVerification,
             security: nbSecurity,
             profile: nbProfile,
+            welcome: nbWelcome,
         },
         cy: {
             navigation: cyNavigation,
@@ -109,6 +118,7 @@ const i18n = createI18n({
             emailVerification: cyEmailVerification,
             security: cySecurity,
             profile: cyProfile,
+            welcome: cyWelcome,
         },
     },
 });
