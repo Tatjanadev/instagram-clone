@@ -6,6 +6,8 @@ use App\Http\Requests\Posts\StorePostRequest;
 use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Models\Post;
 use App\Repositories\PostRepository;
+use App\Services\CommentService;
+use App\Services\PostService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -14,12 +16,11 @@ use Inertia\Response;
 
 class PostController extends Controller
 {
-    private PostRepository $postRepository;
-
-    public function __construct(PostRepository $postRepository)
-    {
-        $this->postRepository = $postRepository;
-    }
+    public function __construct(
+        private PostRepository $postRepository,
+        private PostService $postService,
+        private CommentService $commentService
+    ) {}
 
     /**
      * Display a listing of the resource.
@@ -27,7 +28,7 @@ class PostController extends Controller
     public function index(Request $request): Response
     {
         return Inertia::render('posts/Index', [
-            'posts' => $this->postRepository->getAllPosts(),
+            'posts' => $this->postService->getAllPosts(),
             'currentUserId' => $request->user()->id,
         ]);
     }
@@ -68,12 +69,17 @@ class PostController extends Controller
      */
     public function show(Request $request, string $id): Response
     {
-        $post = $this->postRepository->getPostById((int) $id);
+        $post = $this->postService->getPostById((int) $id);
 
         Gate::authorize('view', $post);
 
+        $comments = $this->commentService->getCommentsForPost($post->id);
+        $commentsCount = $comments->count();
+
         return Inertia::render('posts/Show', [
             'post' => $post,
+            'comments' => $comments,
+            'commentsCount' => $commentsCount,
             'currentUserId' => $request->user()->id,
         ]);
     }
