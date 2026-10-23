@@ -75,7 +75,9 @@ class PostService
 
         // Delete only the selected existing images.
         foreach ($data['deleted_image_ids'] ?? [] as $imageId) {
-            $image = $post->images()->findOrFail($imageId);
+            $image = $post->images()
+                ->whereKey((int) $imageId)
+                ->firstOrFail();
 
             $this->postImageRepository->delete($image);
         }
