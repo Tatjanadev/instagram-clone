@@ -29,7 +29,7 @@ class CommentRepository
     public function getCommentsForPost(int $postId): Collection
     {
         return Comment::with('user:id,first_name,last_name,username,profile_photo_path')
-        ->where('post_id', $postId)
+            ->where('post_id', $postId)
             ->get();
     }
 

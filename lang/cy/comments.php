@@ -6,5 +6,5 @@ return [
     'comment_updated' => 'Mae’r sylw wedi’i ddiweddaru’n llwyddiannus.',
     'comment_deleted' => 'Mae’r sylw wedi’i ddileu’n llwyddiannus.',
     'cannot_delete' => 'Nid oedd modd dileu’r sylw. Rhowch gynnig arall arni.',
-    
+
 ];
