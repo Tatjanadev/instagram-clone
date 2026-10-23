@@ -39,8 +39,8 @@ test('authenticated user can update a post', function () {
     ]);
 
     PostImage::factory()->create([
-    'post_id' => $post->id,
-]);
+        'post_id' => $post->id,
+    ]);
 
     $response = $this->actingAs($user)
         ->patch("/posts/{$post->id}", [
