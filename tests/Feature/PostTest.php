@@ -40,6 +40,7 @@ test('authenticated user can update a post', function () {
 
     PostImage::factory()->create([
         'post_id' => $post->id,
+        'image_path' => 'posts/test-image.jpg',
     ]);
 
     $response = $this->actingAs($user)
