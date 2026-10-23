@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\Posts\UpdatePostDTO;
 use App\Http\Requests\Posts\StorePostRequest;
 use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Models\Post;
@@ -108,7 +109,7 @@ class PostController extends Controller
 
         $this->postService->updatePost(
             $post,
-            $request->validated()
+            UpdatePostDTO::fromArray($request->validated())
         );
         Inertia::flash('toast', [
             'type' => 'success',
