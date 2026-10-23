@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
@@ -48,6 +49,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('posts/{postId}/likes', [LikeController::class, 'likedBy'])
         ->name('posts.liked-by');
+
+    Route::post('posts/{post}/comments', [CommentController::class, 'store'])
+        ->name('comments.store');
+
+    Route::put('comments/{comment}', [CommentController::class, 'update'])
+        ->name('comments.update');
+
+    Route::delete('comments/{comment}', [CommentController::class, 'destroy'])
+        ->name('comments.destroy');
 });
 
 require __DIR__.'/settings.php';

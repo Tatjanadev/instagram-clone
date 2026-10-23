@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\PostImage;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class PostImageRepository
 {
@@ -15,5 +16,15 @@ class PostImageRepository
             'post_id' => $postId,
             'image_path' => $path,
         ]);
+    }
+
+    public function delete(PostImage $image): void
+    {
+        // Delete the physical file only if it is a real user upload.
+        if (str_starts_with($image->image_path, 'posts/')) {
+            Storage::disk('public')->delete($image->image_path);
+        }
+
+        $image->delete();
     }
 }
