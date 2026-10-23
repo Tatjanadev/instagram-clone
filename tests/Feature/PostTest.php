@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Post;
+use App\Models\PostImage;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -36,6 +37,10 @@ test('authenticated user can update a post', function () {
     $post = Post::factory()->create([
         'user_id' => $user->id,
     ]);
+
+    PostImage::factory()->create([
+    'post_id' => $post->id,
+]);
 
     $response = $this->actingAs($user)
         ->patch("/posts/{$post->id}", [
