@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import PostCard from '@/components/posts/PostCard.vue';
+import { useI18n } from "vue-i18n";
+import PostCard from "@/components/posts/PostCard.vue";
 
 const { t } = useI18n();
 
@@ -10,6 +10,8 @@ defineProps<{
         user_id: number;
         title: string;
         description: string | null;
+        likes_count: number;
+        is_liked: boolean;
         images: Array<{
             id: number;
             image_path: string;
@@ -26,9 +28,9 @@ defineProps<{
 
 <template>
     <div>
-        <h1>{{ t('posts.posts') }}</h1>
+        <h1>{{ t("posts.posts") }}</h1>
 
-        <div v-if="posts.length === 0">{{ t('posts.no_posts_yet') }}</div>
+        <div v-if="posts.length === 0">{{ t("posts.no_posts_yet") }}</div>
 
         <div v-else class="flex flex-wrap gap-6">
             <PostCard
@@ -37,6 +39,8 @@ defineProps<{
                 :id="post.id"
                 :title="post.title"
                 :description="post.description"
+                :likes-count="post.likes_count"
+                :is-liked="post.is_liked"
                 :image-path="
                     post.images.length
                         ? `/storage/${post.images[0].image_path}`

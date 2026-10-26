@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { Link, router } from '@inertiajs/vue3';
-import { Heart } from 'lucide-vue-next';
-import { show as userShow } from '@/routes/users';
-import { useI18n } from 'vue-i18n';
+import { Link, router } from "@inertiajs/vue3";
+import { Heart } from "lucide-vue-next";
+import { show as userShow } from "@/routes/users";
+import { useI18n } from "vue-i18n";
+import { ref } from "vue";
+import axios, { AxiosError } from "axios";
 
 const { t } = useI18n();
 
@@ -14,10 +16,62 @@ const props = defineProps<{
     profilePhotoPath: string | null;
     title: string;
     description: string | null;
+    likesCount: number;
+    isLiked: boolean;
     imagePath: string | null;
 }>();
+
+const liked = ref(props.isLiked);
+const likes = ref(props.likesCount);
+const isProcessing = ref(false);
+
+const toggleLike = async () => {
+    if (isProcessing.value) {
+        return;
+    }
+
+    isProcessing.value = true;
+
+    const wasLiked = liked.value;
+
+    liked.value = !wasLiked;
+    likes.value += wasLiked ? -1 : 1;
+
+    try {
+        if (wasLiked) {
+            await axios.delete(`/posts/${props.id}/like`);
+        } else {
+            await axios.post(`/posts/${props.id}/like`);
+        }
+    } catch (error) {
+        const axiosError = error as AxiosError<{
+            already_liked?: boolean;
+            already_unliked?: boolean;
+            likes_count?: number;
+        }>;
+        const response = axiosError.response;
+
+        if (
+            response?.status === 422 &&
+            typeof response.data.likes_count === "number" &&
+            (response.data.already_liked === true ||
+                response.data.already_unliked === true)
+        ) {
+            liked.value = response.data.already_liked === true;
+            likes.value = response.data.likes_count;
+        } else {
+            liked.value = wasLiked;
+            likes.value += wasLiked ? 1 : -1;
+
+            console.error("Failed to update like:", error);
+        }
+    } finally {
+        isProcessing.value = false;
+    }
+};
+
 const deletePost = () => {
-    const confirmed = window.confirm(t('posts.delete_confirmation'));
+    const confirmed = window.confirm(t("posts.delete_confirmation"));
     if (!confirmed) {
         return;
     }
@@ -70,17 +124,25 @@ const deletePost = () => {
             <button
                 type="button"
                 class="btn btn-ghost btn-circle tooltip"
-                :data-tip="t('posts.like')"
+                :data-tip="liked ? t('posts.unlike') : t('posts.like')"
+                :disabled="isProcessing"
+                @click="toggleLike"
             >
-                <Heart :size="22" />
+                <Heart
+                    :size="22"
+                    :class="liked ? 'text-red-500' : ''"
+                    :fill="liked ? 'currentColor' : 'none'"
+                />
             </button>
+
+            <span>{{ likes }}</span>
 
             <Link
                 v-if="userId === currentUserId"
                 :href="`/posts/${id}/edit`"
                 class="btn btn-sm btn-accent"
             >
-                {{ t('posts.edit') }}
+                {{ t("posts.edit") }}
             </Link>
 
             <button
@@ -89,7 +151,7 @@ const deletePost = () => {
                 class="btn btn-sm btn-error"
                 @click="deletePost"
             >
-                {{ t('posts.delete') }}
+                {{ t("posts.delete") }}
             </button>
         </div>
     </div>
