@@ -17,7 +17,9 @@ class LikeService
     public function like(int $userId, int $postId): Like
     {
         if ($this->likeRepository->isLikedByUser($userId, $postId)) {
-            throw new CannotLikeTwiceException;
+            throw new CannotLikeTwiceException(
+                $this->getLikesCountForPost($postId)
+            );
         }
 
         return $this->likeRepository->like($userId, $postId);
@@ -26,7 +28,9 @@ class LikeService
     public function unlike(int $userId, int $postId): void
     {
         if (! $this->likeRepository->isLikedByUser($userId, $postId)) {
-            throw new NotLikedException;
+            throw new NotLikedException(
+                 $this->getLikesCountForPost($postId)
+            );
         }
         $this->likeRepository->unlike($userId, $postId);
     }
