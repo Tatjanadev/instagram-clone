@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class PostRepository
 {
@@ -12,8 +13,13 @@ class PostRepository
      */
     public function getAllPosts(): Collection
     {
+        $userId = (int) Auth::id();
         return Post::with(['images', 'user'])
-            ->withCount('comments')
+            ->withCount(['comments', 'likes'])
+             ->withExists([
+            'likes as is_liked' => fn ($query) =>
+                $query->where('user_id', $userId),
+        ])
             ->latest()
             ->get();
     }
@@ -38,7 +44,14 @@ class PostRepository
      */
     public function getPostById(int $id): Post
     {
-        return Post::with(['images', 'user'])->findOrFail($id);
+         $userId = (int) Auth::id();
+        return Post::with(['images', 'user'])
+        ->withCount(['comments', 'likes'])
+        ->withExists([
+            'likes as is_liked' => fn ($query) =>
+            $query->where('user_id', $userId),
+        ])
+        ->findOrFail($id);
     }
 
     public function create(
