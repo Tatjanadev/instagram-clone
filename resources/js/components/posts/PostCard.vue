@@ -5,6 +5,7 @@ import { show as userShow } from "@/routes/users";
 import { useI18n } from "vue-i18n";
 import { ref } from "vue";
 import axios, { AxiosError } from "axios";
+import LikesModal from "@/components/likes/LikesModal.vue";
 
 const { t } = useI18n();
 
@@ -24,6 +25,7 @@ const props = defineProps<{
 const liked = ref(props.isLiked);
 const likes = ref(props.likesCount);
 const isProcessing = ref(false);
+const isLikesModalOpen = ref(false);
 
 const toggleLike = async () => {
     if (isProcessing.value) {
@@ -124,7 +126,7 @@ const deletePost = () => {
             <button
                 type="button"
                 class="btn btn-ghost btn-circle tooltip"
-                :data-tip="liked ? t('posts.unlike') : t('posts.like')"
+                :data-tip="liked ? t('likes.unlike') : t('likes.like')"
                 :disabled="isProcessing"
                 @click="toggleLike"
             >
@@ -135,7 +137,13 @@ const deletePost = () => {
                 />
             </button>
 
-            <span>{{ likes }}</span>
+            <button
+                type="button"
+                class="btn btn-ghost btn-sm"
+                @click="isLikesModalOpen = true"
+            >
+                {{ likes }}
+            </button>
 
             <Link
                 v-if="userId === currentUserId"
@@ -155,4 +163,9 @@ const deletePost = () => {
             </button>
         </div>
     </div>
+    <LikesModal
+        :is-open="isLikesModalOpen"
+        :post-id="id"
+        @close="isLikesModalOpen = false"
+    />
 </template>
