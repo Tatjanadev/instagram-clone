@@ -60,7 +60,11 @@ watch(
 </script>
 
 <template>
-    <dialog class="modal" :open="isOpen">
+    <dialog class="modal" 
+    :open="isOpen"
+     @click.self="emit('close')"
+    @keydown.esc="emit('close')"
+    >
         <div class="modal-box">
             <div class="flex items-center justify-between">
                 <h2 class="text-lg font-semibold">
