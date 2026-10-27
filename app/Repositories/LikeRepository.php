@@ -37,6 +37,7 @@ class LikeRepository
     {
         return Like::where('user_id', $userId)
             ->with([
+                'post' => fn ($query) => $query->withCount('likes'),
                 'post.images',
                 'post.user',
             ])
