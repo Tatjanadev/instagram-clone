@@ -1,10 +1,8 @@
 {
-    "navigation": {
         "users": "Defnyddwyr",
         "create_post": "Creu Post",
         "my_profile": "Fy Mhroffil",
         "profile": "Proffil",
         "navigation_menu": "Dewislen llywio",
         "platform": "Platfform"
-    }
 }
