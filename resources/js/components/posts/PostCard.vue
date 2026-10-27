@@ -150,7 +150,7 @@ const deletePost = () => {
                 :href="`/posts/${id}/edit`"
                 class="btn btn-sm btn-accent"
             >
-                {{ t("posts.edit") }}
+                {{ t("posts.edit_post") }}
             </Link>
 
             <button
