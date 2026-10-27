@@ -1,4 +1,4 @@
-import type { User } from './user';
+import type { User } from "./user";
 
 export type PostImage = {
     id: number;
@@ -10,6 +10,8 @@ export type Post = {
     user_id: number;
     title: string;
     description: string | null;
+    likes_count: number;
+    is_liked: boolean;
     images: PostImage[];
     user: User;
 };
