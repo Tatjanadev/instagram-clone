@@ -5,5 +5,7 @@
     "liked_by": "Likt av",
     "loading": "Laster inn likerklikk...",
     "load_error": "Kunne ikke laste inn likerklikk",
-    "no_likes": "Ingen likerklikk ennå"
+    "no_likes": "Ingen likerklikk ennå",
+    "liked_posts": "Innlegg du liker",
+    "no_liked_posts": "Du har ikke likt noen innlegg ennå."
 }

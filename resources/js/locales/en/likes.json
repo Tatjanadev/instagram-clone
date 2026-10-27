@@ -5,5 +5,7 @@
     "liked_by": "Liked by",
     "loading": "Loading likes...",
     "load_error": "Failed to load likes.",
-    "no_likes": "No likes yet"
+    "no_likes": "No likes yet",
+    "liked_posts": "Liked posts",
+    "no_liked_posts": "You haven't liked any posts yet."
 }
