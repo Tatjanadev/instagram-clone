@@ -1,0 +1,9 @@
+
+{
+    "like": "Lik",
+    "unlike": "Fjern likerklikk",
+    "liked_by": "Likt av",
+    "loading": "Laster inn likerklikk...",
+    "load_error": "Kunne ikke laste inn likerklikk",
+    "no_likes": "Ingen likerklikk ennå"
+}

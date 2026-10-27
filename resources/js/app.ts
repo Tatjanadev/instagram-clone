@@ -54,6 +54,9 @@ import nbProfile from '@/locales/nb/profile.json';
 import enWelcome from '@/locales/en/welcome.json';
 import cyWelcome from '@/locales/cy/welcome.json';
 import nbWelcome from '@/locales/nb/welcome.json';
+import enLikes from './locales/en/likes.json';
+import nbLikes from './locales/nb/likes.json';
+import cyLikes from './locales/cy/likes.json';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -83,6 +86,7 @@ const i18n = createI18n({
             security: enSecurity,
             profile: enProfile,
             welcome: enWelcome,
+            likes: enLikes,
         },
         nb: {
             navigation: nbNavigation,
@@ -101,6 +105,7 @@ const i18n = createI18n({
             security: nbSecurity,
             profile: nbProfile,
             welcome: nbWelcome,
+            likes: nbLikes,
         },
         cy: {
             navigation: cyNavigation,
@@ -119,6 +124,7 @@ const i18n = createI18n({
             security: cySecurity,
             profile: cyProfile,
             welcome: cyWelcome,
+            likes: cyLikes,
         },
     },
 });

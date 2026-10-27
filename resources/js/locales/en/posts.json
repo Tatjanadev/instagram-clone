@@ -1,9 +1,6 @@
 {
     "delete_confirmation": "Are you sure you want to delete this post?",
     "profile_photo": "Profile photo",
-    "like": "Like",
-    "unlike": "Unlike post",
-    "edit": "Edit",
     "delete": "Delete",
     "current_images": "Current images",
     "add_images": "Add images",
