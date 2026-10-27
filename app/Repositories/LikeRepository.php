@@ -57,7 +57,7 @@ class LikeRepository
     public function getUsersWhoLikedPost(int $postId): Collection
     {
         return Like::where('post_id', $postId)
-            ->with('user')
+            ->with('user:id,username,first_name,last_name,profile_photo_path')
             ->get();
     }
 }
