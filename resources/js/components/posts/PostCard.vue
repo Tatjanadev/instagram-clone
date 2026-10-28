@@ -42,9 +42,9 @@ const toggleLike = async () => {
     try {
         if (wasLiked) {
             await axios.delete(`/posts/${props.id}/like`);
-        } else {
-            await axios.post(`/posts/${props.id}/like`);
+            return;
         }
+        await axios.post(`/posts/${props.id}/like`);
     } catch (error) {
         const axiosError = error as AxiosError<{
             already_liked?: boolean;
@@ -52,21 +52,24 @@ const toggleLike = async () => {
             likes_count?: number;
         }>;
         const response = axiosError.response;
+        const data = response?.data;
 
-        if (
+        const isLikeConflict =
             response?.status === 422 &&
-            typeof response.data.likes_count === "number" &&
-            (response.data.already_liked === true ||
-                response.data.already_unliked === true)
-        ) {
-            liked.value = response.data.already_liked === true;
-            likes.value = response.data.likes_count;
-        } else {
-            liked.value = wasLiked;
-            likes.value += wasLiked ? 1 : -1;
+            typeof data?.likes_count === "number" &&
+            (data.already_liked === true || data.already_unliked === true);
 
-            console.error("Failed to update like:", error);
+        if (isLikeConflict && data) {
+            liked.value = data.already_liked === true;
+            likes.value = data.likes_count!;
+            return;
         }
+
+        // Restore previous values if the request failed.
+        liked.value = wasLiked;
+        likes.value += wasLiked ? 1 : -1;
+
+        console.error("Failed to update like:", error);
     } finally {
         isProcessing.value = false;
     }
