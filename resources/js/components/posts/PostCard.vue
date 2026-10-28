@@ -52,16 +52,16 @@ const toggleLike = async () => {
             likes_count?: number;
         }>;
         const response = axiosError.response;
-        const data = response?.data;
+        const errorData = response?.data;
 
         const isLikeConflict =
             response?.status === 422 &&
-            typeof data?.likes_count === "number" &&
-            (data.already_liked === true || data.already_unliked === true);
+            typeof errorData?.likes_count === "number" &&
+            (errorData.already_liked === true || errorData.already_unliked === true);
 
-        if (isLikeConflict && data) {
-            liked.value = data.already_liked === true;
-            likes.value = data.likes_count!;
+        if (isLikeConflict && errorData) {
+            liked.value = errorData.already_liked === true;
+            likes.value = errorData.likes_count!;
             return;
         }
 
