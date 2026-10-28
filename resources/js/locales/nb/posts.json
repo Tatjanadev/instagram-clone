@@ -5,9 +5,9 @@
     "edit": "Rediger",
     "delete": "Slett",
     "current_images": "Nåværende bilder",
-    "replace_images": "Erstatt bilder",
+    "add_images": "Legg til bilder",
     "choose_images": "Velg bilder",
-    "keep_current_images": "La dette feltet stå tomt for å beholde de nåværende bildene.",
+    "keep_current_images": "Eksisterende bilder beholdes med mindre du fjerner dem med X-knappen.",
     "new_images": "Nye bilder",
     "preview": "Forhåndsvisning",
     "selected_image_preview": "Forhåndsvisning av valgt bilde",
@@ -22,5 +22,6 @@
     "posts": "Innlegg",
     "no_posts_yet": "Ingen innlegg ennå.",
     "post": "Innlegg",
-    "back_to_posts": "Tilbake til innlegg"
+    "back_to_posts": "Tilbake til innlegg",
+    "remove_image": "Fjern bilde"
 }
