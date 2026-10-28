@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\PostImage;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\Collection;
 
 class PostImageRepository
 {

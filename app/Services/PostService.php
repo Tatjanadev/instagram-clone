@@ -85,7 +85,7 @@ class PostService
         ]);
 
         // Delete only the selected existing images.
-       $this->postImageService->deleteImages($imagesToDelete);
+        $this->postImageService->deleteImages($imagesToDelete);
 
         // Add new images if the user uploaded any.
         foreach ($data->images as $image) {
@@ -102,10 +102,10 @@ class PostService
     public function deletePost(Post $post): void
     {
 
-    $images = $this->postImageService->getImagesForPost($post->id);
+        $images = $this->postImageService->getImagesForPost($post->id);
 
         $this->postImageService->deleteImages($images);
 
-          $this->postRepository->deletePost($post);
+        $this->postRepository->deletePost($post);
     }
 }
