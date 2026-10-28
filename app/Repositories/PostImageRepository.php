@@ -5,9 +5,18 @@ namespace App\Repositories;
 use App\Models\PostImage;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Collection;
 
 class PostImageRepository
 {
+    /**
+     * @return Collection<int, PostImage>
+     */
+    public function getImagesForPost(int $postId): Collection
+    {
+        return PostImage::where('post_id', $postId)->get();
+    }
+
     public function create(int $postId, UploadedFile $image): PostImage
     {
         $path = $image->store('posts', 'public');

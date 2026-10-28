@@ -14,7 +14,8 @@ class PostService
 {
     public function __construct(
         private PostRepository $postRepository,
-        private PostImageRepository $postImageRepository
+        private PostImageRepository $postImageRepository,
+        private PostImageService $postImageService,
     ) {}
 
     /**
@@ -84,9 +85,7 @@ class PostService
         ]);
 
         // Delete only the selected existing images.
-        foreach ($imagesToDelete as $image) {
-            $this->postImageRepository->delete($image);
-        }
+       $this->postImageService->deleteImages($imagesToDelete);
 
         // Add new images if the user uploaded any.
         foreach ($data->images as $image) {
@@ -102,11 +101,11 @@ class PostService
      */
     public function deletePost(Post $post): void
     {
-        $images = $post->images()->get();
 
-        foreach ($images as $image) {
-            $this->postImageRepository->delete($image);
-        }
-        $this->postRepository->deletePost($post);
+    $images = $this->postImageService->getImagesForPost($post->id);
+
+        $this->postImageService->deleteImages($images);
+
+          $this->postRepository->deletePost($post);
     }
 }
