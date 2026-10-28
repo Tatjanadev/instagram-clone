@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import PostCard from "@/components/posts/PostCard.vue";
+import { useI18n } from 'vue-i18n';
+import PostCard from '@/components/posts/PostCard.vue';
 
 const { t } = useI18n();
 
@@ -28,9 +28,9 @@ defineProps<{
 
 <template>
     <div>
-        <h1>{{ t("posts.posts") }}</h1>
+        <h1>{{ t('posts.posts') }}</h1>
 
-        <div v-if="posts.length === 0">{{ t("posts.no_posts_yet") }}</div>
+        <div v-if="posts.length === 0">{{ t('posts.no_posts_yet') }}</div>
 
         <div v-else class="flex flex-wrap gap-6">
             <PostCard

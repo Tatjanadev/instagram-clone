@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Link } from "@inertiajs/vue3";
-import { ArrowLeft } from "lucide-vue-next";
-import PostCard from "@/components/posts/PostCard.vue";
-import { useI18n } from "vue-i18n";
+import { Link } from '@inertiajs/vue3';
+import { ArrowLeft } from 'lucide-vue-next';
+import PostCard from '@/components/posts/PostCard.vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
@@ -38,7 +38,7 @@ defineProps<{
             >
                 <ArrowLeft :size="22" />
             </Link>
-            <h1 class="text-lg font-semibold">{{ t("posts.post") }}</h1>
+            <h1 class="text-lg font-semibold">{{ t('posts.post') }}</h1>
         </div>
         <PostCard
             :id="post.id"

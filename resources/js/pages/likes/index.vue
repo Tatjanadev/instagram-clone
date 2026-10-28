@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import { Link } from "@inertiajs/vue3";
-import { Heart } from "lucide-vue-next";
+import { useI18n } from 'vue-i18n';
+import { Link } from '@inertiajs/vue3';
+import { Heart } from 'lucide-vue-next';
 
 const { t } = useI18n();
 
@@ -28,12 +28,12 @@ defineProps<{
 <template>
     <div class="mx-auto max-w-5xl p-6">
         <h1 class="mb-6 text-xl font-semibold">
-            {{ t("likes.liked_posts") }}
+            {{ t('likes.liked_posts') }}
         </h1>
 
         <!-- Show a message when the user has no liked posts. -->
         <p v-if="likedPosts.length === 0">
-            {{ t("likes.no_liked_posts") }}
+            {{ t('likes.no_liked_posts') }}
         </p>
 
         <!-- Display liked posts in a responsive grid. -->
@@ -45,7 +45,7 @@ defineProps<{
                 class="group"
             >
                 <div
-                    class="relative aspect-square overflow-hidden rounded-lg bg-base-200"
+                    class="bg-base-200 relative aspect-square overflow-hidden rounded-lg"
                 >
                     <img
                         v-if="like.post.images.length > 0"

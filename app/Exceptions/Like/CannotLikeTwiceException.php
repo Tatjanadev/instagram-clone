@@ -12,6 +12,7 @@ class CannotLikeTwiceException extends Exception
     ) {
         parent::__construct();
     }
+
     public function render(): JsonResponse
     {
         return response()->json([

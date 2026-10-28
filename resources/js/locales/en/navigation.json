@@ -1,8 +1,8 @@
 {
-        "users": "Users",
-        "create_post": "Create Post",
-        "my_profile": "My Profile",
-        "profile": "Profile",
-        "navigation_menu": "Navigation menu",
-        "platform": "Platform"
+    "users": "Users",
+    "create_post": "Create Post",
+    "my_profile": "My Profile",
+    "profile": "Profile",
+    "navigation_menu": "Navigation menu",
+    "platform": "Platform"
 }

@@ -29,7 +29,7 @@ class LikeService
     {
         if (! $this->likeRepository->isLikedByUser($userId, $postId)) {
             throw new NotLikedException(
-                 $this->getLikesCountForPost($postId)
+                $this->getLikesCountForPost($postId)
             );
         }
         $this->likeRepository->unlike($userId, $postId);

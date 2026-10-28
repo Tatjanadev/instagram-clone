@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Link, router } from "@inertiajs/vue3";
-import { Heart } from "lucide-vue-next";
-import { show as userShow } from "@/routes/users";
-import { useI18n } from "vue-i18n";
-import { ref } from "vue";
-import axios, { AxiosError } from "axios";
-import LikesModal from "@/components/likes/LikesModal.vue";
+import { Link, router } from '@inertiajs/vue3';
+import { Heart } from 'lucide-vue-next';
+import { show as userShow } from '@/routes/users';
+import { useI18n } from 'vue-i18n';
+import { ref } from 'vue';
+import axios, { AxiosError } from 'axios';
+import LikesModal from '@/components/likes/LikesModal.vue';
 
 const { t } = useI18n();
 
@@ -56,8 +56,9 @@ const toggleLike = async () => {
 
         const isLikeConflict =
             response?.status === 422 &&
-            typeof errorData?.likes_count === "number" &&
-            (errorData.already_liked === true || errorData.already_unliked === true);
+            typeof errorData?.likes_count === 'number' &&
+            (errorData.already_liked === true ||
+                errorData.already_unliked === true);
 
         if (isLikeConflict && errorData) {
             liked.value = errorData.already_liked === true;
@@ -69,14 +70,14 @@ const toggleLike = async () => {
         liked.value = wasLiked;
         likes.value += wasLiked ? 1 : -1;
 
-        console.error("Failed to update like:", error);
+        console.error('Failed to update like:', error);
     } finally {
         isProcessing.value = false;
     }
 };
 
 const deletePost = () => {
-    const confirmed = window.confirm(t("posts.delete_confirmation"));
+    const confirmed = window.confirm(t('posts.delete_confirmation'));
     if (!confirmed) {
         return;
     }
@@ -153,7 +154,7 @@ const deletePost = () => {
                 :href="`/posts/${id}/edit`"
                 class="btn btn-sm btn-accent"
             >
-                {{ t("posts.edit_post") }}
+                {{ t('posts.edit_post') }}
             </Link>
 
             <button
@@ -162,7 +163,7 @@ const deletePost = () => {
                 class="btn btn-sm btn-error"
                 @click="deletePost"
             >
-                {{ t("posts.delete") }}
+                {{ t('posts.delete') }}
             </button>
         </div>
     </div>

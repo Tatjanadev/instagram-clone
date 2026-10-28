@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import { ref, watch } from "vue";
-import axios from "axios";
+import { useI18n } from 'vue-i18n';
+import { ref, watch } from 'vue';
+import axios from 'axios';
 import { Link } from '@inertiajs/vue3';
 import { show as userShow } from '@/routes/users';
 
@@ -50,7 +50,7 @@ watch(
 
             likes.value = response.data.likes;
         } catch (error) {
-            console.error("Failed to load likes:", error);
+            console.error('Failed to load likes:', error);
             hasError.value = true;
         } finally {
             isLoading.value = false;
@@ -60,15 +60,16 @@ watch(
 </script>
 
 <template>
-    <dialog class="modal" 
-    :open="isOpen"
-     @click.self="emit('close')"
-    @keydown.esc="emit('close')"
+    <dialog
+        class="modal"
+        :open="isOpen"
+        @click.self="emit('close')"
+        @keydown.esc="emit('close')"
     >
         <div class="modal-box">
             <div class="flex items-center justify-between">
                 <h2 class="text-lg font-semibold">
-                    {{ t("likes.liked_by") }}
+                    {{ t('likes.liked_by') }}
                 </h2>
 
                 <button
@@ -84,15 +85,15 @@ watch(
                 <!-- Show a loading spinner while fetching likes from Laravel. -->
                 <div v-if="isLoading" class="flex justify-center">
                     <span class="loading loading-spinner loading-md"></span>
-                    <span class="ml-2">{{ t("likes.loading") }}</span>
+                    <span class="ml-2">{{ t('likes.loading') }}</span>
                 </div>
 
                 <p v-else-if="hasError">
-                    {{ t("likes.load_error") }}
+                    {{ t('likes.load_error') }}
                 </p>
-                 <!-- Show a message if the post has no likes. -->
+                <!-- Show a message if the post has no likes. -->
                 <p v-else-if="likes.length === 0">
-                    {{ t("likes.no_likes") }}
+                    {{ t('likes.no_likes') }}
                 </p>
                 <!-- Display the users when likes have been loaded successfully. -->
                 <div v-else class="flex flex-col gap-4">
@@ -105,7 +106,7 @@ watch(
                     >
                         <div class="avatar">
                             <div class="h-10 w-10 rounded-full">
-                                 <!-- Show the profile photo if the user has one. -->
+                                <!-- Show the profile photo if the user has one. -->
                                 <img
                                     v-if="like.user.profile_photo_path"
                                     :src="`/storage/${like.user.profile_photo_path}`"
@@ -124,17 +125,17 @@ watch(
                                 </div>
                             </div>
                         </div>
-                         <!-- Display the username and full name underneath. -->
+                        <!-- Display the username and full name underneath. -->
                         <div class="flex flex-col">
                             <span class="font-semibold">
                                 {{ like.user.username }}
                             </span>
-                             <!-- Remove missing names and join the rest with a space. -->
+                            <!-- Remove missing names and join the rest with a space. -->
                             <span class="text-base-content/60 text-sm">
                                 {{
                                     [like.user.first_name, like.user.last_name]
                                         .filter(Boolean)
-                                        .join(" ")
+                                        .join(' ')
                                 }}
                             </span>
                         </div>

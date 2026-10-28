@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import PostCard from "@/components/posts/PostCard.vue";
-import { Link } from "@inertiajs/vue3";
-import type { Post } from "@/types/post";
-import type { User } from "@/types/user";
-import { show as userShow } from "@/routes/users";
-import { useI18n } from "vue-i18n";
+import PostCard from '@/components/posts/PostCard.vue';
+import { Link } from '@inertiajs/vue3';
+import type { Post } from '@/types/post';
+import type { User } from '@/types/user';
+import { show as userShow } from '@/routes/users';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
