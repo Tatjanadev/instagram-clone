@@ -12,6 +12,8 @@ defineProps<{
         user_id: number;
         title: string;
         description: string | null;
+        likes_count: number;
+        is_liked: boolean;
         images: Array<{
             id: number;
             image_path: string;
@@ -46,6 +48,8 @@ defineProps<{
             :profile-photo-path="post.user.profile_photo_path"
             :title="post.title"
             :description="post.description"
+            :likes-count="post.likes_count"
+            :is-liked="post.is_liked"
             :image-path="
                 post.images.length
                     ? `/storage/${post.images[0].image_path}`

@@ -6,5 +6,6 @@
     "last_name": "Etternavn",
     "username": "Brukernavn",
     "create_account": "Opprett konto",
-    "already_have_account": "Har du allerede en konto?"
+    "already_have_account": "Har du allerede en konto?",
+    "register": "Registrer deg"
 }

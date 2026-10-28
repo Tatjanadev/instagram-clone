@@ -58,6 +58,8 @@ defineProps<{
             :profile-photo-path="post.user.profile_photo_path"
             :title="post.title"
             :description="post.description"
+            :likes-count="post.likes_count"
+            :is-liked="post.is_liked"
             :image-path="
                 post.images.length > 0
                     ? `/storage/${post.images[0].image_path}`

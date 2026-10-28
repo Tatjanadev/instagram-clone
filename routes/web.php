@@ -44,7 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('posts/{postId}/like', [LikeController::class, 'store'])
         ->name('posts.like');
 
-    Route::delete('posts/{postId}/like', [LikeController::class, 'destory'])
+    Route::delete('posts/{postId}/like', [LikeController::class, 'destroy'])
         ->name('posts.unlike');
 
     Route::get('posts/{postId}/likes', [LikeController::class, 'likedBy'])

@@ -13,8 +13,13 @@ class PostRepository
      */
     public function getAllPosts(): Collection
     {
+        $userId = (int) Auth::id();
+
         return Post::with(['images', 'user'])
-            ->withCount('comments')
+            ->withCount(['comments', 'likes'])
+            ->withExists([
+                'likes as is_liked' => fn ($query) => $query->where('user_id', $userId),
+            ])
             ->latest()
             ->get();
     }
@@ -27,6 +32,10 @@ class PostRepository
     public function getLatestPostPerUser(int $currentUserId)
     {
         return Post::with(['images', 'user'])
+            ->withCount('likes')
+            ->withExists([
+                'likes as is_liked' => fn ($query) => $query->where('user_id', $currentUserId),
+            ])
             ->where('user_id', '!=', $currentUserId)
             ->latest()
             ->get()
