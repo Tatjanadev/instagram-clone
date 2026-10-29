@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { ArrowLeft } from 'lucide-vue-next';
-import PostCard from '@/components/posts/PostCard.vue';
-import { useI18n } from 'vue-i18n';
+import { Link } from "@inertiajs/vue3";
+import { ArrowLeft } from "lucide-vue-next";
+import PostCard from "@/components/posts/PostCard.vue";
+import CommentForm from "@/components/comments/CommentForm.vue";
+import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
@@ -12,6 +13,8 @@ defineProps<{
         user_id: number;
         title: string;
         description: string | null;
+        likes_count: number;
+        is_liked: boolean;
         images: Array<{
             id: number;
             image_path: string;
@@ -22,8 +25,14 @@ defineProps<{
             profile_photo_path: string | null;
         };
     };
+    comments: Comment[];
+    commentsCount: number;
     currentUserId: number;
 }>();
+
+const handleCommentSubmit = (body: string) => {
+    console.log("New comment:", body);
+};
 </script>
 
 <template>
@@ -36,7 +45,7 @@ defineProps<{
             >
                 <ArrowLeft :size="22" />
             </Link>
-            <h1 class="text-lg font-semibold">{{ t('posts.post') }}</h1>
+            <h1 class="text-lg font-semibold">{{ t("posts.post") }}</h1>
         </div>
         <PostCard
             :id="post.id"
@@ -46,11 +55,25 @@ defineProps<{
             :profile-photo-path="post.user.profile_photo_path"
             :title="post.title"
             :description="post.description"
+            :likes-count="post.likes_count"
+            :is-liked="post.is_liked"
             :image-path="
                 post.images.length
                     ? `/storage/${post.images[0].image_path}`
                     : null
             "
         />
+        <!-- Comments section -->
+        <div class="mt-6 w-96">
+            <h2 class="mb-3 text-lg font-semibold">
+                {{ t("comments.title") }} ({{ commentsCount }})
+            </h2>
+
+            <CommentList :comments="comments" />
+
+            <div class="mt-4">
+                <CommentForm @submit="handleCommentSubmit" />
+            </div>
+        </div>
     </div>
 </template>
