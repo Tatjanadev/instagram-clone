@@ -54,12 +54,22 @@ import nbProfile from '@/locales/nb/profile.json';
 import enComments from "@/locales/en/comments.json";
 import nbComments from "@/locales/nb/comments.json";
 import cyComments from "@/locales/cy/comments.json";
+import enWelcome from '@/locales/en/welcome.json';
+import cyWelcome from '@/locales/cy/welcome.json';
+import nbWelcome from '@/locales/nb/welcome.json';
+import enLikes from './locales/en/likes.json';
+import nbLikes from './locales/nb/likes.json';
+import cyLikes from './locales/cy/likes.json';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 const i18n = createI18n({
     legacy: false,
-    locale: localStorage.getItem('locale') || 'en',
+    //If we're running in the browser, use the user's saved language. Otherwise, use English.
+    locale:
+        typeof window !== 'undefined'
+            ? localStorage.getItem('locale') || 'en'
+            : 'en',
     fallbackLocale: 'en',
     messages: {
         en: {
@@ -79,6 +89,8 @@ const i18n = createI18n({
             security: enSecurity,
             profile: enProfile,
             comments: enComments,
+            welcome: enWelcome,
+            likes: enLikes,
         },
         nb: {
             navigation: nbNavigation,
@@ -97,6 +109,8 @@ const i18n = createI18n({
             security: nbSecurity,
             profile: nbProfile,
             comments: nbComments,
+            welcome: nbWelcome,
+            likes: nbLikes,
         },
         cy: {
             navigation: cyNavigation,
@@ -115,6 +129,8 @@ const i18n = createI18n({
             security: cySecurity,
             profile: cyProfile,
             comments: cyComments,
+            welcome: cyWelcome,
+            likes: cyLikes,
         },
     },
 });

@@ -28,6 +28,13 @@ class Post extends Model
     /** @use HasFactory<PostFactory> */
     use HasFactory;
 
+    protected function casts(): array
+    {
+        return [
+            'is_liked' => 'boolean',
+        ];
+    }
+
     /**
      * Get the user that owns the post.
      */

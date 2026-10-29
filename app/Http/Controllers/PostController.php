@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\Posts\UpdatePostDTO;
 use App\Http\Requests\Posts\StorePostRequest;
 use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Models\Post;
-use App\Repositories\PostRepository;
 use App\Services\CommentService;
 use App\Services\PostService;
 use Illuminate\Http\RedirectResponse;
@@ -17,7 +17,6 @@ use Inertia\Response;
 class PostController extends Controller
 {
     public function __construct(
-        private PostRepository $postRepository,
         private PostService $postService,
         private CommentService $commentService
     ) {}
@@ -50,9 +49,10 @@ class PostController extends Controller
     {
         Gate::authorize('create', Post::class);
 
-        $this->postRepository->createPost(
+        $this->postService->createPost(
             $request->user()->id,
-            $request->validated(),
+            $request->validated('title'),
+            $request->validated('description') ?? null,
             $request->file('images')
         );
         Inertia::flash('toast', [
@@ -89,7 +89,7 @@ class PostController extends Controller
      */
     public function edit(string $id): Response
     {
-        $post = $this->postRepository->getPostById((int) $id);
+        $post = $this->postService->getPostById((int) $id);
 
         Gate::authorize('update', $post);
 
@@ -103,13 +103,13 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, string $id): RedirectResponse
     {
-        $post = $this->postRepository->getPostById((int) $id);
+        $post = $this->postService->getPostById((int) $id);
 
         Gate::authorize('update', $post);
 
-        $this->postRepository->updatePost(
+        $this->postService->updatePost(
             $post,
-            $request->validated()
+            UpdatePostDTO::fromArray($request->validated())
         );
         Inertia::flash('toast', [
             'type' => 'success',
@@ -125,11 +125,11 @@ class PostController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        $post = $this->postRepository->getPostById((int) $id);
+        $post = $this->postService->getPostById((int) $id);
 
         Gate::authorize('delete', $post);
 
-        $this->postRepository->deletePost($post);
+        $this->postService->deletePost($post);
 
         Inertia::flash('toast', [
             'type' => 'success',
