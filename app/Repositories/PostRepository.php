@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Post;
 use App\Models\PostImage;
@@ -41,7 +42,15 @@ class PostRepository
      */
     public function getPostById(int $id): Post
     {
-        return Post::with(['images', 'user'])->findOrFail($id);
+          $userId = (int) Auth::id();
+
+    return Post::with(['images', 'user'])
+        ->withCount(['comments', 'likes'])
+        ->withExists([
+            'likes as is_liked' => fn ($query) =>
+                $query->where('user_id', $userId),
+        ])
+        ->findOrFail($id);
     }
 
     public function create(

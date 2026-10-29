@@ -74,7 +74,7 @@ class PostController extends Controller
         Gate::authorize('view', $post);
 
         $comments = $this->commentService->getCommentsForPost($post->id);
-        $commentsCount = $comments->count();
+        $commentsCount = $post->comments_count;
 
         return Inertia::render('posts/Show', [
             'post' => $post,
