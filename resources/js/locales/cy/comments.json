@@ -1,0 +1,11 @@
+{
+    "title": "Sylwadau",
+    "write_comment": "Ysgrifennwch sylw...",
+    "submit": "Postio sylw",
+    "no_comments": "Dim sylwadau eto.",
+    "edit": "Golygu sylw",
+    "delete": "Dileu sylw",
+    "save": "Cadw",
+    "cancel": "Canslo",
+    "delete_confirmation": "Ydych chi'n siŵr eich bod am ddileu'r sylw hwn?"
+}

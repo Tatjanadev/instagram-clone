@@ -51,6 +51,9 @@ import cySecurity from '@/locales/cy/security.json';
 import enProfile from '@/locales/en/profile.json';
 import cyProfile from '@/locales/cy/profile.json';
 import nbProfile from '@/locales/nb/profile.json';
+import enComments from "@/locales/en/comments.json";
+import nbComments from "@/locales/nb/comments.json";
+import cyComments from "@/locales/cy/comments.json";
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -75,6 +78,7 @@ const i18n = createI18n({
             emailVerification: enEmailVerification,
             security: enSecurity,
             profile: enProfile,
+            comments: enComments,
         },
         nb: {
             navigation: nbNavigation,
@@ -92,6 +96,7 @@ const i18n = createI18n({
             emailVerification: nbEmailVerification,
             security: nbSecurity,
             profile: nbProfile,
+            comments: nbComments,
         },
         cy: {
             navigation: cyNavigation,
@@ -109,6 +114,7 @@ const i18n = createI18n({
             emailVerification: cyEmailVerification,
             security: cySecurity,
             profile: cyProfile,
+            comments: cyComments,
         },
     },
 });
