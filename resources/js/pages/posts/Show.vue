@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Link } from "@inertiajs/vue3";
-import { ArrowLeft } from "lucide-vue-next";
-import PostCard from "@/components/posts/PostCard.vue";
-import CommentForm from "@/components/comments/CommentForm.vue";
-import { useI18n } from "vue-i18n";
+import { Link } from '@inertiajs/vue3';
+import { ArrowLeft } from 'lucide-vue-next';
+import PostCard from '@/components/posts/PostCard.vue';
+import CommentForm from '@/components/comments/CommentForm.vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
@@ -31,7 +31,7 @@ defineProps<{
 }>();
 
 const handleCommentSubmit = (body: string) => {
-    console.log("New comment:", body);
+    console.log('New comment:', body);
 };
 </script>
 
@@ -45,7 +45,7 @@ const handleCommentSubmit = (body: string) => {
             >
                 <ArrowLeft :size="22" />
             </Link>
-            <h1 class="text-lg font-semibold">{{ t("posts.post") }}</h1>
+            <h1 class="text-lg font-semibold">{{ t('posts.post') }}</h1>
         </div>
         <PostCard
             :id="post.id"
@@ -66,7 +66,7 @@ const handleCommentSubmit = (body: string) => {
         <!-- Comments section -->
         <div class="mt-6 w-96">
             <h2 class="mb-3 text-lg font-semibold">
-                {{ t("comments.title") }} ({{ commentsCount }})
+                {{ t('comments.title') }} ({{ commentsCount }})
             </h2>
 
             <CommentList :comments="comments" />

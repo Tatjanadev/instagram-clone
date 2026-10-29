@@ -48,15 +48,14 @@ class PostRepository
      */
     public function getPostById(int $id): Post
     {
-          $userId = (int) Auth::id();
+        $userId = (int) Auth::id();
 
-    return Post::with(['images', 'user'])
-        ->withCount(['comments', 'likes'])
-        ->withExists([
-            'likes as is_liked' => fn ($query) =>
-                $query->where('user_id', $userId),
-        ])
-        ->findOrFail($id);
+        return Post::with(['images', 'user'])
+            ->withCount(['comments', 'likes'])
+            ->withExists([
+                'likes as is_liked' => fn ($query) => $query->where('user_id', $userId),
+            ])
+            ->findOrFail($id);
     }
 
     public function create(

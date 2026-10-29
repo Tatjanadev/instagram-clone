@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useI18n } from "vue-i18n";
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
@@ -8,7 +8,7 @@ const emit = defineEmits<{
     submit: [body: string];
 }>();
 
-const body = ref("");
+const body = ref('');
 
 const submitComment = () => {
     const comment = body.value.trim();
@@ -17,8 +17,8 @@ const submitComment = () => {
         return;
     }
 
-    emit("submit", comment);
-    body.value = "";
+    emit('submit', comment);
+    body.value = '';
 };
 </script>
 
@@ -34,7 +34,7 @@ const submitComment = () => {
         />
 
         <button type="submit" class="btn btn-primary" :disabled="!body.trim()">
-            {{ t("comments.submit") }}
+            {{ t('comments.submit') }}
         </button>
     </form>
 </template>

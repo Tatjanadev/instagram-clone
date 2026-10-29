@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Link } from "@inertiajs/vue3";
-import { show as userShow } from "@/routes/users";
-import type { Comment } from "@/types/comment";
+import { Link } from '@inertiajs/vue3';
+import { show as userShow } from '@/routes/users';
+import type { Comment } from '@/types/comment';
 
 defineProps<{
     comment: Comment;
@@ -14,7 +14,8 @@ defineProps<{
         <Link :href="userShow(comment.user.username)">
             <div class="avatar">
                 <div class="h-10 w-10 rounded-full">
-                //Only display the image if the user has a profile photo path.
+                    //Only display the image if the user has a profile photo
+                    path.
                     <img
                         v-if="comment.user.profile_photo_path"
                         :src="`/storage/${comment.user.profile_photo_path}`"
@@ -34,10 +35,7 @@ defineProps<{
 
         <!-- Comment text -->
         <div class="flex-1">
-            <Link
-                :href="userShow(comment.user.username)"
-                class="font-semibold"
-            >
+            <Link :href="userShow(comment.user.username)" class="font-semibold">
                 {{ comment.user.username }}
             </Link>
 
