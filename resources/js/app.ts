@@ -51,6 +51,9 @@ import cySecurity from '@/locales/cy/security.json';
 import enProfile from '@/locales/en/profile.json';
 import cyProfile from '@/locales/cy/profile.json';
 import nbProfile from '@/locales/nb/profile.json';
+import enComments from '@/locales/en/comments.json';
+import nbComments from '@/locales/nb/comments.json';
+import cyComments from '@/locales/cy/comments.json';
 import enWelcome from '@/locales/en/welcome.json';
 import cyWelcome from '@/locales/cy/welcome.json';
 import nbWelcome from '@/locales/nb/welcome.json';
@@ -85,6 +88,7 @@ const i18n = createI18n({
             emailVerification: enEmailVerification,
             security: enSecurity,
             profile: enProfile,
+            comments: enComments,
             welcome: enWelcome,
             likes: enLikes,
         },
@@ -104,6 +108,7 @@ const i18n = createI18n({
             emailVerification: nbEmailVerification,
             security: nbSecurity,
             profile: nbProfile,
+            comments: nbComments,
             welcome: nbWelcome,
             likes: nbLikes,
         },
@@ -123,6 +128,7 @@ const i18n = createI18n({
             emailVerification: cyEmailVerification,
             security: cySecurity,
             profile: cyProfile,
+            comments: cyComments,
             welcome: cyWelcome,
             likes: cyLikes,
         },

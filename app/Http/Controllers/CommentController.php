@@ -7,6 +7,7 @@ use App\Http\Requests\Comments\UpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Services\CommentService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
@@ -16,6 +17,17 @@ class CommentController extends Controller
     public function __construct(
         private CommentService $commentService
     ) {}
+
+    public function index(Post $post): JsonResponse
+    {
+        Gate::authorize('view', $post);
+
+        $comments = $this->commentService->getCommentsForPost($post->id);
+
+        return response()->json([
+            'comments' => $comments,
+        ]);
+    }
 
     public function store(StoreCommentRequest $request, Post $post): RedirectResponse
     {

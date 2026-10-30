@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { ArrowLeft } from 'lucide-vue-next';
-import PostCard from '@/components/posts/PostCard.vue';
-import { useI18n } from 'vue-i18n';
+import { Link, router } from "@inertiajs/vue3";
+import { ArrowLeft } from "lucide-vue-next";
+import PostCard from "@/components/posts/PostCard.vue";
+import CommentForm from "@/components/comments/CommentForm.vue";
+import CommentList from "@/components/comments/CommentList.vue";
+import type { Comment } from "@/types/comment";
+import { ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
-defineProps<{
+const props = defineProps<{
     post: {
         id: number;
         user_id: number;
@@ -24,8 +28,54 @@ defineProps<{
             profile_photo_path: string | null;
         };
     };
+    comments: Comment[];
+    commentsCount: number;
     currentUserId: number;
 }>();
+
+const isSubmitting = ref(false);
+
+// Store the validation error returned by Laravel.
+const commentError = ref<string | null>(null);
+
+//commentForm holds a reference to CommentForm.vue component, so I can call its clearForm() function.
+const commentForm = ref<InstanceType<typeof CommentForm> | null>(null);
+
+const handleCommentSubmit = (body: string) => {
+    if (isSubmitting.value) {
+        return;
+    }
+
+     // Remove any previous error before submitting.
+    commentError.value = null;
+
+    router.post(
+        `/posts/${props.post.id}/comments`,
+        { body },
+        {
+            preserveScroll: true,
+
+            onStart: () => {
+                isSubmitting.value = true;
+            },
+
+            onSuccess: () => {
+                commentForm.value?.clearForm();
+                commentError.value = null;
+            },
+
+            onError: (errors) => {
+                // Display the validation error from Laravel.
+                commentError.value =
+                    errors.body ?? t("comments.create_failed");
+            },
+            //makes the form available again, regardless of whether the request succeeded.
+            onFinish: () => {
+                isSubmitting.value = false;
+            },
+        },
+    );
+};
 </script>
 
 <template>
@@ -38,7 +88,7 @@ defineProps<{
             >
                 <ArrowLeft :size="22" />
             </Link>
-            <h1 class="text-lg font-semibold">{{ t('posts.post') }}</h1>
+            <h1 class="text-lg font-semibold">{{ t("posts.post") }}</h1>
         </div>
         <PostCard
             :id="post.id"
@@ -56,5 +106,27 @@ defineProps<{
                     : null
             "
         />
+        <!-- Comments section -->
+        <div class="mt-6 w-96">
+            <h2 class="mb-3 text-lg font-semibold">
+                {{ t("comments.title") }} ({{ commentsCount }})
+            </h2>
+
+            <!-- This displays all comments -->
+            <CommentList 
+            :comments="comments" 
+            :current-user-id="currentUserId"
+            />
+
+            <!-- This displays the form for adding a new comment -->
+            <div class="mt-4">
+                <CommentForm
+                    ref="commentForm"
+                    :is-submitting="isSubmitting"
+                    :error="commentError"
+                    @submit="handleCommentSubmit"
+                />
+            </div>
+        </div>
     </div>
 </template>
