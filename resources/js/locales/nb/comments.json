@@ -7,5 +7,9 @@
     "delete": "Slett kommentar",
     "save": "Lagre",
     "cancel": "Avbryt",
-    "delete_confirmation": "Er du sikker på at du vil slette denne kommentaren?"
+    "delete_confirmation": "Er du sikker på at du vil slette denne kommentaren?",
+    "create_failed": "Kunne ikke opprette kommentaren.",
+    "update_failed": "Kunne ikke oppdatere kommentaren.",
+    "loading" : "Laster kommentarer...",
+    "load_failed" : "Kunne ikke laste kommentarer."
 }

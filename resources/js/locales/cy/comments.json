@@ -7,5 +7,9 @@
     "delete": "Dileu sylw",
     "save": "Cadw",
     "cancel": "Canslo",
-    "delete_confirmation": "Ydych chi'n siŵr eich bod am ddileu'r sylw hwn?"
+    "delete_confirmation": "Ydych chi'n siŵr eich bod am ddileu'r sylw hwn?",
+    "create_failed": "Methwyd â chreu'r sylw.",
+    "update_failed": "Methwyd â diweddaru'r sylw.",
+    "loading" : "Wrthi'n llwytho sylwadau...",
+    "load_failed" : "Methwyd â llwytho'r sylwadau."
 }
