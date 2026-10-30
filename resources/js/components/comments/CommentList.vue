@@ -4,6 +4,7 @@ import type { Comment } from '@/types/comment';
 
 defineProps<{
     comments: Comment[];
+    currentUserId: number;
 }>();
 </script>
 
@@ -13,6 +14,7 @@ defineProps<{
             v-for="comment in comments"
             :key="comment.id"
             :comment="comment"
+            :current-user-id="currentUserId"
         />
     </div>
 </template>
