@@ -50,6 +50,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('posts/{postId}/likes', [LikeController::class, 'likedBy'])
         ->name('posts.liked-by');
 
+        Route::get('posts/{post}/comments', [CommentController::class, 'index'])
+    ->name('comments.index');
+
     Route::post('posts/{post}/comments', [CommentController::class, 'store'])
         ->name('comments.store');
 
