@@ -6,6 +6,10 @@ defineProps<{
     comments: Comment[];
     currentUserId: number;
 }>();
+
+const emit = defineEmits<{
+    changed: [];
+}>();
 </script>
 
 <template>
@@ -15,6 +19,7 @@ defineProps<{
             :key="comment.id"
             :comment="comment"
             :current-user-id="currentUserId"
+            @changed="emit('changed')"
         />
     </div>
 </template>

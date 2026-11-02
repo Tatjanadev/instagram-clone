@@ -124,6 +124,7 @@ const handleCommentSubmit = (body: string) => {
                 v-else
                 :comments="comments"
                 :current-user-id="currentUserId"
+                @changed="loadComments"
             />
 
             <!-- Form for creating a new comment. -->

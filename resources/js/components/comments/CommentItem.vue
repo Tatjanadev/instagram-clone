@@ -13,6 +13,10 @@ const props = defineProps<{
     currentUserId: number;
 }>();
 
+const emit = defineEmits<{
+    changed: [];
+}>();
+
 const isEditing = ref(false);
 const isSaving = ref(false);
 const editedBody = ref(props.comment.body);
@@ -57,6 +61,7 @@ const saveComment = () => {
 
             onSuccess: () => {
                 isEditing.value = false;
+                emit("changed");
             },
 
             onError: (errors) => {
@@ -83,6 +88,9 @@ const deleteComment = () => {
 
         onStart: () => {
             isDeleting.value = true;
+        },
+        onSuccess: () => {
+            emit("changed");
         },
 
         onError: (errors) => {
