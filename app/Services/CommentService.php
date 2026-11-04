@@ -4,19 +4,29 @@ namespace App\Services;
 
 use App\Exceptions\Comment\CommentDeletionFailedException;
 use App\Models\Comment;
+use App\Models\Post;
+use App\Notifications\NewCommentNotification;
 use App\Repositories\CommentRepository;
+use App\Repositories\PostRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
 
 class CommentService
 {
     public function __construct(
-        private CommentRepository $commentRepository
+        private CommentRepository $commentRepository,
+        private PostRepository $postRepository,
     ) {}
 
     public function create(int $userId, int $postId, string $body): Comment
     {
-        return $this->commentRepository->create($userId, $postId, $body);
+        $comment = $this->commentRepository->create($userId, $postId, $body);
+        $post = $this->postRepository->get($postId, ['user']);
+        if ($post->user_id !== $userId) {
+            $post->user->notify(new NewCommentNotification($comment));
+        }
+
+        return $comment;
     }
 
     public function update(Comment $comment, string $body): bool
