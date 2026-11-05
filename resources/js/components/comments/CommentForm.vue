@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useI18n } from "vue-i18n";
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
@@ -13,7 +13,7 @@ const emit = defineEmits<{
     submit: [body: string];
 }>();
 
-const body = ref("");
+const body = ref('');
 
 const submitComment = () => {
     const comment = body.value.trim();
@@ -22,12 +22,12 @@ const submitComment = () => {
         return;
     }
 
-    emit("submit", comment);
+    emit('submit', comment);
 };
 
 //Its only job is to empty the comment input.
 const clearForm = () => {
-    body.value = "";
+    body.value = '';
 };
 
 //Allow my parent component to call this particular function
@@ -54,10 +54,10 @@ defineExpose({
                 class="btn btn-primary"
                 :disabled="isSubmitting || !body.trim()"
             >
-                {{ t("comments.submit") }}
+                {{ t('comments.submit') }}
             </button>
         </div>
-         <!-- Display validation error underneath the input. -->
+        <!-- Display validation error underneath the input. -->
         <p v-if="error" class="text-error text-sm">
             {{ error }}
         </p>

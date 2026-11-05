@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Comments\StoreCommentRequest;
 use App\Http\Requests\Comments\UpdateCommentRequest;
 use App\Http\Resources\CommentResource;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Services\CommentService;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 

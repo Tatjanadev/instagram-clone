@@ -1,4 +1,5 @@
 <?php
+
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
@@ -23,11 +24,11 @@ test('comments endpoint returns the correct resource data', function () {
         'body' => 'Beautiful photo!',
     ]);
 
-      // Request the comments through the real controller.
+    // Request the comments through the real controller.
     $response = $this->actingAs($postOwner)
         ->getJson(route('comments.index', $post));
 
-        // Check the returned JSON structure and values.
+    // Check the returned JSON structure and values.
     $response->assertOk()
         ->assertJsonPath('data.0.id', $comment->id)
         ->assertJsonPath('data.0.body', 'Beautiful photo!')
@@ -40,4 +41,3 @@ test('comments endpoint returns the correct resource data', function () {
             $commenter->profile_photo_path
         );
 });
-

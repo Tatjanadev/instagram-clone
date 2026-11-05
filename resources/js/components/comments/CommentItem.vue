@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Link, router } from "@inertiajs/vue3";
-import { ref } from "vue";
-import { show as userShow } from "@/routes/users";
-import type { Comment } from "@/types/comment";
-import { Pencil, Trash2 } from "lucide-vue-next";
-import { useI18n } from "vue-i18n";
+import { Link, router } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { show as userShow } from '@/routes/users';
+import type { Comment } from '@/types/comment';
+import { Pencil, Trash2 } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
@@ -61,11 +61,11 @@ const saveComment = () => {
 
             onSuccess: () => {
                 isEditing.value = false;
-                emit("changed");
+                emit('changed');
             },
 
             onError: (errors) => {
-                editError.value = errors.body ?? t("comments.update_failed");
+                editError.value = errors.body ?? t('comments.update_failed');
             },
 
             onFinish: () => {
@@ -77,7 +77,7 @@ const saveComment = () => {
 
 const deleteComment = () => {
     // Ask the user to confirm deletion.
-    const confirmed = window.confirm(t("comments.delete_confirmation"));
+    const confirmed = window.confirm(t('comments.delete_confirmation'));
 
     if (!confirmed || isDeleting.value) {
         return;
@@ -90,11 +90,11 @@ const deleteComment = () => {
             isDeleting.value = true;
         },
         onSuccess: () => {
-            emit("changed");
+            emit('changed');
         },
 
         onError: (errors) => {
-            console.error("Failed to delete comment:", errors);
+            console.error('Failed to delete comment:', errors);
         },
 
         onFinish: () => {
@@ -179,7 +179,7 @@ const deleteComment = () => {
                         :disabled="isSaving || !editedBody.trim()"
                         @click="saveComment"
                     >
-                        {{ t("comments.save") }}
+                        {{ t('comments.save') }}
                     </button>
 
                     <button
@@ -188,7 +188,7 @@ const deleteComment = () => {
                         :disabled="isSaving"
                         @click="cancelEditing"
                     >
-                        {{ t("comments.cancel") }}
+                        {{ t('comments.cancel') }}
                     </button>
                 </div>
             </div>
