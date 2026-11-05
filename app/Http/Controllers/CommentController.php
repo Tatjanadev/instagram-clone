@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Comments\StoreCommentRequest;
 use App\Http\Requests\Comments\UpdateCommentRequest;
+use App\Http\Resources\CommentResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Services\CommentService;
@@ -18,15 +20,13 @@ class CommentController extends Controller
         private CommentService $commentService
     ) {}
 
-    public function index(Post $post): JsonResponse
+    public function index(Post $post): AnonymousResourceCollection
     {
         Gate::authorize('view', $post);
 
         $comments = $this->commentService->getCommentsForPost($post->id);
 
-        return response()->json([
-            'comments' => $comments,
-        ]);
+        return CommentResource::collection($comments);
     }
 
     public function store(StoreCommentRequest $request, Post $post): RedirectResponse
