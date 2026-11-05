@@ -35,7 +35,7 @@ const loadComments = async () => {
     try {
         const response = await axios.get(`/posts/${props.postId}/comments`);
 
-        comments.value = response.data.comments;
+        comments.value = response.data.data;
     } catch (error) {
         hasError.value = true;
         console.error("Failed to load comments:", error);
