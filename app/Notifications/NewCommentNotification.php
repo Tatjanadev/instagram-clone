@@ -41,7 +41,7 @@ class NewCommentNotification extends Notification
         return (new MailMessage)
             ->subject('Someone commented on your InstaNest post!')
             ->markdown('emails.new-comment', [
-                //$notifiable is the person receiving the email, meaning the post owner.
+                // $notifiable is the person receiving the email, meaning the post owner.
                 'firstName' => $notifiable->first_name,
                 'commenterName' => $this->comment->user->first_name,
                 'commentBody' => $this->comment->body,

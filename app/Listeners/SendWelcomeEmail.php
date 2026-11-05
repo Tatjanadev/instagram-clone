@@ -4,11 +4,8 @@ namespace App\Listeners;
 
 use App\Mail\WelcomeEmail;
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
-
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Mail;
 
 class SendWelcomeEmail
 {
@@ -27,7 +24,7 @@ class SendWelcomeEmail
     {
         $user = $event->user;
 
-        if (! $user instanceOf User) {
+        if (! $user instanceof User) {
             return;
         }
         Mail::to($user->email)->send(

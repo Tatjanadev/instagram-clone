@@ -46,5 +46,4 @@ class ResetPasswordNotification extends Notification
                 'expiration' => $expiration,
             ]);
     }
-
 }

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Link, router } from "@inertiajs/vue3";
-import { ArrowLeft } from "lucide-vue-next";
-import PostCard from "@/components/posts/PostCard.vue";
-import CommentForm from "@/components/comments/CommentForm.vue";
-import CommentList from "@/components/comments/CommentList.vue";
-import type { Comment } from "@/types/comment";
-import { ref } from "vue";
-import { useI18n } from "vue-i18n";
+import { Link, router } from '@inertiajs/vue3';
+import { ArrowLeft } from 'lucide-vue-next';
+import PostCard from '@/components/posts/PostCard.vue';
+import CommentForm from '@/components/comments/CommentForm.vue';
+import CommentList from '@/components/comments/CommentList.vue';
+import type { Comment } from '@/types/comment';
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
@@ -46,7 +46,7 @@ const handleCommentSubmit = (body: string) => {
         return;
     }
 
-     // Remove any previous error before submitting.
+    // Remove any previous error before submitting.
     commentError.value = null;
 
     router.post(
@@ -66,8 +66,7 @@ const handleCommentSubmit = (body: string) => {
 
             onError: (errors) => {
                 // Display the validation error from Laravel.
-                commentError.value =
-                    errors.body ?? t("comments.create_failed");
+                commentError.value = errors.body ?? t('comments.create_failed');
             },
             //makes the form available again, regardless of whether the request succeeded.
             onFinish: () => {
@@ -88,7 +87,7 @@ const handleCommentSubmit = (body: string) => {
             >
                 <ArrowLeft :size="22" />
             </Link>
-            <h1 class="text-lg font-semibold">{{ t("posts.post") }}</h1>
+            <h1 class="text-lg font-semibold">{{ t('posts.post') }}</h1>
         </div>
         <PostCard
             :id="post.id"
@@ -109,13 +108,13 @@ const handleCommentSubmit = (body: string) => {
         <!-- Comments section -->
         <div class="mt-6 w-96">
             <h2 class="mb-3 text-lg font-semibold">
-                {{ t("comments.title") }} ({{ commentsCount }})
+                {{ t('comments.title') }} ({{ commentsCount }})
             </h2>
 
             <!-- This displays all comments -->
-            <CommentList 
-            :comments="comments" 
-            :current-user-id="currentUserId"
+            <CommentList
+                :comments="comments"
+                :current-user-id="currentUserId"
             />
 
             <!-- This displays the form for adding a new comment -->

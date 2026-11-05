@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Exceptions\Comment\CommentDeletionFailedException;
 use App\Models\Comment;
-use App\Models\Post;
 use App\Notifications\NewCommentNotification;
 use App\Repositories\CommentRepository;
 use App\Repositories\PostRepository;

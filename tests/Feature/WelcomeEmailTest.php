@@ -12,7 +12,7 @@ test('sends a welcome email when a user registers', function () {
         'first_name' => 'Sarah',
         'email' => 'sarah@example.com',
     ]);
-//pretends user registered
+    // pretends user registered
     event(new Registered($user));
 
     Mail::assertSent(WelcomeEmail::class, function (WelcomeEmail $mail) use ($user) {

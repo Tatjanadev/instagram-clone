@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { X } from "lucide-vue-next";
-import { useI18n } from "vue-i18n";
-import type { Comment } from "@/types/comment";
-import CommentList from "@/components/comments/CommentList.vue";
-import axios from "axios";
-import { router } from "@inertiajs/vue3";
-import CommentForm from "@/components/comments/CommentForm.vue";
+import { ref, watch } from 'vue';
+import { X } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
+import type { Comment } from '@/types/comment';
+import CommentList from '@/components/comments/CommentList.vue';
+import axios from 'axios';
+import { router } from '@inertiajs/vue3';
+import CommentForm from '@/components/comments/CommentForm.vue';
 
 const { t } = useI18n();
 
@@ -38,7 +38,7 @@ const loadComments = async () => {
         comments.value = response.data.comments;
     } catch (error) {
         hasError.value = true;
-        console.error("Failed to load comments:", error);
+        console.error('Failed to load comments:', error);
     } finally {
         isLoading.value = false;
     }
@@ -80,7 +80,7 @@ const handleCommentSubmit = (body: string) => {
             },
 
             onError: (errors) => {
-                commentError.value = errors.body ?? t("comments.create_failed");
+                commentError.value = errors.body ?? t('comments.create_failed');
             },
 
             onFinish: () => {
@@ -100,7 +100,7 @@ const handleCommentSubmit = (body: string) => {
         <div class="bg-base-100 w-full max-w-lg rounded-xl p-5 shadow-xl">
             <div class="mb-4 flex items-center justify-between">
                 <h2 class="text-lg font-semibold">
-                       {{ t("comments.title") }} ({{ comments.length }})
+                    {{ t('comments.title') }} ({{ comments.length }})
                 </h2>
 
                 <button
@@ -113,11 +113,11 @@ const handleCommentSubmit = (body: string) => {
             </div>
 
             <p v-if="isLoading">
-                {{ t("comments.loading") }}
+                {{ t('comments.loading') }}
             </p>
 
             <p v-else-if="hasError" class="text-error">
-                {{ t("comments.load_failed") }}
+                {{ t('comments.load_failed') }}
             </p>
             <!-- Display the comments retrieved from Laravel. -->
             <CommentList
