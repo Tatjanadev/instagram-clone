@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Auth;
 class PostRepository
 {
     /**
+     * @param  array<int, string>  $eagerLoad
+     */
+    public function get(int $postId, array $eagerLoad = []): ?Post
+    {
+        return Post::where('id', $postId)
+            ->with($eagerLoad)
+            ->first();
+    }
+
+    /**
      * @return Collection<int, Post>
      */
     public function getAllPosts(): Collection
