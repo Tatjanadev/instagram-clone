@@ -1,11 +1,10 @@
+import type { User } from './user';
+
 export type Comment = {
     id: number;
     body: string;
-    user: {
-        id: number;
-        username: string;
-        first_name: string;
-        last_name: string;
-        profile_photo_path: string | null;
-    };
+    user: Pick<
+    User, 
+    'id' | 'username' | 'first_name' | 'last_name' | 'profile_photo_path'
+    >;
 };
