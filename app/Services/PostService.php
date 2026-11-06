@@ -9,6 +9,7 @@ use App\Repositories\PostRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\ValidationException;
+use App\Jobs\GeneratePostThumbnail;
 
 class PostService
 {
@@ -42,7 +43,9 @@ class PostService
     ): Post {
         $post = $this->postRepository->create($authorId, $title, $content);
         foreach ($images as $image) {
-            $this->postImageRepository->create($post->id, $image);
+            $postImage = $this->postImageRepository->create($post->id, $image);
+
+            GeneratePostThumbnail::dispatch($postImage->id)->afterCommit();
         }
 
         return $post;
