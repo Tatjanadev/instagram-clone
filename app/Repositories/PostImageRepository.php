@@ -9,6 +9,20 @@ use Illuminate\Support\Facades\Storage;
 
 class PostImageRepository
 {
+    public function getById(int $imageId): ?PostImage
+    {
+        return PostImage::find($imageId);
+    }
+
+    public function updateThumbnailPath(
+        PostImage $postImage,
+        string $thumbnailPath
+    ): void {
+        $postImage->update([
+            'thumbnail_path' => $thumbnailPath,
+        ]);
+    }
+
     /**
      * @return Collection<int, PostImage>
      */
@@ -32,6 +46,11 @@ class PostImageRepository
         // Delete the physical file only if it is a real user upload.
         if (str_starts_with($image->image_path, 'posts/')) {
             Storage::disk('public')->delete($image->image_path);
+        }
+
+        // Delete the generated thumbnail, if one exists.
+        if ($image->thumbnail_path !== null) {
+            Storage::disk('public')->delete($image->thumbnail_path);
         }
 
         $image->delete();
