@@ -13,12 +13,14 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $post_id
  * @property string $image_path
+ * @property string|null $thumbnail_path
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
 #[Fillable([
     'post_id',
     'image_path',
+    'thumbnail_path'
 ])]
 class PostImage extends Model
 {
