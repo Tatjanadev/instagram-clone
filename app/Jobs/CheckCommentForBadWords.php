@@ -11,6 +11,7 @@ class CheckCommentForBadWords implements ShouldQueue
 {
     use Queueable;
 
+    /** @var array<int, string> */
     private static $badWords = [
         'kuce',
         'yabalio',
