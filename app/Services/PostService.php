@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\DTOs\Posts\UpdatePostDTO;
+use App\Jobs\GeneratePostThumbnail;
 use App\Models\Post;
 use App\Repositories\PostImageRepository;
 use App\Repositories\PostRepository;
@@ -42,7 +43,9 @@ class PostService
     ): Post {
         $post = $this->postRepository->create($authorId, $title, $content);
         foreach ($images as $image) {
-            $this->postImageRepository->create($post->id, $image);
+            $postImage = $this->postImageRepository->create($post->id, $image);
+
+            GeneratePostThumbnail::dispatch($postImage->id)->afterCommit();
         }
 
         return $post;

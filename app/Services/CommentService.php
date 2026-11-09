@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\Comment\CommentDeletionFailedException;
+use App\Jobs\CheckCommentForBadWords;
 use App\Models\Comment;
 use App\Notifications\NewCommentNotification;
 use App\Repositories\CommentRepository;
@@ -17,6 +18,11 @@ class CommentService
         private PostRepository $postRepository,
     ) {}
 
+    public function getById(int $commentId): Comment
+    {
+        return $this->commentRepository->getById($commentId);
+    }
+
     public function create(int $userId, int $postId, string $body): Comment
     {
         $comment = $this->commentRepository->create($userId, $postId, $body);
@@ -24,6 +30,10 @@ class CommentService
         if ($post->user_id !== $userId) {
             $post->user->notify(new NewCommentNotification($comment));
         }
+
+        // Check if comment has bad words
+        $job = new CheckCommentForBadWords($comment->id);
+        dispatch($job);
 
         return $comment;
     }

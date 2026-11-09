@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class CommentRepository
 {
+    public function getById(int $id): Comment
+    {
+        return Comment::findOrFail($id);
+    }
+
     public function create(int $userId, int $postId, string $body): Comment
     {
         return Comment::create([
