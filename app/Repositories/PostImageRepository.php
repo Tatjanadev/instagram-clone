@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Storage;
 
 class PostImageRepository
 {
+    /**
+     * @return Collection<int, PostImage>
+     */
+    public function getAllImages(): Collection
+    {
+        return PostImage::query()
+            ->get(['image_path', 'thumbnail_path']);
+    }
+
     public function getById(int $imageId): ?PostImage
     {
         return PostImage::find($imageId);
@@ -54,5 +63,13 @@ class PostImageRepository
         }
 
         $image->delete();
+    }
+
+    public function isImagePathUsed(string $path): bool
+    {
+        return PostImage::query()
+            ->where('image_path', $path)
+            ->orWhere('thumbnail_path', $path)
+            ->exists();
     }
 }

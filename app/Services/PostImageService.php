@@ -7,8 +7,8 @@ use App\Repositories\PostImageRepository;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 use Intervention\Image\Format;
+use Intervention\Image\ImageManager;
 
 class PostImageService
 {
@@ -89,5 +89,69 @@ class PostImageService
         // Save the thumbnail path in the database.
         $this->updateThumbnailPath($postImage, $thumbnailPath);
 
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public function getUnusedImagePaths(): array
+    {
+        $disk = Storage::disk('public');
+
+        $storedFiles = $disk->allFiles('posts');
+
+        $images = $this->postImageRepository->getAllImages();
+
+        // Collect the paths that are still being used.
+        $usedPaths = [];
+
+        foreach ($images as $image) {
+            $usedPaths[] = $image->image_path;
+
+            if ($image->thumbnail_path !== null) {
+                $usedPaths[] = $image->thumbnail_path;
+            }
+        }
+
+        // Find files that exist in storage but not in the database.
+        $unusedFiles = array_diff($storedFiles, $usedPaths);
+
+        // Only consider files older than 24 hours.
+        $cutoffTime = now()->subDay()->timestamp;
+
+        $oldUnusedFiles = [];
+
+        foreach ($unusedFiles as $file) {
+            if ($disk->lastModified($file) < $cutoffTime) {
+                $oldUnusedFiles[] = $file;
+            }
+        }
+
+        return $oldUnusedFiles;
+    }
+
+    public function cleanupUnusedImages(): void
+    {
+        // Find unused files older than 24 hours.
+        $unusedFiles = $this->getUnusedImagePaths();
+
+        $disk = Storage::disk('public');
+
+        foreach ($unusedFiles as $file) {
+
+            if ($this->postImageRepository->isImagePathUsed($file)) {
+                continue;
+            }
+
+            // Make sure the file is still old enough.
+            if (! $disk->exists($file) || $disk->lastModified($file) >= now()->subDay()->timestamp) {
+                continue;
+            }
+
+            // Delete the unused file.
+            $disk->delete($file);
+
+            logger()->info('Unused image deleted: '.$file);
+        }
     }
 }
