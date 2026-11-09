@@ -64,7 +64,7 @@ test('cleanup job removes unused thumbnails but keeps referenced thumbnails', fu
     }
 
     // Execute the cleanup Job.
-    $job = new CleanupUnusedImages();
+    $job = new CleanupUnusedImages;
     $job->handle(app(PostImageService::class));
 
     // Referenced files must remain.

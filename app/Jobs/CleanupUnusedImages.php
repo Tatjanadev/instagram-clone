@@ -23,6 +23,6 @@ class CleanupUnusedImages implements ShouldQueue
      */
     public function handle(PostImageService $postImageService): void
     {
-      $postImageService->cleanupUnusedImages();
+        $postImageService->cleanupUnusedImages();
     }
 }

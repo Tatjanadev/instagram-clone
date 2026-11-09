@@ -3,13 +3,13 @@
 namespace App\Services;
 
 use App\DTOs\Posts\UpdatePostDTO;
+use App\Jobs\GeneratePostThumbnail;
 use App\Models\Post;
 use App\Repositories\PostImageRepository;
 use App\Repositories\PostRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\ValidationException;
-use App\Jobs\GeneratePostThumbnail;
 
 class PostService
 {

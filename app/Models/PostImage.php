@@ -20,7 +20,7 @@ use Illuminate\Support\Carbon;
 #[Fillable([
     'post_id',
     'image_path',
-    'thumbnail_path'
+    'thumbnail_path',
 ])]
 class PostImage extends Model
 {
