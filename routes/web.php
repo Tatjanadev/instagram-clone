@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
@@ -62,5 +63,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('comments/{comment}', [CommentController::class, 'destroy'])
         ->name('comments.destroy');
 });
+
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])
+    ->middleware('guest')
+    ->name('auth.google');
+
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])
+    ->middleware('guest')
+    ->name('auth.google.callback');
 
 require __DIR__.'/settings.php';
