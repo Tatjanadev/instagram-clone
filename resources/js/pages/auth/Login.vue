@@ -59,6 +59,7 @@ defineProps<{
                     :tabindex="1"
                     autocomplete="email"
                     placeholder="email@example.com"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
                 />
                 <InputError :message="errors.email" />
             </div>
@@ -69,7 +70,7 @@ defineProps<{
                     <TextLink
                         v-if="canResetPassword"
                         :href="request()"
-                        class="text-sm"
+                        class="text-sm !text-purple-700 hover:!text-purple-900"
                         :tabindex="5"
                     >
                         {{ t("login.forgot_your_password") }}
@@ -82,6 +83,7 @@ defineProps<{
                     :tabindex="2"
                     autocomplete="current-password"
                     placeholder="Password"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
                 />
                 <InputError :message="errors.password" />
             </div>
@@ -95,7 +97,7 @@ defineProps<{
 
             <Button
                 type="submit"
-                class="mt-4 w-full"
+                class="mt-4 w-full bg-white text-purple-700 shadow-sm ring-1 ring-purple-200 transition-colors duration-200 hover:bg-purple-100 hover:text-purple-700 disabled:opacity-50"
                 :tabindex="4"
                 :disabled="processing"
                 data-test="login-button"
@@ -105,17 +107,28 @@ defineProps<{
             </Button>
         </div>
 
-        <div class="text-muted-foreground text-center text-sm">
+        <div class="text-center text-sm text-gray-600">
             Don't have an account?
-            <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
+            <TextLink
+                :href="register()"
+                :tabindex="5"
+                class="!text-purple-700 hover:!text-purple-900"
+                >Sign up</TextLink
+            >
         </div>
     </Form>
     <div class="mt-6">
         <a
             href="/auth/google"
-            class="flex w-full items-center justify-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent"
+            class="flex w-full items-center justify-center gap-3 rounded-md border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-900 transition-colors duration-200 hover:border-purple-300 hover:bg-purple-50"
         >
-            {{ t('social_auth.continue_with_google') }}
+            <img
+                src="/images/landing/g-logo.png"
+                alt="Google"
+                class="h-5 w-5 shrink-0"
+            />
+
+            {{ t("social_auth.continue_with_google") }}
         </a>
     </div>
 </template>
