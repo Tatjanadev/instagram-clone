@@ -88,11 +88,11 @@ class GoogleAuthController extends Controller
             $completeGoogleRegistrationRequest->session()->regenerate();
 
             return redirect()->route('profile.show');
-        } catch (GoogleRegistrationSessionExpiredException $exception) {
-            return redirect()->route('login')->withErrors([
-                'google' => $exception->getMessage(),
-            ]);
-        } catch (InvalidGoogleEmailException|GoogleEmailAlreadyRegisteredException $exception) {
+        } catch (
+            GoogleRegistrationSessionExpiredException|
+            InvalidGoogleEmailException|
+            GoogleEmailAlreadyRegisteredException $exception
+        ) {
             return redirect()->route('login')->withErrors([
                 'google' => $exception->getMessage(),
             ]);
