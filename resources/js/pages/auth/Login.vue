@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Form, Head } from "@inertiajs/vue3";
+import { Form, Head, usePage } from "@inertiajs/vue3";
 import InputError from "@/components/InputError.vue";
 import PasswordInput from "@/components/PasswordInput.vue";
 import TextLink from "@/components/TextLink.vue";
@@ -15,6 +15,8 @@ import PasskeyVerify from "@/components/PasskeyVerify.vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
+
+const page = usePage();
 
 defineOptions({
     layout: {
@@ -40,6 +42,14 @@ defineProps<{
     </div>
 
     <PasskeyVerify />
+
+    <div
+        v-if="page.props.errors?.google"
+        role="alert"
+        class="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700"
+    >
+        {{ page.props.errors.google }}
+    </div>
 
     <Form
         v-bind="store.form()"
