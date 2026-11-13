@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
-import InputError from '@/components/InputError.vue';
-import PasswordInput from '@/components/PasswordInput.vue';
-import TextLink from '@/components/TextLink.vue';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
-import { login } from '@/routes';
-import { store } from '@/routes/register';
-import { useI18n } from 'vue-i18n';
+import { Form, Head } from "@inertiajs/vue3";
+import InputError from "@/components/InputError.vue";
+import PasswordInput from "@/components/PasswordInput.vue";
+import TextLink from "@/components/TextLink.vue";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Spinner } from "@/components/ui/spinner";
+import { login } from "@/routes";
+import { store } from "@/routes/register";
+import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
@@ -19,8 +19,8 @@ defineProps<{
 
 defineOptions({
     layout: {
-        title: 'Create an account',
-        description: 'Enter your details below to create your account',
+        title: "Create an account",
+        description: "Enter your details below to create your account",
     },
 });
 </script>
@@ -37,7 +37,7 @@ defineOptions({
         <div class="grid gap-6">
             <div class="grid gap-2">
                 <Label for="first_name">
-                    {{ t('register.first_name') }}
+                    {{ t("register.first_name") }}
                 </Label>
                 <Input
                     id="first_name"
@@ -54,7 +54,7 @@ defineOptions({
             </div>
             <div class="grid gap-2">
                 <Label for="last_name">
-                    {{ t('register.last_name') }}
+                    {{ t("register.last_name") }}
                 </Label>
                 <Input
                     id="last_name"
@@ -71,7 +71,7 @@ defineOptions({
 
             <div class="grid gap-2">
                 <Label for="username">
-                    {{ t('register.username') }}
+                    {{ t("register.username") }}
                 </Label>
                 <Input
                     id="username"
@@ -87,7 +87,7 @@ defineOptions({
             </div>
             <div class="grid gap-2">
                 <Label for="email">
-                    {{ t('password.email_address') }}
+                    {{ t("password.email_address") }}
                 </Label>
                 <Input
                     id="email"
@@ -104,7 +104,7 @@ defineOptions({
 
             <div class="grid gap-2">
                 <Label for="password">
-                    {{ t('password.password') }}
+                    {{ t("password.password") }}
                 </Label>
                 <PasswordInput
                     id="password"
@@ -121,7 +121,7 @@ defineOptions({
 
             <div class="grid gap-2">
                 <Label for="password_confirmation">
-                    {{ t('password.confirm_password') }}
+                    {{ t("password.confirm_password") }}
                 </Label>
                 <PasswordInput
                     id="password_confirmation"
@@ -144,19 +144,33 @@ defineOptions({
                 data-test="register-user-button"
             >
                 <Spinner v-if="processing" />
-                {{ t('register.create_account') }}
+                {{ t("register.create_account") }}
             </Button>
         </div>
 
         <div class="text-center text-sm text-gray-600">
-            {{ t('register.already_have_account') }}
+            {{ t("register.already_have_account") }}
             <TextLink
                 :href="login()"
                 class="!text-purple-700 hover:!text-purple-900 underline underline-offset-4"
                 :tabindex="8"
             >
-                {{ t('login.login') }}
+                {{ t("login.login") }}
             </TextLink>
         </div>
     </Form>
+    <div class="mt-6">
+        <a
+            href="/auth/google"
+            class="flex w-full items-center justify-center gap-3 rounded-md border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-900 transition-colors duration-200 hover:border-purple-300 hover:bg-purple-50"
+        >
+            <img
+                src="/images/landing/g-logo.png"
+                alt="Google"
+                class="h-5 w-5 shrink-0"
+            />
+
+            {{ t("social_auth.continue_with_google") }}
+        </a>
+    </div>
 </template>
