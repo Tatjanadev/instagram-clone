@@ -48,6 +48,7 @@ defineOptions({
                     autocomplete="name"
                     name="first_name"
                     :placeholder="t('register.first_name')"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
                 />
                 <InputError :message="errors.first_name" />
             </div>
@@ -63,6 +64,7 @@ defineOptions({
                     autocomplete="family-name"
                     name="last_name"
                     :placeholder="t('register.last_name')"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
                 />
                 <InputError :message="errors.last_name" />
             </div>
@@ -79,6 +81,7 @@ defineOptions({
                     autocomplete="username"
                     name="username"
                     :placeholder="t('register.username')"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
                 />
                 <InputError :message="errors.username" />
             </div>
@@ -94,6 +97,7 @@ defineOptions({
                     autocomplete="email"
                     name="email"
                     placeholder="email@example.com"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
                 />
                 <InputError :message="errors.email" />
             </div>
@@ -110,6 +114,7 @@ defineOptions({
                     name="password"
                     :placeholder="t('password.password')"
                     :passwordrules="passwordRules"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
                 />
                 <InputError :message="errors.password" />
             </div>
@@ -126,13 +131,14 @@ defineOptions({
                     name="password_confirmation"
                     :placeholder="t('password.confirm_password')"
                     :passwordrules="passwordRules"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
                 />
                 <InputError :message="errors.password_confirmation" />
             </div>
 
             <Button
                 type="submit"
-                class="mt-2 w-full"
+                class="mt-4 w-full border border-purple-200 bg-white text-purple-700 transition-colors duration-200 hover:bg-purple-100 hover:text-purple-700"
                 tabindex="7"
                 :disabled="processing"
                 data-test="register-user-button"
@@ -142,12 +148,11 @@ defineOptions({
             </Button>
         </div>
 
-        <
-        <div class="text-muted-foreground text-center text-sm">
+        <div class="text-center text-sm text-gray-600">
             {{ t('register.already_have_account') }}
             <TextLink
                 :href="login()"
-                class="underline underline-offset-4"
+                class="!text-purple-700 hover:!text-purple-900 underline underline-offset-4"
                 :tabindex="8"
             >
                 {{ t('login.login') }}
