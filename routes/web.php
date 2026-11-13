@@ -68,8 +68,16 @@ Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])
     ->middleware('guest')
     ->name('auth.google');
 
-    Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])
     ->middleware('guest')
     ->name('auth.google.callback');
+
+Route::get('/auth/google/complete', [GoogleAuthController::class, 'showCompleteRegistration'])
+    ->middleware('guest')
+    ->name('auth.google.complete');
+
+Route::post('/auth/google/complete', [GoogleAuthController::class, 'completeRegistration'])
+    ->middleware('guest')
+    ->name('auth.google.complete.store');
 
 require __DIR__.'/settings.php';
