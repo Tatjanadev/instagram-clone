@@ -31,10 +31,10 @@ class GoogleAuthController extends Controller
 
     public function handleGoogleCallback(Request $request): SymfonyRedirectResponse
     {
-        // Get the authenticated user's information from Google.
-        $googleUser = Socialite::driver('google')->user();
-
         try {
+            // Get the authenticated user's information from Google.
+            $googleUser = Socialite::driver('google')->user();
+
             $user = $this->socialAuthService->authenticateGoogleUser($googleUser);
 
             if ($user !== null) {
