@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
-import InputError from '@/components/InputError.vue';
-import PasswordInput from '@/components/PasswordInput.vue';
-import TextLink from '@/components/TextLink.vue';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
-import { register } from '@/routes';
-import { store } from '@/routes/login';
-import { request } from '@/routes/password';
-import PasskeyVerify from '@/components/PasskeyVerify.vue';
-import { useI18n } from 'vue-i18n';
+import { Form, Head } from "@inertiajs/vue3";
+import InputError from "@/components/InputError.vue";
+import PasswordInput from "@/components/PasswordInput.vue";
+import TextLink from "@/components/TextLink.vue";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Spinner } from "@/components/ui/spinner";
+import { register } from "@/routes";
+import { store } from "@/routes/login";
+import { request } from "@/routes/password";
+import PasskeyVerify from "@/components/PasskeyVerify.vue";
+import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
 defineOptions({
     layout: {
-        title: 'Log in to your account',
-        description: 'Enter your email and password below to log in',
+        title: "Log in to your account",
+        description: "Enter your email and password below to log in",
     },
 });
 
@@ -49,7 +49,7 @@ defineProps<{
     >
         <div class="grid gap-6">
             <div class="grid gap-2">
-                <Label for="email">{{ t('password.email_address') }}</Label>
+                <Label for="email">{{ t("password.email_address") }}</Label>
                 <Input
                     id="email"
                     type="email"
@@ -65,14 +65,14 @@ defineProps<{
 
             <div class="grid gap-2">
                 <div class="flex items-center justify-between">
-                    <Label for="password">{{ t('password.password') }}</Label>
+                    <Label for="password">{{ t("password.password") }}</Label>
                     <TextLink
                         v-if="canResetPassword"
                         :href="request()"
                         class="text-sm"
                         :tabindex="5"
                     >
-                        {{ t('login.forgot_your_password') }}
+                        {{ t("login.forgot_your_password") }}
                     </TextLink>
                 </div>
                 <PasswordInput
@@ -89,7 +89,7 @@ defineProps<{
             <div class="flex items-center justify-between">
                 <Label for="remember" class="flex items-center space-x-3">
                     <Checkbox id="remember" name="remember" :tabindex="3" />
-                    <span>{{ t('login.remember_me') }}</span>
+                    <span>{{ t("login.remember_me") }}</span>
                 </Label>
             </div>
 
@@ -101,7 +101,7 @@ defineProps<{
                 data-test="login-button"
             >
                 <Spinner v-if="processing" />
-                {{ t('login.login') }}
+                {{ t("login.login") }}
             </Button>
         </div>
 
@@ -110,4 +110,12 @@ defineProps<{
             <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
         </div>
     </Form>
+    <div class="mt-6">
+        <a
+            href="/auth/google"
+            class="flex w-full items-center justify-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent"
+        >
+            {{ t('social_auth.continue_with_google') }}
+        </a>
+    </div>
 </template>
