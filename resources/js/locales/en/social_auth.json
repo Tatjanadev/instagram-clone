@@ -7,5 +7,6 @@
     "suggested_usernames": "Suggested usernames",
     "google_email": "Google email",
     "continue": "Continue",
-    "creating_account": "Creating account..."
+    "creating_account": "Creating account...",
+    "continue_with_google": "Continue with Google"
 }

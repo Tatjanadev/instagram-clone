@@ -7,5 +7,6 @@
     "suggested_usernames": "Foreslåtte brukernavn",
     "google_email": "Google-e-postadresse",
     "continue": "Fortsett",
-    "creating_account": "Oppretter konto..."
+    "creating_account": "Oppretter konto...",
+    "continue_with_google": "Fortsett med Google"
 }

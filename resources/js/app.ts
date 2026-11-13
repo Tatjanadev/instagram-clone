@@ -57,12 +57,12 @@ import cyComments from "@/locales/cy/comments.json";
 import enWelcome from "@/locales/en/welcome.json";
 import cyWelcome from "@/locales/cy/welcome.json";
 import nbWelcome from "@/locales/nb/welcome.json";
-import enLikes from "./locales/en/likes.json";
-import nbLikes from "./locales/nb/likes.json";
-import cyLikes from "./locales/cy/likes.json";
-import enSocialAuth from "./locales/en/social_auth.json";
-import nbSocialAuth from "./locales/nb/social_auth.json";
-import cySocialAuth from "./locales/cy/social_auth.json";
+import enLikes from "@/locales/en/likes.json";
+import nbLikes from "@/locales/nb/likes.json";
+import cyLikes from "@/locales/cy/likes.json";
+import enSocialAuth from "@/locales/en/social_auth.json";
+import nbSocialAuth from "@/locales/nb/social_auth.json";
+import cySocialAuth from "@/locales/cy/social_auth.json";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -70,9 +70,9 @@ const i18n = createI18n({
     legacy: false,
     //If we're running in the browser, use the user's saved language. Otherwise, use English.
     locale:
-        typeof window !== "undefined"
-            ? localStorage.getItem("locale") || "en"
-            : "en",
+        (typeof localStorage !== "undefined" &&
+            localStorage.getItem("locale")) ||
+        "en",
     fallbackLocale: "en",
     messages: {
         en: {
@@ -94,7 +94,7 @@ const i18n = createI18n({
             comments: enComments,
             welcome: enWelcome,
             likes: enLikes,
-            socialAuth: enSocialAuth,
+            social_auth: enSocialAuth,
         },
         nb: {
             navigation: nbNavigation,
@@ -115,7 +115,7 @@ const i18n = createI18n({
             comments: nbComments,
             welcome: nbWelcome,
             likes: nbLikes,
-            socialAuth: nbSocialAuth,
+            social_auth: nbSocialAuth,
         },
         cy: {
             navigation: cyNavigation,
@@ -136,7 +136,7 @@ const i18n = createI18n({
             comments: cyComments,
             welcome: cyWelcome,
             likes: cyLikes,
-            socialAuth: cySocialAuth,
+            social_auth: cySocialAuth,
         },
     },
 });
