@@ -39,7 +39,7 @@ const { verify, isLoading, error, isSupported } = usePasskeyVerify({
 </script>
 
 <template>
-    <div v-if="isSupported">
+    <div v-if="false">
         <div class="grid gap-2">
             <Button
                 type="button"
