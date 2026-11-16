@@ -60,7 +60,7 @@ const { verify, isLoading, error, isSupported } = usePasskeyVerify({
             </Button>
 
             <div v-if="error" class="text-center">
-                <InputError :message="error" />
+                <InputError :message="error ?? undefined" />
             </div>
         </div>
 

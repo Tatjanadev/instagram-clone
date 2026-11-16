@@ -3,14 +3,14 @@
 namespace App\Services;
 
 use App\Exceptions\SocialAuth\GoogleEmailAlreadyRegisteredException;
+use App\Exceptions\SocialAuth\GoogleRegistrationSessionExpiredException;
 use App\Exceptions\SocialAuth\InvalidGoogleEmailException;
 use App\Models\User;
 use App\Repositories\UserRepository;
-use Illuminate\Support\Facades\Session;
-use Laravel\Socialite\Contracts\User as SocialiteUser;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-use App\Exceptions\SocialAuth\GoogleRegistrationSessionExpiredException;
+use Laravel\Socialite\Contracts\User as SocialiteUser;
 
 class SocialAuthService
 {
@@ -93,9 +93,9 @@ class SocialAuthService
         $googleData = Session::get('google_registration');
 
         if (! is_array($googleData)) {
-            throw new  GoogleRegistrationSessionExpiredException(
-        __('social_auth.google_registration_session_expired')
-    );
+            throw new GoogleRegistrationSessionExpiredException(
+                __('social_auth.google_registration_session_expired')
+            );
         }
 
         $googleId = $googleData['google_id'] ?? null;
