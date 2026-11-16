@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { Form, Head, usePage } from "@inertiajs/vue3";
-import InputError from "@/components/InputError.vue";
-import PasswordInput from "@/components/PasswordInput.vue";
-import TextLink from "@/components/TextLink.vue";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Spinner } from "@/components/ui/spinner";
-import { register } from "@/routes";
-import { store } from "@/routes/login";
-import { request } from "@/routes/password";
-import PasskeyVerify from "@/components/PasskeyVerify.vue";
-import { useI18n } from "vue-i18n";
+import { Form, Head, usePage } from '@inertiajs/vue3';
+import InputError from '@/components/InputError.vue';
+import PasswordInput from '@/components/PasswordInput.vue';
+import TextLink from '@/components/TextLink.vue';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Spinner } from '@/components/ui/spinner';
+import { register } from '@/routes';
+import { store } from '@/routes/login';
+import { request } from '@/routes/password';
+import PasskeyVerify from '@/components/PasskeyVerify.vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
@@ -20,8 +20,8 @@ const page = usePage();
 
 defineOptions({
     layout: {
-        title: "Log in to your account",
-        description: "Enter your email and password below to log in",
+        title: 'Log in to your account',
+        description: 'Enter your email and password below to log in',
     },
 });
 
@@ -59,7 +59,7 @@ defineProps<{
     >
         <div class="grid gap-6">
             <div class="grid gap-2">
-                <Label for="email">{{ t("password.email_address") }}</Label>
+                <Label for="email">{{ t('password.email_address') }}</Label>
                 <Input
                     id="email"
                     type="email"
@@ -69,21 +69,21 @@ defineProps<{
                     :tabindex="1"
                     autocomplete="email"
                     placeholder="email@example.com"
-                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300"
                 />
                 <InputError :message="errors.email" />
             </div>
 
             <div class="grid gap-2">
                 <div class="flex items-center justify-between">
-                    <Label for="password">{{ t("password.password") }}</Label>
+                    <Label for="password">{{ t('password.password') }}</Label>
                     <TextLink
                         v-if="canResetPassword"
                         :href="request()"
                         class="text-sm !text-purple-700 hover:!text-purple-900"
                         :tabindex="5"
                     >
-                        {{ t("login.forgot_your_password") }}
+                        {{ t('login.forgot_your_password') }}
                     </TextLink>
                 </div>
                 <PasswordInput
@@ -93,7 +93,7 @@ defineProps<{
                     :tabindex="2"
                     autocomplete="current-password"
                     placeholder="Password"
-                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300"
                 />
                 <InputError :message="errors.password" />
             </div>
@@ -101,7 +101,7 @@ defineProps<{
             <div class="flex items-center justify-between">
                 <Label for="remember" class="flex items-center space-x-3">
                     <Checkbox id="remember" name="remember" :tabindex="3" />
-                    <span>{{ t("login.remember_me") }}</span>
+                    <span>{{ t('login.remember_me') }}</span>
                 </Label>
             </div>
 
@@ -113,7 +113,7 @@ defineProps<{
                 data-test="login-button"
             >
                 <Spinner v-if="processing" />
-                {{ t("login.login") }}
+                {{ t('login.login') }}
             </Button>
         </div>
 
@@ -138,7 +138,7 @@ defineProps<{
                 class="h-5 w-5 shrink-0"
             />
 
-            {{ t("social_auth.continue_with_google") }}
+            {{ t('social_auth.continue_with_google') }}
         </a>
     </div>
 </template>

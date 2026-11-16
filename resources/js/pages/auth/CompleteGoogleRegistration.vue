@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useForm } from "@inertiajs/vue3";
-import { useI18n } from "vue-i18n";
+import { useForm } from '@inertiajs/vue3';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
@@ -14,34 +14,34 @@ const props = defineProps<Props>();
 
 const nameParts = props.googleName.trim().split(/\s+/);
 
-const firstName = nameParts.shift() ?? "";
-const lastName = nameParts.join(" ");
+const firstName = nameParts.shift() ?? '';
+const lastName = nameParts.join(' ');
 
 const form = useForm({
     first_name: firstName,
     last_name: lastName,
-    username: props.usernameSuggestions[0] ?? "",
+    username: props.usernameSuggestions[0] ?? '',
 });
 
 const submit = () => {
-    form.post("/auth/google/complete");
+    form.post('/auth/google/complete');
 };
 </script>
 
 <template>
     <main class="mx-auto max-w-md p-6">
         <h1 class="mb-2 text-2xl font-bold">
-            {{ t("social_auth.complete_profile_title") }}
+            {{ t('social_auth.complete_profile_title') }}
         </h1>
 
         <p class="mb-6 text-gray-600">
-            {{ t("social_auth.complete_profile_description") }}
+            {{ t('social_auth.complete_profile_description') }}
         </p>
 
         <form @submit.prevent="submit" class="space-y-4">
             <div>
                 <label for="first_name">{{
-                    t("social_auth.first_name")
+                    t('social_auth.first_name')
                 }}</label>
                 <input
                     id="first_name"
@@ -58,7 +58,7 @@ const submit = () => {
             </div>
 
             <div>
-                <label for="last_name">{{ t("social_auth.last_name") }}</label>
+                <label for="last_name">{{ t('social_auth.last_name') }}</label>
                 <input
                     id="last_name"
                     v-model="form.last_name"
@@ -74,7 +74,7 @@ const submit = () => {
             </div>
 
             <div>
-                <label for="username">{{ t("social_auth.username") }}</label>
+                <label for="username">{{ t('social_auth.username') }}</label>
                 <input
                     id="username"
                     v-model="form.username"
@@ -91,7 +91,7 @@ const submit = () => {
 
             <div>
                 <p class="mb-2 text-sm">
-                    {{ t("social_auth.suggested_usernames") }}:
+                    {{ t('social_auth.suggested_usernames') }}:
                 </p>
 
                 <div class="flex flex-wrap gap-2">
@@ -108,7 +108,7 @@ const submit = () => {
             </div>
 
             <p class="text-sm text-gray-600">
-                {{ t("social_auth.google_email") }}: {{ props.email }}
+                {{ t('social_auth.google_email') }}: {{ props.email }}
             </p>
             <button
                 type="submit"
@@ -117,8 +117,8 @@ const submit = () => {
             >
                 {{
                     form.processing
-                        ? t("social_auth.creating_account")
-                        : t("social_auth.continue")
+                        ? t('social_auth.creating_account')
+                        : t('social_auth.continue')
                 }}
             </button>
         </form>

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Link } from "@inertiajs/vue3";
-import { login, register } from "@/routes";
-import { show as profileShow } from "@/routes/profile";
-import AppLogo from "@/components/AppLogo.vue";
-import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
-import { useI18n } from "vue-i18n";
+import { Link } from '@inertiajs/vue3';
+import { login, register } from '@/routes';
+import { show as profileShow } from '@/routes/profile';
+import AppLogo from '@/components/AppLogo.vue';
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 </script>
@@ -26,7 +26,7 @@ const { t } = useI18n();
                     :href="profileShow()"
                     class="rounded-lg bg-gray-900 px-5 py-2 text-white hover:bg-gray-700"
                 >
-                    {{ t("welcome.profile") }}
+                    {{ t('welcome.profile') }}
                 </Link>
 
                 <template v-else>
@@ -34,14 +34,14 @@ const { t } = useI18n();
                         :href="login()"
                         class="rounded-lg px-5 py-2 font-medium transition-colors duration-200 hover:bg-purple-100 hover:text-purple-700"
                     >
-                        {{ t("login.login") }}
+                        {{ t('login.login') }}
                     </Link>
 
                     <Link
                         :href="register()"
                         class="rounded-lg px-5 py-2 font-medium transition-colors duration-200 hover:bg-purple-100 hover:text-purple-700"
                     >
-                        {{ t("register.register") }}
+                        {{ t('register.register') }}
                     </Link>
                 </template>
             </nav>

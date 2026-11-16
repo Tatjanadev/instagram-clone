@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import LandingLayout from "@/layouts/LandingLayout.vue";
-import LandingPhotos from "@/components/LandingPhotos.vue";
+import LandingLayout from '@/layouts/LandingLayout.vue';
+import LandingPhotos from '@/components/LandingPhotos.vue';
 
 defineProps<{
     title?: string;

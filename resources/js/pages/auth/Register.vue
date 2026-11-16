@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { Form, Head } from "@inertiajs/vue3";
-import InputError from "@/components/InputError.vue";
-import PasswordInput from "@/components/PasswordInput.vue";
-import TextLink from "@/components/TextLink.vue";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Spinner } from "@/components/ui/spinner";
-import { login } from "@/routes";
-import { store } from "@/routes/register";
-import { useI18n } from "vue-i18n";
+import { Form, Head } from '@inertiajs/vue3';
+import InputError from '@/components/InputError.vue';
+import PasswordInput from '@/components/PasswordInput.vue';
+import TextLink from '@/components/TextLink.vue';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Spinner } from '@/components/ui/spinner';
+import { login } from '@/routes';
+import { store } from '@/routes/register';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
@@ -19,8 +19,8 @@ defineProps<{
 
 defineOptions({
     layout: {
-        title: "Create an account",
-        description: "Enter your details below to create your account",
+        title: 'Create an account',
+        description: 'Enter your details below to create your account',
     },
 });
 </script>
@@ -37,7 +37,7 @@ defineOptions({
         <div class="grid gap-6">
             <div class="grid gap-2">
                 <Label for="first_name">
-                    {{ t("register.first_name") }}
+                    {{ t('register.first_name') }}
                 </Label>
                 <Input
                     id="first_name"
@@ -48,13 +48,13 @@ defineOptions({
                     autocomplete="name"
                     name="first_name"
                     :placeholder="t('register.first_name')"
-                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300"
                 />
                 <InputError :message="errors.first_name" />
             </div>
             <div class="grid gap-2">
                 <Label for="last_name">
-                    {{ t("register.last_name") }}
+                    {{ t('register.last_name') }}
                 </Label>
                 <Input
                     id="last_name"
@@ -64,14 +64,14 @@ defineOptions({
                     autocomplete="family-name"
                     name="last_name"
                     :placeholder="t('register.last_name')"
-                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300"
                 />
                 <InputError :message="errors.last_name" />
             </div>
 
             <div class="grid gap-2">
                 <Label for="username">
-                    {{ t("register.username") }}
+                    {{ t('register.username') }}
                 </Label>
                 <Input
                     id="username"
@@ -81,13 +81,13 @@ defineOptions({
                     autocomplete="username"
                     name="username"
                     :placeholder="t('register.username')"
-                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300"
                 />
                 <InputError :message="errors.username" />
             </div>
             <div class="grid gap-2">
                 <Label for="email">
-                    {{ t("password.email_address") }}
+                    {{ t('password.email_address') }}
                 </Label>
                 <Input
                     id="email"
@@ -97,14 +97,14 @@ defineOptions({
                     autocomplete="email"
                     name="email"
                     placeholder="email@example.com"
-                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300"
                 />
                 <InputError :message="errors.email" />
             </div>
 
             <div class="grid gap-2">
                 <Label for="password">
-                    {{ t("password.password") }}
+                    {{ t('password.password') }}
                 </Label>
                 <PasswordInput
                     id="password"
@@ -114,14 +114,14 @@ defineOptions({
                     name="password"
                     :placeholder="t('password.password')"
                     :passwordrules="passwordRules"
-                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300"
                 />
                 <InputError :message="errors.password" />
             </div>
 
             <div class="grid gap-2">
                 <Label for="password_confirmation">
-                    {{ t("password.confirm_password") }}
+                    {{ t('password.confirm_password') }}
                 </Label>
                 <PasswordInput
                     id="password_confirmation"
@@ -131,7 +131,7 @@ defineOptions({
                     name="password_confirmation"
                     :placeholder="t('password.confirm_password')"
                     :passwordrules="passwordRules"
-                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200"
+                    class="border-gray-200 bg-white text-gray-900 placeholder:text-gray-300 focus-visible:border-purple-400 focus-visible:ring-purple-200 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-300"
                 />
                 <InputError :message="errors.password_confirmation" />
             </div>
@@ -144,18 +144,18 @@ defineOptions({
                 data-test="register-user-button"
             >
                 <Spinner v-if="processing" />
-                {{ t("register.create_account") }}
+                {{ t('register.create_account') }}
             </Button>
         </div>
 
         <div class="text-center text-sm text-gray-600">
-            {{ t("register.already_have_account") }}
+            {{ t('register.already_have_account') }}
             <TextLink
                 :href="login()"
-                class="!text-purple-700 hover:!text-purple-900 underline underline-offset-4"
+                class="!text-purple-700 underline underline-offset-4 hover:!text-purple-900"
                 :tabindex="8"
             >
-                {{ t("login.login") }}
+                {{ t('login.login') }}
             </TextLink>
         </div>
     </Form>
@@ -170,7 +170,7 @@ defineOptions({
                 class="h-5 w-5 shrink-0"
             />
 
-            {{ t("social_auth.continue_with_google") }}
+            {{ t('social_auth.continue_with_google') }}
         </a>
     </div>
 </template>
