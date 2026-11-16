@@ -78,6 +78,13 @@ class GoogleAuthController extends Controller
 
     public function completeRegistration(CompleteGoogleRegistrationRequest $completeGoogleRegistrationRequest): SymfonyRedirectResponse
     {
+        /**
+         * @var array{
+         *     first_name: string,
+         *     last_name: string,
+         *     username: string
+         * } $data
+         */
         $data = $completeGoogleRegistrationRequest->validated();
 
         try {
