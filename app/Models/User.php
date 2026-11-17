@@ -24,11 +24,12 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property string $email
  * @property Carbon|null $email_verified_at
  * @property string $password
+ * @property string|null $google_id
+ * @property string|null $two_factor_secret
  * @property string|null $profile_photo_path
  * @property string|null $bio
  * @property string|null $gender
  * @property Carbon|null $date_of_birth
- * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
  * @property Carbon|null $two_factor_confirmed_at
  * @property string|null $remember_token
@@ -45,6 +46,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
     'bio',
     'gender',
     'date_of_birth',
+    'google_id',
 ])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements PasskeyUser

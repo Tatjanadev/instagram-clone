@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository
 {
+    public function findByGoogleId(string $googleId): ?User
+    {
+        return User::where('google_id', $googleId)->first();
+    }
+
+    public function findByEmail(string $email): ?User
+    {
+        return User::where('email', $email)->first();
+    }
+
     /**
      * Get the user with their posts, images, and counts.
      */
@@ -58,6 +68,16 @@ class UserRepository
     }
 
     /**
+     * Create a new user.
+     *
+     * @param  array<string, mixed>  $data
+     */
+    public function create(array $data): User
+    {
+        return User::create($data);
+    }
+
+    /**
      * @param  array<string, mixed>  $data
      */
     public function update(User $user, array $data): User
@@ -66,6 +86,17 @@ class UserRepository
         $user->save();
 
         return $user;
+    }
+
+    /**
+     * @param  array<int, string>  $usernames
+     * @return array<int, string>
+     */
+    public function getTakenUsernames(array $usernames): array
+    {
+        return User::whereIn('username', $usernames)
+            ->pluck('username')
+            ->all();
     }
 
     /**

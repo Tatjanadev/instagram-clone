@@ -39,7 +39,7 @@ const { verify, isLoading, error, isSupported } = usePasskeyVerify({
 </script>
 
 <template>
-    <div v-if="isSupported">
+    <div v-if="false">
         <div class="grid gap-2">
             <Button
                 type="button"
@@ -60,7 +60,7 @@ const { verify, isLoading, error, isSupported } = usePasskeyVerify({
             </Button>
 
             <div v-if="error" class="text-center">
-                <InputError :message="error" />
+                <InputError :message="error ?? undefined" />
             </div>
         </div>
 
