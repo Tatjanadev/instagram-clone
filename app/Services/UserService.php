@@ -6,6 +6,7 @@ use App\DTOs\Users\UpdateUserDTO;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class UserService
@@ -16,7 +17,16 @@ class UserService
 
     public function getUser(int $userId): User
     {
-        return $this->userRepository->getUser($userId);
+        $user = $this->userRepository->getUser($userId);
+
+        $counts = $this->getProfileCounts($userId);
+
+        // Attach the cached counts to the User model.
+        $user->setAttribute('posts_count', $counts['posts_count']);
+        $user->setAttribute('followers_count', $counts['followers_count']);
+        $user->setAttribute('following_count', $counts['following_count']);
+
+        return $user;
     }
 
     /**
@@ -37,7 +47,30 @@ class UserService
 
     public function getUserByUsername(string $username): User
     {
-        return $this->userRepository->getUserByUsername($username);
+        $user = $this->userRepository->getUserByUsername($username);
+
+        $counts = $this->getProfileCounts($user->id);
+
+        // Attach the cached counts to the User model.
+        $user->setAttribute('posts_count', $counts['posts_count']);
+        $user->setAttribute('followers_count', $counts['followers_count']);
+        $user->setAttribute('following_count', $counts['following_count']);
+
+        return $user;
+    }
+
+    /**
+     * Get the cached post, follower, and following counts for a user.
+     *
+     * @return array{posts_count: int, followers_count: int, following_count: int}
+     */
+    public function getProfileCounts(int $userId): array
+    {
+        return Cache::remember(
+            "user:{$userId}:profile_counts",
+            600,
+            fn () => $this->userRepository->getProfileCounts($userId)
+        );
     }
 
     public function update(User $user, UpdateUserDTO $updateUserDTO): User

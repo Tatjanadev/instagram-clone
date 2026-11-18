@@ -8,6 +8,8 @@ import PostGrid from '@/components/posts/PostGrid.vue';
 import ProfileHeader from '@/components/users/ProfileHeader.vue';
 import type { ProfileUser } from '@/types/user';
 import { follow, unfollow } from '@/routes/users';
+import { index as usersIndex } from '@/routes/users';
+import { ArrowLeft } from '@lucide/vue';
 
 const { t } = useI18n();
 
@@ -51,21 +53,37 @@ function unfollowUser() {
             {{ t('profile.edit_profile') }}
         </Link>
 
-        <button
-            v-if="!isOwnProfile && !isFollowing"
-            class="btn btn-primary mt-3"
-            @click="followUser"
+        <div
+            v-if="!isOwnProfile"
+            class="mt-3 flex flex-wrap items-center justify-center gap-3"
         >
-            {{ t('profile.follow') }}
-        </button>
+            <button
+                v-if="!isFollowing"
+                type="button"
+                class="btn btn-primary"
+                @click="followUser"
+            >
+                {{ t('profile.follow') }}
+            </button>
 
-        <button
-            v-if="!isOwnProfile && isFollowing"
-            class="btn btn-outline mt-3"
-            @click="unfollowUser"
-        >
-            {{ t('profile.unfollow') }}
-        </button>
+            <button
+                v-else
+                type="button"
+                class="btn btn-outline"
+                @click="unfollowUser"
+            >
+                {{ t('profile.unfollow') }}
+            </button>
+
+            <Link
+                :href="usersIndex().url"
+                class="btn btn-ghost inline-flex items-center gap-2"
+            >
+                <ArrowLeft class="h-4 w-4" />
+                {{ t('profile.back_to_users') }}
+            </Link>
+        </div>
     </div>
+
     <PostGrid :posts="user.posts" />
 </template>

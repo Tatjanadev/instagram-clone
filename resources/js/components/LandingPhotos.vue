@@ -8,7 +8,7 @@ const { t } = useI18n();
     <div class="grid grid-cols-2 items-center gap-4">
         <img
             src="/images/landing/photo1.jpg"
-            :alt="t('welcome.photo_firends')"
+            :alt="t('welcome.photo_friends')"
             class="h-64 w-full -rotate-3 rounded-2xl object-cover shadow-xl transition-transform duration-300 hover:scale-105 hover:rotate-0"
         />
 

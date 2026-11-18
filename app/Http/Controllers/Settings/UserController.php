@@ -51,6 +51,7 @@ class UserController extends Controller
         return Inertia::render('users/Show', [
             'user' => $user,
             'isOwnProfile' => true,
+            'isFollowing' => false,
             'followersCount' => $user->followers_count,
             'followingCount' => $user->following_count,
         ]);
