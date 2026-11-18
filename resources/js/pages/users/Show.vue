@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { Head, Link, router, setLayoutProps } from "@inertiajs/vue3";
-import { watchEffect } from "vue";
-import { useI18n } from "vue-i18n";
-import { show as profileShow } from "@/routes/profile";
-import { edit as userEdit } from "@/routes/user";
-import PostGrid from "@/components/posts/PostGrid.vue";
-import ProfileHeader from "@/components/users/ProfileHeader.vue";
-import type { ProfileUser } from "@/types/user";
-import { follow, unfollow } from "@/routes/users";
-import { index as usersIndex } from "@/routes/users";
-import { ArrowLeft } from "@lucide/vue";
+import { Head, Link, router, setLayoutProps } from '@inertiajs/vue3';
+import { watchEffect } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { show as profileShow } from '@/routes/profile';
+import { edit as userEdit } from '@/routes/user';
+import PostGrid from '@/components/posts/PostGrid.vue';
+import ProfileHeader from '@/components/users/ProfileHeader.vue';
+import type { ProfileUser } from '@/types/user';
+import { follow, unfollow } from '@/routes/users';
+import { index as usersIndex } from '@/routes/users';
+import { ArrowLeft } from '@lucide/vue';
 
 const { t } = useI18n();
 
@@ -23,7 +23,7 @@ watchEffect(() => {
     setLayoutProps({
         breadcrumbs: [
             {
-                title: t("profile.profile"),
+                title: t('profile.profile'),
                 href: profileShow(),
             },
         ],
@@ -50,7 +50,7 @@ function unfollowUser() {
             :href="userEdit()"
             class="btn btn-outline mt-3"
         >
-            {{ t("profile.edit_profile") }}
+            {{ t('profile.edit_profile') }}
         </Link>
 
         <div
@@ -63,7 +63,7 @@ function unfollowUser() {
                 class="btn btn-primary"
                 @click="followUser"
             >
-                {{ t("profile.follow") }}
+                {{ t('profile.follow') }}
             </button>
 
             <button
@@ -72,7 +72,7 @@ function unfollowUser() {
                 class="btn btn-outline"
                 @click="unfollowUser"
             >
-                {{ t("profile.unfollow") }}
+                {{ t('profile.unfollow') }}
             </button>
 
             <Link
@@ -80,7 +80,7 @@ function unfollowUser() {
                 class="btn btn-ghost inline-flex items-center gap-2"
             >
                 <ArrowLeft class="h-4 w-4" />
-                {{ t("profile.back_to_users") }}
+                {{ t('profile.back_to_users') }}
             </Link>
         </div>
     </div>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { useForm } from "@inertiajs/vue3";
-import { useI18n } from "vue-i18n";
+import { computed } from 'vue';
+import { useForm } from '@inertiajs/vue3';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
@@ -24,8 +24,8 @@ const isEditing = computed(() => !!props.post);
 // When editing, use the existing post data to populate the form fields.
 // Otherwise, use empty values for a new post.
 const form = useForm({
-    title: props.post?.title ?? "",
-    description: props.post?.description ?? "",
+    title: props.post?.title ?? '',
+    description: props.post?.description ?? '',
     images: [] as File[],
     deleted_image_ids: [] as number[],
 });
@@ -33,7 +33,7 @@ const form = useForm({
 // Collect errors for the images array and for individual files (images.0, images.1, ...).
 const imageErrors = computed(() =>
     Object.entries(form.errors as Record<string, string>)
-        .filter(([key]) => key === "images" || key.startsWith("images."))
+        .filter(([key]) => key === 'images' || key.startsWith('images.'))
         .map(([, message]) => message),
 );
 
@@ -48,7 +48,7 @@ const handleImages = (event: Event) => {
 
     if (target.files) {
         form.images.push(...Array.from(target.files));
-        target.value = "";
+        target.value = '';
     }
 };
 
@@ -75,13 +75,13 @@ const submit = () => {
         form.transform((data) => {
             return {
                 ...data,
-                _method: "PATCH",
+                _method: 'PATCH',
             };
         }).post(`/posts/${props.post.id}`, {
             forceFormData: true,
         });
     } else {
-        form.post("/posts", {
+        form.post('/posts', {
             forceFormData: true,
         });
     }
@@ -97,7 +97,7 @@ const submit = () => {
             <!-- Display existing images when editing -->
             <div v-if="isEditing && post?.images.length" class="mb-4">
                 <p class="mb-2 font-semibold">
-                    {{ t("posts.current_images") }}
+                    {{ t('posts.current_images') }}
                 </p>
 
                 <div class="flex flex-wrap gap-3">
@@ -134,8 +134,8 @@ const submit = () => {
                 <p class="mb-2 font-semibold">
                     {{
                         isEditing
-                            ? t("posts.add_images")
-                            : t("posts.choose_images")
+                            ? t('posts.add_images')
+                            : t('posts.choose_images')
                     }}
                 </p>
 
@@ -148,14 +148,14 @@ const submit = () => {
                 />
 
                 <p v-if="isEditing" class="mt-2 text-sm opacity-60">
-                    {{ t("posts.keep_current_images") }}
+                    {{ t('posts.keep_current_images') }}
                 </p>
             </div>
 
             <!-- Preview newly selected images -->
             <div v-if="imagePreviews.length" class="mb-4">
                 <p class="mb-2 font-semibold">
-                    {{ isEditing ? t("posts.new_images") : t("posts.preview") }}
+                    {{ isEditing ? t('posts.new_images') : t('posts.preview') }}
                 </p>
 
                 <div class="flex flex-wrap gap-3">
@@ -216,7 +216,7 @@ const submit = () => {
 
             <div class="card-actions flex-col items-end justify-end">
                 <p v-if="isEditing && !form.isDirty" class="text-sm opacity-60">
-                    {{ t("posts.make_change") }}
+                    {{ t('posts.make_change') }}
                 </p>
 
                 <button
@@ -226,10 +226,10 @@ const submit = () => {
                 >
                     {{
                         form.processing
-                            ? t("posts.saving")
+                            ? t('posts.saving')
                             : isEditing
-                              ? t("posts.save_changes")
-                              : t("posts.create_post")
+                              ? t('posts.save_changes')
+                              : t('posts.create_post')
                     }}
                 </button>
             </div>
