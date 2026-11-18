@@ -9,6 +9,7 @@ use App\Repositories\PostImageRepository;
 use App\Repositories\PostRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
 
 class PostService
@@ -47,6 +48,9 @@ class PostService
 
             GeneratePostThumbnail::dispatch($postImage->id)->afterCommit();
         }
+
+        // Clear the author's cached profile counts after creating a post.
+        Cache::forget("user:{$authorId}:profile_counts");
 
         return $post;
     }
@@ -110,5 +114,8 @@ class PostService
         $this->postImageService->deleteImages($images);
 
         $this->postRepository->deletePost($post);
+
+        // Clear the author's cached profile counts after deleting a post.
+        Cache::forget("user:{$post->user_id}:profile_counts");
     }
 }

@@ -7,6 +7,7 @@ use App\Exceptions\Follow\FollowSelfException;
 use App\Exceptions\Follow\NotFollowingException;
 use App\Models\Follow;
 use App\Repositories\FollowRepository;
+use Illuminate\Support\Facades\Cache;
 
 class FollowService
 {
@@ -24,7 +25,13 @@ class FollowService
             throw new CannotFollowTwiceException;
         }
 
-        return $this->followRepository->follow($followerId, $followingId);
+        $follow = $this->followRepository->follow($followerId, $followingId);
+
+        // Clear both users' cached profile counts after a successful follow.
+        Cache::forget("user:{$followerId}:profile_counts");
+        Cache::forget("user:{$followingId}:profile_counts");
+
+        return $follow;
     }
 
     public function unfollow(int $followerId, int $followingId): void
@@ -33,6 +40,9 @@ class FollowService
             throw new NotFollowingException;
         }
         $this->followRepository->unfollow($followerId, $followingId);
+
+        Cache::forget("user:{$followerId}:profile_counts");
+        Cache::forget("user:{$followingId}:profile_counts");
     }
 
     public function isFollowing(int $followerId, int $followingId): bool
