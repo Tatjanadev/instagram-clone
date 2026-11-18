@@ -27,8 +27,8 @@ const currentUrlReactive = computed(
     () =>
         new URL(
             page.url,
-            typeof window !== 'undefined'
-                ? window.location.origin
+            typeof location !== 'undefined'
+                ? location.origin
                 : 'http://localhost',
         ).pathname,
 );

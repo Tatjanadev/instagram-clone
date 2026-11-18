@@ -4,6 +4,7 @@ namespace App\Http\Requests\Posts;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
 
 class StorePostRequest extends FormRequest
 {

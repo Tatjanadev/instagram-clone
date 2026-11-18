@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useForm } from '@inertiajs/vue3';
-import { useI18n } from 'vue-i18n';
+import { computed } from "vue";
+import { useForm } from "@inertiajs/vue3";
+import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
@@ -24,11 +24,18 @@ const isEditing = computed(() => !!props.post);
 // When editing, use the existing post data to populate the form fields.
 // Otherwise, use empty values for a new post.
 const form = useForm({
-    title: props.post?.title ?? '',
-    description: props.post?.description ?? '',
+    title: props.post?.title ?? "",
+    description: props.post?.description ?? "",
     images: [] as File[],
     deleted_image_ids: [] as number[],
 });
+
+// Collect errors for the images array and for individual files (images.0, images.1, ...).
+const imageErrors = computed(() =>
+    Object.entries(form.errors as Record<string, string>)
+        .filter(([key]) => key === "images" || key.startsWith("images."))
+        .map(([, message]) => message),
+);
 
 // Create temporary URLs so selected images can be previewed.
 const imagePreviews = computed(() =>
@@ -41,8 +48,13 @@ const handleImages = (event: Event) => {
 
     if (target.files) {
         form.images.push(...Array.from(target.files));
-        target.value = '';
+        target.value = "";
     }
+};
+
+// Remove a newly selected image before submitting the form.
+const removeSelectedImage = (index: number) => {
+    form.images.splice(index, 1);
 };
 
 // Mark an existing image for deletion.
@@ -63,13 +75,13 @@ const submit = () => {
         form.transform((data) => {
             return {
                 ...data,
-                _method: 'PATCH',
+                _method: "PATCH",
             };
         }).post(`/posts/${props.post.id}`, {
             forceFormData: true,
         });
     } else {
-        form.post('/posts', {
+        form.post("/posts", {
             forceFormData: true,
         });
     }
@@ -85,7 +97,7 @@ const submit = () => {
             <!-- Display existing images when editing -->
             <div v-if="isEditing && post?.images.length" class="mb-4">
                 <p class="mb-2 font-semibold">
-                    {{ t('posts.current_images') }}
+                    {{ t("posts.current_images") }}
                 </p>
 
                 <div class="flex flex-wrap gap-3">
@@ -122,8 +134,8 @@ const submit = () => {
                 <p class="mb-2 font-semibold">
                     {{
                         isEditing
-                            ? t('posts.add_images')
-                            : t('posts.choose_images')
+                            ? t("posts.add_images")
+                            : t("posts.choose_images")
                     }}
                 </p>
 
@@ -136,24 +148,37 @@ const submit = () => {
                 />
 
                 <p v-if="isEditing" class="mt-2 text-sm opacity-60">
-                    {{ t('posts.keep_current_images') }}
+                    {{ t("posts.keep_current_images") }}
                 </p>
             </div>
 
             <!-- Preview newly selected images -->
             <div v-if="imagePreviews.length" class="mb-4">
                 <p class="mb-2 font-semibold">
-                    {{ isEditing ? t('posts.new_images') : t('posts.preview') }}
+                    {{ isEditing ? t("posts.new_images") : t("posts.preview") }}
                 </p>
 
                 <div class="flex flex-wrap gap-3">
-                    <img
+                    <div
                         v-for="(preview, index) in imagePreviews"
                         :key="index"
-                        :src="preview"
-                        :alt="t('posts.selected_image_preview')"
-                        class="h-32 w-32 rounded-lg object-cover"
-                    />
+                        class="relative"
+                    >
+                        <img
+                            :src="preview"
+                            :alt="t('posts.selected_image_preview')"
+                            class="h-32 w-32 rounded-lg object-cover"
+                        />
+
+                        <button
+                            type="button"
+                            class="btn btn-error btn-circle btn-xs absolute top-1 right-1"
+                            :aria-label="t('posts.remove_image')"
+                            @click="removeSelectedImage(index)"
+                        >
+                            ×
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -181,13 +206,17 @@ const submit = () => {
             </p>
 
             <!-- Image validation error -->
-            <p v-if="form.errors.images" class="text-error text-sm">
-                {{ form.errors.images }}
+            <p
+                v-for="(message, index) in imageErrors"
+                :key="index"
+                class="text-error text-sm"
+            >
+                {{ message }}
             </p>
 
             <div class="card-actions flex-col items-end justify-end">
                 <p v-if="isEditing && !form.isDirty" class="text-sm opacity-60">
-                    {{ t('posts.make_change') }}
+                    {{ t("posts.make_change") }}
                 </p>
 
                 <button
@@ -197,10 +226,10 @@ const submit = () => {
                 >
                     {{
                         form.processing
-                            ? t('posts.saving')
+                            ? t("posts.saving")
                             : isEditing
-                              ? t('posts.save_changes')
-                              : t('posts.create_post')
+                              ? t("posts.save_changes")
+                              : t("posts.create_post")
                     }}
                 </button>
             </div>

@@ -9,11 +9,6 @@ type Language = 'en' | 'nb' | 'cy';
 function changeLanguage(language: Language) {
     // Change the language immediately in Vue.
     locale.value = language;
-
-    // Remember the selected language in the browser.
-    localStorage.setItem('locale', language);
-
-    // Also save the language in Laravel's session for backend translations.
     router.post(`/language/${language}`);
 }
 </script>

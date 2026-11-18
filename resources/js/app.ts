@@ -1,5 +1,4 @@
 import { createInertiaApp } from '@inertiajs/vue3';
-import { createApp, h } from 'vue';
 import { createI18n } from 'vue-i18n';
 import { initializeTheme } from '@/composables/useAppearance';
 import AppLayout from '@/layouts/AppLayout.vue';
@@ -66,91 +65,86 @@ import cySocialAuth from '@/locales/cy/social_auth.json';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
-const i18n = createI18n({
-    legacy: false,
-    //If we're running in the browser, use the user's saved language. Otherwise, use English.
-    locale:
-        (typeof localStorage !== 'undefined' &&
-            localStorage.getItem('locale')) ||
-        'en',
-    fallbackLocale: 'en',
-    messages: {
-        en: {
-            navigation: enNavigation,
-            errors: enErrors,
-            appearance: enAppearance,
-            deleteUser: enDeleteUser,
-            managePasskeys: enManagePasskeys,
-            twoFactor: enTwoFactor,
-            password: enPassword,
-            userMenu: enUserMenu,
-            posts: enPosts,
-            login: enLogin,
-            register: enRegister,
-            twoFactorLogin: enTwoFactorLogin,
-            emailVerification: enEmailVerification,
-            security: enSecurity,
-            profile: enProfile,
-            comments: enComments,
-            welcome: enWelcome,
-            likes: enLikes,
-            social_auth: enSocialAuth,
+// A new i18n instance per app, so concurrent SSR requests don't share locale state.
+// The locale comes from Laravel (session), so server and client render the same language.
+const createI18nInstance = (locale: string) =>
+    createI18n({
+        legacy: false,
+        locale,
+        fallbackLocale: 'en',
+        messages: {
+            en: {
+                navigation: enNavigation,
+                errors: enErrors,
+                appearance: enAppearance,
+                deleteUser: enDeleteUser,
+                managePasskeys: enManagePasskeys,
+                twoFactor: enTwoFactor,
+                password: enPassword,
+                userMenu: enUserMenu,
+                posts: enPosts,
+                login: enLogin,
+                register: enRegister,
+                twoFactorLogin: enTwoFactorLogin,
+                emailVerification: enEmailVerification,
+                security: enSecurity,
+                profile: enProfile,
+                comments: enComments,
+                welcome: enWelcome,
+                likes: enLikes,
+                social_auth: enSocialAuth,
+            },
+            nb: {
+                navigation: nbNavigation,
+                errors: nbErrors,
+                appearance: nbAppearance,
+                deleteUser: nbDeleteUser,
+                managePasskeys: nbManagePasskeys,
+                twoFactor: nbTwoFactor,
+                password: nbPassword,
+                userMenu: nbUserMenu,
+                posts: nbPosts,
+                login: nbLogin,
+                register: nbRegister,
+                twoFactorLogin: nbTwoFactorLogin,
+                emailVerification: nbEmailVerification,
+                security: nbSecurity,
+                profile: nbProfile,
+                comments: nbComments,
+                welcome: nbWelcome,
+                likes: nbLikes,
+                social_auth: nbSocialAuth,
+            },
+            cy: {
+                navigation: cyNavigation,
+                errors: cyErrors,
+                appearance: cyAppearance,
+                deleteUser: cyDeleteUser,
+                managePasskeys: cyManagePasskeys,
+                twoFactor: cyTwoFactor,
+                password: cyPassword,
+                userMenu: cyUserMenu,
+                posts: cyPosts,
+                login: cyLogin,
+                register: cyRegister,
+                twoFactorLogin: cyTwoFactorLogin,
+                emailVerification: cyEmailVerification,
+                security: cySecurity,
+                profile: cyProfile,
+                comments: cyComments,
+                welcome: cyWelcome,
+                likes: cyLikes,
+                social_auth: cySocialAuth,
+            },
         },
-        nb: {
-            navigation: nbNavigation,
-            errors: nbErrors,
-            appearance: nbAppearance,
-            deleteUser: nbDeleteUser,
-            managePasskeys: nbManagePasskeys,
-            twoFactor: nbTwoFactor,
-            password: nbPassword,
-            userMenu: nbUserMenu,
-            posts: nbPosts,
-            login: nbLogin,
-            register: nbRegister,
-            twoFactorLogin: nbTwoFactorLogin,
-            emailVerification: nbEmailVerification,
-            security: nbSecurity,
-            profile: nbProfile,
-            comments: nbComments,
-            welcome: nbWelcome,
-            likes: nbLikes,
-            social_auth: nbSocialAuth,
-        },
-        cy: {
-            navigation: cyNavigation,
-            errors: cyErrors,
-            appearance: cyAppearance,
-            deleteUser: cyDeleteUser,
-            managePasskeys: cyManagePasskeys,
-            twoFactor: cyTwoFactor,
-            password: cyPassword,
-            userMenu: cyUserMenu,
-            posts: cyPosts,
-            login: cyLogin,
-            register: cyRegister,
-            twoFactorLogin: cyTwoFactorLogin,
-            emailVerification: cyEmailVerification,
-            security: cySecurity,
-            profile: cyProfile,
-            comments: cyComments,
-            welcome: cyWelcome,
-            likes: cyLikes,
-            social_auth: cySocialAuth,
-        },
-    },
-});
+    });
 
 void createInertiaApp({
-    setup({ el, App, props, plugin }) {
-        const vueApp = createApp({
-            render: () => h(App, props),
-        });
-
-        vueApp.use(plugin);
-        vueApp.use(i18n);
-
-        vueApp.mount(el!);
+    // Inertia creates the app itself (createSSRApp on the server, hydrates on
+    // the client), so we only register plugins here. Mounting manually in
+    // setup() breaks SSR because there is no DOM/window in Node.
+    withApp(app, { page }) {
+        app.use(createI18nInstance(page.props.locale ?? 'en'));
     },
     title: (title) => (title ? `${title} - ${appName}` : appName),
     layout: (name) => {
