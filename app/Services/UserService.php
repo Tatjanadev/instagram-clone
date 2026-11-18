@@ -22,9 +22,9 @@ class UserService
         $counts = $this->getProfileCounts($userId);
 
         // Attach the cached counts to the User model.
-        $user->posts_count = $counts['posts_count'];
-        $user->followers_count = $counts['followers_count'];
-        $user->following_count = $counts['following_count'];
+        $user->setAttribute('posts_count', $counts['posts_count']);
+        $user->setAttribute('followers_count', $counts['followers_count']);
+        $user->setAttribute('following_count', $counts['following_count']);
 
         return $user;
     }
@@ -52,9 +52,9 @@ class UserService
         $counts = $this->getProfileCounts($user->id);
 
         // Attach the cached counts to the User model.
-        $user->posts_count = $counts['posts_count'];
-        $user->followers_count = $counts['followers_count'];
-        $user->following_count = $counts['following_count'];
+        $user->setAttribute('posts_count', $counts['posts_count']);
+        $user->setAttribute('followers_count', $counts['followers_count']);
+        $user->setAttribute('following_count', $counts['following_count']);
 
         return $user;
     }
