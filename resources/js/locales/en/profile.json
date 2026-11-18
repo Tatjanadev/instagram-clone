@@ -19,5 +19,6 @@
     "save": "Save",
     "edit_profile": "Edit Profile",
     "follow": "Follow",
-    "unfollow": "Unfollow"
+    "unfollow": "Unfollow",
+    "back_to_users": "Back to Users"
 }
