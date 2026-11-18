@@ -28,7 +28,6 @@ class UserRepository
                     $query->latest()->with('images');
                 },
             ])
-            ->withCount(['posts', 'followers', 'following'])
             ->firstOrFail();
     }
 
@@ -63,7 +62,6 @@ class UserRepository
                     $query->latest()->with('images');
                 },
             ])
-            ->withCount(['posts', 'followers', 'following'])
             ->firstOrFail();
     }
 
@@ -106,5 +104,21 @@ class UserRepository
     {
         $user->delete();
 
+    }
+
+    /**
+     * @return array{posts_count: int, followers_count: int, following_count: int}
+     */
+    public function getProfileCounts(int $userId): array
+    {
+        $user = User::where('id', $userId)
+            ->withCount(['posts', 'followers', 'following'])
+            ->firstOrFail();
+
+        return [
+            'posts_count' => $user->posts_count,
+            'followers_count' => $user->followers_count,
+            'following_count' => $user->following_count,
+        ];
     }
 }
